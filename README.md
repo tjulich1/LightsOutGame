@@ -30,7 +30,10 @@ Visual studio code
 ---------------------------
 
 ## Getting Started
-### Instructions on how to get this running on machine
+
+### Example Instructions on how to get "this" project running on machine a developers machine
+
+
 Clone this repository to your local machine.
 ```
 $ git clone https://github.com/YourRepo/YourProject.git
