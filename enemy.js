@@ -3,10 +3,18 @@ function Enemy(health, target){
     this.target = target;
 }
 
-Enemy.prototype.getTarget = function() {
-    //perform greedy search to find target at the start of the "night"
+Enemy.prototype.findTarget = function() {
+    //search for this.target
 }
 
-Enemy.prototype.takeDamage = function() {
-    //when damage is taken 
+Enemy.prototype.takeDamage = function(damageTaken) {
+    //when damage is taken
+    //this.health -= damageTaken; 
 }
+
+Enemy.prototype.isDead = function(){
+    //determine if the enemy is dead
+    //return this.health <= 0;
+}
+
+//maybe an animation function?
