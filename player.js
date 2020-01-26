@@ -18,8 +18,20 @@ class Player {
     }
 
     update() {
-        this.x = (this.x + this.xvelocity) % this.ctx.canvas.width;
-        this.y = (this.y + this.yvelocity) % this.ctx.canvas.height;
+        this.x += this.xvelocity;
+        this.y += this.yvelocity;
+        if (this.x + this.width < 0) {
+            this.x = this.ctx.canvas.width;
+        }
+        if (this.y + this.height < 0) {
+            this.y = this.ctx.canvas.height;
+        }
+        if (this.x > this.ctx.canvas.width) {
+            this.x = -this.width;
+        }
+        if (this.y > this.ctx.canvas.height) {
+            this.y = -this.height;
+        }
     }
 
     updateXVelocity(velocityChange) {
