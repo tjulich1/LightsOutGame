@@ -25,7 +25,7 @@ ASSET_MANAGER.downloadAll(function () {
     // main character sprite properties: height = 64 width = 64 
     PMH.setContext(gameEngine);
 
-    var armor = new Armored(gameEngine, 500, 500, 50, 50, testPlayer);
+    var armor = new Armored(gameEngine, 500, 500, 50, 50, mainCharacter);
     var light = new Light(gameEngine, 50, 50);
     var skele = new Skeleton(gameEngine, 720, 10, 50, 50);
 
@@ -36,6 +36,7 @@ ASSET_MANAGER.downloadAll(function () {
     gameEngine.addEntity(armor);
     gameEngine.addEntity(light);
     gameEngine.addEntity(skele);
+
 
     gameEngine.start();
 

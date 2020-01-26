@@ -3,7 +3,7 @@ class Armored extends Enemy{
         //filler numbers for health, xvelo, and yvelo.
         //pass in player currently because the board does not
         //have a way to locate the player.
-        super(game, x, y,width, height, 200, 5, 5);
+        super(game, x, y,width, height, 200, 2, 2);
         this.player = player;
 
     }

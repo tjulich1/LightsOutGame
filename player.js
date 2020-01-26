@@ -18,15 +18,15 @@ class Player {
                 this.width, this.height, this.x, this.y, 
                 this.width, this.height);
         } else if(this.currentKey === 'A' || this.currentKey === 'a') {
-            this.ctx.drawImage(this.spritesheet, 0, 64, 
+            this.ctx.drawImage(this.spritesheet, 0, 1 * this.height, 
                 this.width, this.height, this.x, this.y, 
                 this.width, this.height);
         } else if(this.currentKey === 'S' || this.currentKey === 's' || this.currentKey === '' || this.currentKey === undefined) {
-            this.ctx.drawImage(this.spritesheet, 0, 128, 
+            this.ctx.drawImage(this.spritesheet, 0, 2 * this.height, 
                 this.width, this.height, this.x, this.y, 
                 this.width, this.height);
         } else {
-            this.ctx.drawImage(this.spritesheet, 0, 192, 
+            this.ctx.drawImage(this.spritesheet, 0, 3 * this.height, 
                 this.width, this.height, this.x, this.y, 
                 this.width, this.height);
         }
