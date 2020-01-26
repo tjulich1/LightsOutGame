@@ -9,21 +9,26 @@ class PlayerMovementHandler {
         movementKeys['d'] = 0;
         movementKeys['w'] = 0;
         this.movementKeys = movementKeys;
+        this.currentKey = 2;
     }
 
     keyDown(key){
         switch (key) {
             case 'A':
                 this.movementKeys['a'] = 1;
+                this.currentKey = 1
                 break;
             case 'S':
                 this.movementKeys['s'] = 1;
+                this.currentKey = 2
                 break;
             case 'D':
                 this.movementKeys['d'] = 1;
+                this.currentKey = 3
                 break;
             case 'W':
                 this.movementKeys['w'] = 1;
+                this.currentKey = 0;
                 break;
             default:
                 break;
@@ -62,4 +67,7 @@ class PlayerMovementHandler {
         this.ctx = game.ctx;
     }
 
+    drawCurrentImage(key) {
+        this.player.draw(key);
+    }
 }

@@ -1,5 +1,5 @@
 class Player {
-    constructor(game, x, y, width, height) {
+    constructor(game, x, y, width, height, spritesheet) {
         this.x = x;
         this.y = y;
         this.ctx = game.ctx;
@@ -8,13 +8,28 @@ class Player {
         this.height = height;
         this.xvelocity = 0;
         this.yvelocity = 0;
+        this.spritesheet = spritesheet;
+        this.currentKey = 'S';
     }
 
     draw() {
-        this.ctx.beginPath();
-        this.ctx.fillStyle = "#FF0000";
-        this.ctx.rect(this.x, this.y, this.width, this.height);
-        this.ctx.fill();
+        if(this.currentKey === 'W' || this.currentKey === 'w') {
+            this.ctx.drawImage(this.spritesheet, 0, 0, 
+                this.width, this.height, this.x, this.y, 
+                this.width, this.height);
+        } else if(this.currentKey === 'A' || this.currentKey === 'a') {
+            this.ctx.drawImage(this.spritesheet, 0, 64, 
+                this.width, this.height, this.x, this.y, 
+                this.width, this.height);
+        } else if(this.currentKey === 'S' || this.currentKey === 's' || this.currentKey === '' || this.currentKey === undefined) {
+            this.ctx.drawImage(this.spritesheet, 0, 128, 
+                this.width, this.height, this.x, this.y, 
+                this.width, this.height);
+        } else {
+            this.ctx.drawImage(this.spritesheet, 0, 192, 
+                this.width, this.height, this.x, this.y, 
+                this.width, this.height);
+        }
     }
 
     update() {
@@ -42,4 +57,9 @@ class Player {
         this.yvelocity = velocityChange;
     }
 
+    updateCurrentKey(key) {
+        console.log('Before updating current key: ' + key);
+        this.currentKey = key;
+        console.log('After updating current key: ' + key);
+    }
 }
