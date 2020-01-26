@@ -21,11 +21,15 @@ ASSET_MANAGER.downloadAll(function () {
     PMH.assignPlayer(testPlayer);
     PMH.setContext(gameEngine);
 
-    var skele = new Armored(gameEngine, 500, 500, 50, 50, testPlayer);
+    var armor = new Armored(gameEngine, 500, 500, 50, 50, testPlayer);
+    var light = new Light(gameEngine, 50, 50);
+    var skele = new Skeleton(gameEngine, 750, 0, 50, 50);
 
     gameEngine.setMovementHandler(PMH);
     gameEngine.addEntity(testWorld);
     gameEngine.addEntity(testPlayer);
+    gameEngine.addEntity(armor);
+    gameEngine.addEntity(light);
     gameEngine.addEntity(skele);
 
 

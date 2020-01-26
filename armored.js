@@ -1,6 +1,8 @@
 class Armored extends Enemy{
     constructor(game, x, y, width, height, player){
         //filler numbers for health, xvelo, and yvelo.
+        //pass in player currently because the board does not
+        //have a way to locate the player.
         super(game, x, y,width, height, 200, 5, 5);
         this.player = player;
 
@@ -17,7 +19,7 @@ class Armored extends Enemy{
         this.findPlayer();
         this.x += this.xVelocity;
         this.y += this.yVelocity;
-        
+
         if (this.x + this.width < 0) {
             this.x = this.ctx.canvas.width;
         }
@@ -32,6 +34,7 @@ class Armored extends Enemy{
         }
     }
 
+    //Finds the player and chases.
     findPlayer(){
 
         //get xVelocity;
