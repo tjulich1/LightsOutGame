@@ -15,4 +15,8 @@ class Enemy {
         this.x = (this.x + this.xvelocity) % this.ctx.canvas.width;
         this.y = (this.y + this.yvelocity) % this.ctx.canvas.height;
     }
+
+    draw(){
+        
+    }
 }
