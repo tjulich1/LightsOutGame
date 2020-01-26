@@ -37,6 +37,12 @@ function GameEngine() {
     this.wheel = null;
     this.surfaceWidth = null;
     this.surfaceHeight = null;
+
+    this.movementHandler = null;
+}
+
+GameEngine.prototype.setMovementHandler = function(handler) {
+    this.movementHandler = handler;
 }
 
 GameEngine.prototype.init = function (ctx) {
@@ -62,9 +68,14 @@ GameEngine.prototype.startInput = function () {
     var that = this;
 
     this.ctx.canvas.addEventListener("keydown", function (e) {
-        if (String.fromCharCode(e.which) === ' ') that.space = true;
-//        console.log(e);
+        console.log(e);
+        that.movementHandler.keyDown(String.fromCharCode(e.which));
         e.preventDefault();
+    }, false);
+
+    this.ctx.canvas.addEventListener("keyup", function(e) {
+        that.movementHandler.keyUp(String.fromCharCode(e.which));
+        console.log(e);
     }, false);
 
     console.log('Input started');
