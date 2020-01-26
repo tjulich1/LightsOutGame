@@ -8,7 +8,6 @@ ASSET_MANAGER.downloadAll(function () {
     var ctx = canvas.getContext('2d');
     var gameEngine = new GameEngine();
     gameEngine.init(ctx);
-    gameEngine.start();
 
     // TileLoader test code.
     var testTileSheet = ASSET_MANAGER.getAsset("./img/TestTileSheet.png");
@@ -17,8 +16,10 @@ ASSET_MANAGER.downloadAll(function () {
 
     var loadedTileSheet = TILE_LOADER.loadedTiles;
 
-    var testWorld = new World(testTileSheet, loadedTileSheet, 50, 20, 20, gameEngine);
+    var testWorld = new World(testTileSheet, loadedTileSheet, 40, 20, 20, gameEngine);
+    testWorld.generate();
 
     gameEngine.addEntity(testWorld);
+    gameEngine.start();
 
 });
