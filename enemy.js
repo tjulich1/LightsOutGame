@@ -1,20 +1,18 @@
-function Enemy(health, target){
-    this.health = health;
-    this.target = target;
-}
+class Enemy {
+    constructor(game, x, y, width, height, health, xVelocity, yVelocity){
+        this.ctx = game.ctx;
+        this.game = game;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this. health = health;
+        this.xVelocity = xVelocity;
+        this.yVelocity = yVelocity;
+    }
 
-Enemy.prototype.findTarget = function() {
-    //search for this.target
+    update(){
+        this.x = (this.x + this.xvelocity) % this.ctx.canvas.width;
+        this.y = (this.y + this.yvelocity) % this.ctx.canvas.height;
+    }
 }
-
-Enemy.prototype.takeDamage = function(damageTaken) {
-    //when damage is taken
-    //this.health -= damageTaken; 
-}
-
-Enemy.prototype.isDead = function(){
-    //determine if the enemy is dead
-    //return this.health <= 0;
-}
-
-//maybe an animation function?
