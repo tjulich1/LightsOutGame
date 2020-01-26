@@ -39,7 +39,5 @@ class World {
         }
     }
 
-    update() {
-
-    }
+    update() {}
 }
