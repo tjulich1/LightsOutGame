@@ -33,8 +33,8 @@ class PlayerMovementHandler {
             default:
                 break;
         }
-        this.player.updateXVelocity(this.movementKeys['a']*(-1)*10+this.movementKeys['d']*10);
-        this.player.updateYVelocity(this.movementKeys['s']*10+this.movementKeys['w']*10*(-1));
+        this.player.updateXVelocity(this.movementKeys['a']*(-1)*5+this.movementKeys['d']*5);
+        this.player.updateYVelocity(this.movementKeys['s']*5+this.movementKeys['w']*5*(-1));
     }
 
     keyUp(key) {
@@ -54,8 +54,8 @@ class PlayerMovementHandler {
             default:
                 break;
         }
-        this.player.updateXVelocity(this.movementKeys['a']*(-1)*10+this.movementKeys['d']*10);
-        this.player.updateYVelocity(this.movementKeys['s']*10+this.movementKeys['w']*10*(-1));
+        this.player.updateXVelocity(this.movementKeys['a']*(-1)*5+this.movementKeys['d']*5);
+        this.player.updateYVelocity(this.movementKeys['s']*5+this.movementKeys['w']*5*(-1));
     }
 
     assignPlayer(player) {

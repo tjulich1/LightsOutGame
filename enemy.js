@@ -12,11 +12,13 @@ class Enemy {
     }
 
     update(){
-        this.x = (this.x + this.xvelocity) % this.ctx.canvas.width;
-        this.y = (this.y + this.yvelocity) % this.ctx.canvas.height;
+
     }
 
     draw(){
-        
+        this.ctx.beginPath();
+        this.ctx.fillStyle = "#f2f2f2";
+        this.ctx.rect(this.x, this.y, this.width, this.height);
+        this.ctx.fill(); 
     }
 }
