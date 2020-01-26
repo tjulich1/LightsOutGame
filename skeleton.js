@@ -4,7 +4,4 @@ class Skeleton extends Enemy{
         super(game, x, y,width, height, 100, 10, 10);
     }
 
-    draw(){
-
-    }
 }
