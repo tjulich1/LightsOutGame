@@ -9,8 +9,8 @@ class Light{
 
         //put the light in the middle of the tileset.
         //We could also accept x, y anad place it at different coordinates.
-        this.x = this.ctx.canvas.width/2 - (this.width/2);
-        this.y = this.ctx.canvas.height/2 - (this.height/2);
+        this.x = this.ctx.canvas.width/2;
+        this.y = this.ctx.canvas.height/2;
     }
 
     draw(){

@@ -3,7 +3,7 @@ class Skeleton extends Enemy{
         //filler numbers for health, xvelo, and yvelo.
         //may need to pass in coordinates of the light or implement 
         //a way for it to be found on the game board.
-        super(game, x, y,width, height, 100, 5, 5);
+        super(game, x, y,width, height, 100, 0, 0);
     }
 
     draw(){
@@ -39,36 +39,29 @@ class Skeleton extends Enemy{
     getVelocity(){
         var xCenter = this.ctx.canvas.width/2;
         var yCenter = this.ctx.canvas.height/2;
-        var xDist = Math.abs(xCenter - this.x);
-        var yDist = Math.abs(yCenter - this.y);
-            if(yCenter - this.y < 0){
-                this.yVelocity = -.2;
+        var xDist = Math.abs((xCenter + 25) - (this.x + this.width/2));
+        var yDist = Math.abs((yCenter + 25) - (this.y + this.height/2));
+        //var dist = Math.sqrt(xDist**2 + yDist**2);
+            if(yCenter - this.y < 0 && yDist > xDist){
+                this.yVelocity = -2;
+                this.xVelocity = 0;
                 
-            }else if(yCenter - this.y > 0){
-                this.yVelocity = .2;
-                
-            }else{
+            }else if(yCenter - this.y > 0 && yDist > xDist){
+                this.yVelocity = 2;
+                this.xVelocity = 0;
+
+            }else if(xCenter - this.x < 0){
+                this.xVelocity = -2;
                 this.yVelocity = 0;
-            }
-            //get xVelocity;
-            if(xCenter - this.x < 0){
-                this.xVelocity = -.2;
 
             }else if(xCenter - this.x > 0){
-                this.xVelocity = .2;
-
-            }else{
-                this.xVelocity = 0;
+                this.xVelocity = 2;
+                this.yVelocity = 0;
             }
 
-            if(xDist < 75 && yDist < 75){
+            if(xDist < 50 && yDist < 50){
                 this.xVelocity = 0;
                 this.yVelocity = 0;
-        
-            }else if(xDist < yDist){
-                this.yVelocity += 2;
-            }else{
-                this.xVelocity += 2;
             }
 
     }
