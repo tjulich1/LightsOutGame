@@ -1,3 +1,2 @@
 # LightsOutGame
-
-Yubo Wang, Trevor Nichols, Trent Julich
+Trevor Nichols, Yubo Wang, Trent Julich
