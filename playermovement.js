@@ -33,8 +33,8 @@ class PlayerMovementHandler {
             default:
                 break;
         }
-        this.player.updateXVelocity(this.movementKeys['a']*(-1)*5+this.movementKeys['d']*5);
-        this.player.updateYVelocity(this.movementKeys['s']*5+this.movementKeys['w']*5*(-1));
+        this.player.updateXVelocity(this.movementKeys['a']*(-1)*7+this.movementKeys['d']*7);
+        this.player.updateYVelocity(this.movementKeys['s']*7+this.movementKeys['w']*7*(-1));
     }
 
     keyUp(key) {

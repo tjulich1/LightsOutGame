@@ -41,7 +41,7 @@ class Player {
         if (this.y + this.height < 0) {
             this.y = this.ctx.canvas.height;
         }
-        if (this.x > this.ctx.canvas.width) {
+        if (this.x - this.width > this.ctx.canvas.width) {
             this.x = -this.width;
         }
         if (this.y > this.ctx.canvas.height) {
@@ -58,8 +58,6 @@ class Player {
     }
 
     updateCurrentKey(key) {
-        console.log('Before updating current key: ' + key);
         this.currentKey = key;
-        console.log('After updating current key: ' + key);
     }
 }
