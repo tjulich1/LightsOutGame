@@ -34,14 +34,15 @@ class Skeleton extends Enemy{
             this.y = -this.height;
         }
     }
-
+    //Possibly set some sort of delay to stall jitery movement, so that Ai is
+    //forced to go one directoion for longer.
     //got to the center of the map, but needs to be updated to search.
     getVelocity(){
         var xCenter = this.ctx.canvas.width/2;
         var yCenter = this.ctx.canvas.height/2;
         var xDist = Math.abs((xCenter + 25) - (this.x + this.width/2));
         var yDist = Math.abs((yCenter + 25) - (this.y + this.height/2));
-        //var dist = Math.sqrt(xDist**2 + yDist**2);
+
             if(yCenter - this.y < 0 && yDist > xDist){
                 this.yVelocity = -2;
                 this.xVelocity = 0;
