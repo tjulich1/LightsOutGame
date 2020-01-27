@@ -3,6 +3,7 @@ var TILE_LOADER = new TileLoader();
 var PMH = new PlayerMovementHandler();
 
 ASSET_MANAGER.queueDownload("./img/TestTileSheet.png");
+ASSET_MANAGER.queueDownload("./img/mainCharacter_move.png");
 
 ASSET_MANAGER.downloadAll(function () {
     var canvas = document.getElementById('gameWorld');
@@ -17,17 +18,21 @@ ASSET_MANAGER.downloadAll(function () {
     var testWorld = new World(testTileSheet, loadedTileSheet, 40, 20, 20, gameEngine);
     testWorld.generate();
 
-    var testPlayer = new Player(gameEngine, 10, 10, 50, 50);
-    PMH.assignPlayer(testPlayer);
+    var mainChar = ASSET_MANAGER.getAsset("./img/mainCharacter_move.png")
+    var mainCharacter = new Player(gameEngine, 30, 30, 64, 64, mainChar);
+    PMH.assignPlayer(mainCharacter);
+
+    // main character sprite properties: height = 64 width = 64 
     PMH.setContext(gameEngine);
 
-    var armor = new Armored(gameEngine, 500, 500, 50, 50, testPlayer);
+    var armor = new Armored(gameEngine, 500, 500, 50, 50, mainCharacter);
     var light = new Light(gameEngine, 50, 50);
     var skele = new Skeleton(gameEngine, 720, 10, 50, 50);
 
     gameEngine.setMovementHandler(PMH);
     gameEngine.addEntity(testWorld);
-    gameEngine.addEntity(testPlayer);
+
+    gameEngine.addEntity(mainCharacter);
     gameEngine.addEntity(armor);
     gameEngine.addEntity(light);
     gameEngine.addEntity(skele);
