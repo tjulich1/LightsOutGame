@@ -1,5 +1,5 @@
 class PlayerMovementHandler {
-    constructor() {
+    constructor(velocityScale) {
         this.ctx = undefined;
         this.game = undefined;
         this.player = undefined;
@@ -9,6 +9,7 @@ class PlayerMovementHandler {
         movementKeys['d'] = 0;
         movementKeys['w'] = 0;
         this.movementKeys = movementKeys;
+        this.vs = velocityScale;
     }
 
     keyDown(key){
@@ -28,8 +29,8 @@ class PlayerMovementHandler {
             default:
                 break;
         }
-        this.player.updateXVelocity(this.movementKeys['a']*(-1)*10+this.movementKeys['d']*10);
-        this.player.updateYVelocity(this.movementKeys['s']*10+this.movementKeys['w']*10*(-1));
+        this.player.updateXVelocity(this.movementKeys['a']*(-1)*this.vs+this.movementKeys['d']*this.vs);
+        this.player.updateYVelocity(this.movementKeys['s']*this.vs+this.movementKeys['w']*this.vs*(-1));
     }
 
     keyUp(key) {
@@ -49,8 +50,8 @@ class PlayerMovementHandler {
             default:
                 break;
         }
-        this.player.updateXVelocity(this.movementKeys['a']*(-1)*10+this.movementKeys['d']*10);
-        this.player.updateYVelocity(this.movementKeys['s']*10+this.movementKeys['w']*10*(-1));
+        this.player.updateXVelocity(this.movementKeys['a']*(-1)*this.vs+this.movementKeys['d']*this.vs);
+        this.player.updateYVelocity(this.movementKeys['s']*this.vs+this.movementKeys['w']*this.vs*(-1));
     }
 
     assignPlayer(player) {

@@ -1,6 +1,6 @@
 var ASSET_MANAGER = new AssetManager();
 var TILE_LOADER = new TileLoader();
-var PMH = new PlayerMovementHandler();
+var PMH = new PlayerMovementHandler(3);
 
 ASSET_MANAGER.queueDownload("./img/TestTileSheet.png");
 ASSET_MANAGER.queueDownload("./img/rock.png");
@@ -26,7 +26,6 @@ ASSET_MANAGER.downloadAll(function () {
     gameEngine.addEntity(testWorld);
 
     gameEngine.addEntity(new Resource(100, 100, 50, 50, gameEngine, ASSET_MANAGER.getAsset("./img/rock.png")));
-
 
     gameEngine.addEntity(testPlayer);
 
