@@ -1,5 +1,6 @@
 class Player {
-    constructor(game, x, y, width, height) {
+    constructor(game, x, y, width, height, image) {
+        this.animation = new Animation(image, 0, 0, 17, 17, 0.5, 8, true, false);
         this.x = x;
         this.y = y;
         this.ctx = game.ctx;
@@ -11,10 +12,12 @@ class Player {
     }
 
     draw() {
-        this.ctx.beginPath();
-        this.ctx.fillStyle = "#FF0000";
-        this.ctx.rect(this.x, this.y, this.width, this.height);
-        this.ctx.fill();
+
+        this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 2);
+        // this.ctx.beginPath();
+        // this.ctx.fillStyle = "#FF0000";
+        // this.ctx.rect(this.x, this.y, this.width, this.height);
+        // this.ctx.fill();
     }
 
     update() {

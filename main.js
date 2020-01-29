@@ -4,6 +4,7 @@ var PMH = new PlayerMovementHandler(3);
 
 ASSET_MANAGER.queueDownload("./img/TestTileSheet.png");
 ASSET_MANAGER.queueDownload("./img/rock.png");
+ASSET_MANAGER.queueDownload("./img/link_walking.png");
 
 ASSET_MANAGER.downloadAll(function () {
     var canvas = document.getElementById('gameWorld');
@@ -18,7 +19,7 @@ ASSET_MANAGER.downloadAll(function () {
     var testWorld = new World(testTileSheet, loadedTileSheet, 40, 20, 20, gameEngine);
     testWorld.generate();
 
-    var testPlayer = new Player(gameEngine, 10, 10, 50, 50);
+    var testPlayer = new Player(gameEngine, 10, 10, 50, 50, ASSET_MANAGER.getAsset("./img/link_walking.png"));
     PMH.assignPlayer(testPlayer);
     PMH.setContext(gameEngine);
 
