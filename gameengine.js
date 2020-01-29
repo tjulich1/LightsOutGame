@@ -68,14 +68,15 @@ GameEngine.prototype.startInput = function () {
     var that = this;
 
     this.ctx.canvas.addEventListener("keydown", function (e) {
-        console.log(e);
-        that.movementHandler.keyDown(String.fromCharCode(e.which));
         e.preventDefault();
+        that.movementHandler.keyDown(String.fromCharCode(e.which));
+        that.movementHandler.player.updateCurrentKey(e.key);
     }, false);
 
     this.ctx.canvas.addEventListener("keyup", function(e) {
+        e.preventDefault();
         that.movementHandler.keyUp(String.fromCharCode(e.which));
-        console.log(e);
+        that.movementHandler.player.updateCurrentKey(e.key);
     }, false);
 
     console.log('Input started');

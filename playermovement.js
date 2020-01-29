@@ -22,7 +22,11 @@ class PlayerMovementHandler {
         movementKeys['d'] = 0;
         movementKeys['w'] = 0;
         this.movementKeys = movementKeys;
+<<<<<<< HEAD
         this.vs = velocityScale;
+=======
+        this.currentKey = 2;
+>>>>>>> origin/yuboDev
     }
 
     /**
@@ -33,21 +37,30 @@ class PlayerMovementHandler {
         switch (key) {
             case 'A':
                 this.movementKeys['a'] = 1;
+                this.currentKey = 1
                 break;
             case 'S':
                 this.movementKeys['s'] = 1;
+                this.currentKey = 2
                 break;
             case 'D':
                 this.movementKeys['d'] = 1;
+                this.currentKey = 3
                 break;
             case 'W':
                 this.movementKeys['w'] = 1;
+                this.currentKey = 0;
                 break;
             default:
                 break;
         }
+<<<<<<< HEAD
         this.player.updateXVelocity(this.movementKeys['a']*(-1)*this.vs+this.movementKeys['d']*this.vs);
         this.player.updateYVelocity(this.movementKeys['s']*this.vs+this.movementKeys['w']*this.vs*(-1));
+=======
+        this.player.updateXVelocity(this.movementKeys['a']*(-1)*7+this.movementKeys['d']*7);
+        this.player.updateYVelocity(this.movementKeys['s']*7+this.movementKeys['w']*7*(-1));
+>>>>>>> origin/yuboDev
     }
 
     /**
@@ -71,8 +84,13 @@ class PlayerMovementHandler {
             default:
                 break;
         }
+<<<<<<< HEAD
         this.player.updateXVelocity(this.movementKeys['a']*(-1)*this.vs+this.movementKeys['d']*this.vs);
         this.player.updateYVelocity(this.movementKeys['s']*this.vs+this.movementKeys['w']*this.vs*(-1));
+=======
+        this.player.updateXVelocity(this.movementKeys['a']*(-1)*5+this.movementKeys['d']*5);
+        this.player.updateYVelocity(this.movementKeys['s']*5+this.movementKeys['w']*5*(-1));
+>>>>>>> origin/yuboDev
     }
 
     /**
@@ -90,6 +108,7 @@ class PlayerMovementHandler {
         this.ctx = game.ctx;
     }
 
+<<<<<<< HEAD
     // DEBUG
 
     /**
@@ -99,4 +118,9 @@ class PlayerMovementHandler {
         this.vs = newScale;
     }
 
+=======
+    drawCurrentImage(key) {
+        this.player.draw(key);
+    }
+>>>>>>> origin/yuboDev
 }
