@@ -1,3 +1,8 @@
+/**
+* Trent Julich
+* 27 January 2020
+**/
+
 class Resource {
     constructor(x, y, width, height, game, image) {
         this.x = x;
