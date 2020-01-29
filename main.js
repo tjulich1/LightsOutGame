@@ -4,6 +4,7 @@ var PMH = new PlayerMovementHandler();
 
 ASSET_MANAGER.queueDownload("./img/TestTileSheet.png");
 ASSET_MANAGER.queueDownload("./img/mainCharacter_move.png");
+ASSET_MANAGER.queueDownload("./img/armoredWalk.png");
 
 ASSET_MANAGER.downloadAll(function () {
     var canvas = document.getElementById('gameWorld');
@@ -25,7 +26,7 @@ ASSET_MANAGER.downloadAll(function () {
     // main character sprite properties: height = 64 width = 64 
     PMH.setContext(gameEngine);
 
-    var armor = new Armored(gameEngine, 500, 500, 50, 50, mainCharacter);
+    var armor = new Armored(gameEngine, 500, 500, 70, 70, mainCharacter, ASSET_MANAGER.getAsset("./img/armoredWalk.png"));
     var light = new Light(gameEngine, 50, 50);
     var skele = new Skeleton(gameEngine, 720, 10, 50, 50);
 
