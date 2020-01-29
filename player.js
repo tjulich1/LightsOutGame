@@ -38,6 +38,7 @@ class Player {
             //     this.width, this.height, this.x, this.y, 
             //     this.width, this.height);
             this.walkAnimationRight.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
+
         }
     }
 

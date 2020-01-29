@@ -1,17 +1,38 @@
+/**
+* Trent Julich
+* 27 January 2020
+**/
+
 class PlayerMovementHandler {
-    constructor() {
+
+    /**
+    * Constructor for a new movement handler.
+    **/
+    constructor(velocityScale) {
+
+        // Fields must be set before movement handler can be used.
         this.ctx = undefined;
         this.game = undefined;
         this.player = undefined;
+
+        // Array containing the keys which will affect player movement.
         var movementKeys = [];
         movementKeys['a'] = 0;
         movementKeys['s'] = 0;
         movementKeys['d'] = 0;
         movementKeys['w'] = 0;
         this.movementKeys = movementKeys;
+
+        this.vs = velocityScale;
+
         this.currentKey = 2;
+
     }
 
+    /**
+    * Function called when a key is pressed down. Handles input relating to
+    * the players movement.
+    **/
     keyDown(key){
         switch (key) {
             case 'A':
@@ -33,10 +54,15 @@ class PlayerMovementHandler {
             default:
                 break;
         }
-        this.player.updateXVelocity(this.movementKeys['a']*(-1)*7+this.movementKeys['d']*7);
-        this.player.updateYVelocity(this.movementKeys['s']*7+this.movementKeys['w']*7*(-1));
+        this.player.updateXVelocity(this.movementKeys['a']*(-1)*this.vs+this.movementKeys['d']*this.vs);
+        this.player.updateYVelocity(this.movementKeys['s']*this.vs+this.movementKeys['w']*this.vs*(-1));
+
     }
 
+    /**
+    * Function which is called when a key is released. Handles input cases
+    * affecting the users movement.
+    **/
     keyUp(key) {
         switch (key) {
             case 'A':
@@ -54,17 +80,33 @@ class PlayerMovementHandler {
             default:
                 break;
         }
-        this.player.updateXVelocity(this.movementKeys['a']*(-1)*5+this.movementKeys['d']*5);
-        this.player.updateYVelocity(this.movementKeys['s']*5+this.movementKeys['w']*5*(-1));
+
+        this.player.updateXVelocity(this.movementKeys['a']*(-1)*this.vs+this.movementKeys['d']*this.vs);
+        this.player.updateYVelocity(this.movementKeys['s']*this.vs+this.movementKeys['w']*this.vs*(-1));
     }
 
+    /**
+    * Sets the player that should react to user input.
+    **/
     assignPlayer(player) {
         this.player = player;
     }
 
+    /**
+    * Sets the game which is connected to the player input.
+    **/
     setContext(game) {
         this.game = game;
         this.ctx = game.ctx;
+    }
+
+    // DEBUG
+
+    /**
+    * Function used to set the velocity scale of the players movement.
+    **/
+    set velocityScale(newScale) {
+        this.vs = newScale;
     }
 
     drawCurrentImage(key) {
