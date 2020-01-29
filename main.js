@@ -10,6 +10,7 @@ ASSET_MANAGER.queueDownload("./img/link_walking.png");
 ASSET_MANAGER.queueDownload("./img/mainCharacter_move.png");
 ASSET_MANAGER.queueDownload("./img/armoredWalk.png");
 ASSET_MANAGER.queueDownload("./img/skeleWalk.png");
+ASSET_MANAGER.queueDownload("./img/fire.png");
 
 
 ASSET_MANAGER.downloadAll(function () {
@@ -38,7 +39,7 @@ ASSET_MANAGER.downloadAll(function () {
     PMH.setContext(gameEngine);
 
     var armor = new Armored(gameEngine, 500, 500, 70, 70, mainCharacter, ASSET_MANAGER.getAsset("./img/armoredWalk.png"));
-    var light = new Light(gameEngine, 50, 50);
+    var light = new Light(gameEngine, 64, 64, ASSET_MANAGER.getAsset("./img/fire.png"));
     var skele = new Skeleton(gameEngine, 720, 10, 50, 50, ASSET_MANAGER.getAsset("./img/skeleWalk.png"));
 
     gameEngine.setMovementHandler(PMH);
