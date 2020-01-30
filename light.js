@@ -1,6 +1,7 @@
 class Light{
-    constructor(game, width, height){
+    constructor(game, width, height, spritesheet){
         this.ctx = game.ctx;
+        this.animation = new Animation(spritesheet, 0, 0, 64, 64, .20, 5, true, false);
         this.game = game;
         this.height = height;
         this.width = width;
@@ -14,14 +15,11 @@ class Light{
     }
 
     draw(){
-        this.ctx.beginPath();
-        this.ctx.fillStyle = "#ff3300";
-        this.ctx.rect(this.x, this.y, this.width, this.height);
-        this.ctx.fill();
+        this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
     }
 
     update(){
-        //this.gameOver()
+        
     }
 
     // increase health to full or by some %
