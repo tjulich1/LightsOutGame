@@ -1,27 +1,12 @@
 class Skeleton extends Enemy{
-    constructor(game, x, y, width, height, walkSpritesheet){
+    constructor(game, x, y, width, height, walkSpriteSheet){
         //filler numbers for health, xvelo, and yvelo.
         //may need to pass in coordinates of the light or implement 
         //a way for it to be found on the game board.
-        super(game, x, y,width, height, 100, 0, 0);
-        this.direction = 1;
-        this.walkAnimationUp = new Animation(walkSpritesheet, 0, 0, 64, 64, .15, 9, true, false);
-        this.walkAnimationLeft = new Animation(walkSpritesheet, 0, 64, 64, 64, .15, 9, true, false);
-        this.walkAnimationDown = new Animation(walkSpritesheet, 0, 128, 64, 64, .15, 9, true, false);
-        this.walkAnimationRight = new Animation(walkSpritesheet, 0, 192, 64, 64, .15, 9, true, false);
+        super(game, x, y,width, height, 100, 0, 0, walkSpriteSheet);
     }
 
-    draw(){
-        if(this.direction === 1){
-            this.walkAnimationUp.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
-        }else if(this.direction === 2){
-            this.walkAnimationLeft.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
-        }else if(this.direction === 3){
-            this.walkAnimationDown.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
-        }else{
-            this.walkAnimationRight.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
-        }
-    }
+    
 
     //currently the exact same as armored, but i expect this to change as the code
     //evolves.
@@ -44,9 +29,8 @@ class Skeleton extends Enemy{
             this.y = -this.height;
         }
     }
-    //Possibly set some sort of delay to stall jitery movement, so that Ai is
-    //forced to go one directoion for longer.
-    //got to the center of the map, but needs to be updated to search.
+
+    //update this to be more smooth.
     getVelocity(){
         var xCenter = this.ctx.canvas.width/2;
         var yCenter = this.ctx.canvas.height/2;
@@ -56,23 +40,23 @@ class Skeleton extends Enemy{
             if(yCenter - this.y < 0 && yDist > xDist){
                 this.yVelocity = -2;
                 this.xVelocity = 0;
-                this.direction = 1;
+                this.direction = 0;
 
                 
             }else if(yCenter - this.y > 0 && yDist > xDist){
                 this.yVelocity = 2;
                 this.xVelocity = 0;
-                this.direction = 3;
+                this.direction = 2;
 
             }else if(xCenter - this.x < 0){
                 this.xVelocity = -2;
                 this.yVelocity = 0;
-                this.direction = 2;
+                this.direction = 1;
 
             }else if(xCenter - this.x > 0){
                 this.xVelocity = 2;
                 this.yVelocity = 0;
-                this.direction = 4;
+                this.direction = 3;
             }
 
             if(xDist < 50 && yDist < 50){
