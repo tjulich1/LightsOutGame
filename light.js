@@ -1,7 +1,7 @@
 class Light{
     constructor(game, width, height, spritesheet){
         this.ctx = game.ctx;
-        this.animation = new Animation(spritesheet, 0, 0, 64, 64, .20, 10, true, false);
+        this.animation = new Animation(spritesheet, 0, 0, 64, 64, .20, 5, true, false);
         this.game = game;
         this.height = height;
         this.width = width;
