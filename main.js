@@ -10,7 +10,7 @@ ASSET_MANAGER.queueDownload("./img/mainCharacter_move.png");
 ASSET_MANAGER.queueDownload("./img/armoredWalk.png");
 ASSET_MANAGER.queueDownload("./img/skeleWalk.png");
 ASSET_MANAGER.queueDownload("./img/campFire.png");
-
+ASSET_MANAGER.queueDownload("./img/greenTree1.png");
 
 ASSET_MANAGER.downloadAll(function () {
     var canvas = document.getElementById('gameWorld');
@@ -40,16 +40,13 @@ ASSET_MANAGER.downloadAll(function () {
     gameEngine.setMovementHandler(PMH);
     gameEngine.addEntity(testWorld);
 
-
-
     gameEngine.addEntity(mainCharacter);
     gameEngine.addEntity(armor);
     gameEngine.addEntity(light);
     gameEngine.addEntity(skele);
 
-
     gameEngine.addEntity(new Resource(100, 100, 50, 50, gameEngine, ASSET_MANAGER.getAsset("./img/rock.png")));
-
+    gameEngine.addEntity(new Resource(200, 200, 43, 50, gameEngine, ASSET_MANAGER.getAsset("./img/greenTree1.png")));
 
     gameEngine.start();
 
