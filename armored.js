@@ -1,28 +1,11 @@
 class Armored extends Enemy{
-    constructor(game, x, y, width, height, player, walkSpritesheet){
+    constructor(game, x, y, width, height, player, walkSpriteSheet){
         //filler numbers for health, xvelo, and yvelo.
         //pass in player currently because the board does not
         //have a way to locate the player.
-        super(game, x, y,width, height, 200, 2, 2);
+        super(game, x, y,width, height, 200, 2, 2, walkSpriteSheet);
         this.player = player;
-        this.walkAnimationUp = new Animation(walkSpritesheet, 0, 0, 64, 64, .15, 9, true, false);
-        this.walkAnimationLeft = new Animation(walkSpritesheet, 0, 64, 64, 64, .15, 9, true, false);
-        this.walkAnimationDown = new Animation(walkSpritesheet, 0, 128, 64, 64, .15, 9, true, false);
-        this.walkAnimationRight = new Animation(walkSpritesheet, 0, 192, 64, 64, .15, 9, true, false);
-        this.direction = 1;
 
-    }
-
-    draw(){
-        if(this.direction === 1){
-            this.walkAnimationUp.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
-        }else if(this.direction === 2){
-            this.walkAnimationLeft.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
-        }else if(this.direction === 3){
-            this.walkAnimationDown.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
-        }else{
-            this.walkAnimationRight.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
-        }
     }
 
     update(){
@@ -55,7 +38,7 @@ class Armored extends Enemy{
             if(this.xVelocity == 0){
                 this.xVelocity = -2;
             }
-            this.direction = 2;
+            this.direction = 1;
         }
         if(this.player.x - this.x == 0){
             this.xVelocity = 0;
@@ -67,7 +50,7 @@ class Armored extends Enemy{
             if(this.xVelocity == 0){
                 this.xVelocity = 2;
             }
-            this.direction = 4;
+            this.direction = 3;
         }
 
         //get yVelocity
@@ -78,7 +61,7 @@ class Armored extends Enemy{
             if(this.yVelocity == 0){
                 this.yVelocity = -2;
             }
-            this.direction = 1;
+            this.direction = 0;
         }
         if(this.player.y - this.y == 0){
             this.yVelocity = 0;
@@ -90,7 +73,7 @@ class Armored extends Enemy{
             if(this.yVelocity == 0){
                 this.yVelocity = 2;
             }
-            this.direction = 3;
+            this.direction = 2;
         }
     }
 }
