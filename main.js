@@ -10,7 +10,7 @@ ASSET_MANAGER.queueDownload("./img/link_walking.png");
 ASSET_MANAGER.queueDownload("./img/mainCharacter_move.png");
 ASSET_MANAGER.queueDownload("./img/armoredWalk.png");
 ASSET_MANAGER.queueDownload("./img/skeleWalk.png");
-ASSET_MANAGER.queueDownload("./img/campFire.png");
+ASSET_MANAGER.queueDownload("./img/CampFire.png");
 
 
 ASSET_MANAGER.downloadAll(function () {
