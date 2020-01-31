@@ -19,25 +19,29 @@ class Player {
 
     draw() {
         if(this.currentKey === 'W' || this.currentKey === 'w') {
-            // this.ctx.drawImage(this.spritesheet, 0, 0, 
-            //     this.width, this.height, this.x, this.y, 
-            //     this.width, this.height);
-            this.walkAnimationUp.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
+            if(this.yvelocity === 0) {
+                this.ctx.drawImage(this.spritesheet, 0, 0, 64, 64, this.x, this.y, 64, 64);
+            } else {
+                this.walkAnimationUp.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
+            }
         } else if(this.currentKey === 'A' || this.currentKey === 'a') {
-            // this.ctx.drawImage(this.spritesheet, 0, 1 * this.height, 
-            //     this.width, this.height, this.x, this.y, 
-            //     this.width, this.height);
-            this.walkAnimationLeft.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
+            if(this.xvelocity === 0) {
+                this.ctx.drawImage(this.spritesheet, 0, 64, 64, 64, this.x, this.y, 64, 64);
+            } else {
+                this.walkAnimationLeft.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
+            }
         } else if(this.currentKey === 'S' || this.currentKey === 's' || this.currentKey === '' || this.currentKey === undefined) {
-            // this.ctx.drawImage(this.spritesheet, 0, 2 * this.height, 
-            //     this.width, this.height, this.x, this.y, 
-            //     this.width, this.height);
-            this.walkAnimationDown.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
+            if(this.yvelocity === 0) {
+                this.ctx.drawImage(this.spritesheet, 0, 128, 64, 64, this.x, this.y, 64, 64);
+            } else {
+                this.walkAnimationDown.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
+            }
         } else {
-            // this.ctx.drawImage(this.spritesheet, 0, 3 * this.height, 
-            //     this.width, this.height, this.x, this.y, 
-            //     this.width, this.height);
-            this.walkAnimationRight.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
+            if(this.xvelocity === 0) {
+                this.ctx.drawImage(this.spritesheet, 0, 192, 64, 64, this.x, this.y, 64, 64);
+            } else {
+                this.walkAnimationRight.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
+            }
 
         }
     }

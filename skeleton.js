@@ -1,16 +1,26 @@
 class Skeleton extends Enemy{
-    constructor(game, x, y, width, height){
+    constructor(game, x, y, width, height, walkSpritesheet){
         //filler numbers for health, xvelo, and yvelo.
         //may need to pass in coordinates of the light or implement 
         //a way for it to be found on the game board.
         super(game, x, y,width, height, 100, 0, 0);
+        this.direction = 1;
+        this.walkAnimationUp = new Animation(walkSpritesheet, 0, 0, 64, 64, .15, 9, true, false);
+        this.walkAnimationLeft = new Animation(walkSpritesheet, 0, 64, 64, 64, .15, 9, true, false);
+        this.walkAnimationDown = new Animation(walkSpritesheet, 0, 128, 64, 64, .15, 9, true, false);
+        this.walkAnimationRight = new Animation(walkSpritesheet, 0, 192, 64, 64, .15, 9, true, false);
     }
 
     draw(){
-        this.ctx.beginPath();
-        this.ctx.fillStyle = "#ffffff";
-        this.ctx.rect(this.x, this.y, this.width, this.height);
-        this.ctx.fill(); 
+        if(this.direction === 1){
+            this.walkAnimationUp.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
+        }else if(this.direction === 2){
+            this.walkAnimationLeft.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
+        }else if(this.direction === 3){
+            this.walkAnimationDown.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
+        }else{
+            this.walkAnimationRight.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
+        }
     }
 
     //currently the exact same as armored, but i expect this to change as the code
@@ -46,18 +56,23 @@ class Skeleton extends Enemy{
             if(yCenter - this.y < 0 && yDist > xDist){
                 this.yVelocity = -2;
                 this.xVelocity = 0;
+                this.direction = 1;
+
                 
             }else if(yCenter - this.y > 0 && yDist > xDist){
                 this.yVelocity = 2;
                 this.xVelocity = 0;
+                this.direction = 3;
 
             }else if(xCenter - this.x < 0){
                 this.xVelocity = -2;
                 this.yVelocity = 0;
+                this.direction = 2;
 
             }else if(xCenter - this.x > 0){
                 this.xVelocity = 2;
                 this.yVelocity = 0;
+                this.direction = 4;
             }
 
             if(xDist < 50 && yDist < 50){
