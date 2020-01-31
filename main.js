@@ -5,7 +5,6 @@ var PMH = new PlayerMovementHandler(3);
 ASSET_MANAGER.queueDownload("./img/TestTileSheet.png");
 
 ASSET_MANAGER.queueDownload("./img/rock.png");
-ASSET_MANAGER.queueDownload("./img/link_walking.png");
 
 ASSET_MANAGER.queueDownload("./img/mainCharacter_move.png");
 ASSET_MANAGER.queueDownload("./img/armoredWalk.png");
@@ -25,10 +24,6 @@ ASSET_MANAGER.downloadAll(function () {
     var loadedTileSheet = TILE_LOADER.loadedTiles;
     var testWorld = new World(testTileSheet, loadedTileSheet, 40, 20, 20, gameEngine);
     testWorld.generate();
-
-
-    var testPlayer = new Player(gameEngine, 10, 10, 50, 50, ASSET_MANAGER.getAsset("./img/link_walking.png"));
-    PMH.assignPlayer(testPlayer);
 
     var mainChar = ASSET_MANAGER.getAsset("./img/mainCharacter_move.png")
     var mainCharacter = new Player(gameEngine, 30, 30, 64, 64, mainChar);
@@ -55,7 +50,6 @@ ASSET_MANAGER.downloadAll(function () {
 
     gameEngine.addEntity(new Resource(100, 100, 50, 50, gameEngine, ASSET_MANAGER.getAsset("./img/rock.png")));
 
-    gameEngine.addEntity(testPlayer);
 
     gameEngine.start();
 
