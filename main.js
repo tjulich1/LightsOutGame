@@ -5,13 +5,12 @@ var PMH = new PlayerMovementHandler(3);
 ASSET_MANAGER.queueDownload("./img/TestTileSheet.png");
 
 ASSET_MANAGER.queueDownload("./img/rock.png");
-ASSET_MANAGER.queueDownload("./img/link_walking.png");
 
 ASSET_MANAGER.queueDownload("./img/mainCharacter_move.png");
 ASSET_MANAGER.queueDownload("./img/armoredWalk.png");
 ASSET_MANAGER.queueDownload("./img/skeleWalk.png");
-ASSET_MANAGER.queueDownload("./img/CampFire.png");
-
+ASSET_MANAGER.queueDownload("./img/campFire.png");
+ASSET_MANAGER.queueDownload("./img/greenTree1.png");
 
 ASSET_MANAGER.downloadAll(function () {
     var canvas = document.getElementById('gameWorld');
@@ -26,10 +25,6 @@ ASSET_MANAGER.downloadAll(function () {
     var testWorld = new World(testTileSheet, loadedTileSheet, 40, 20, 20, gameEngine);
     testWorld.generate();
 
-
-    var testPlayer = new Player(gameEngine, 10, 10, 50, 50, ASSET_MANAGER.getAsset("./img/link_walking.png"));
-    PMH.assignPlayer(testPlayer);
-
     var mainChar = ASSET_MANAGER.getAsset("./img/mainCharacter_move.png")
     var mainCharacter = new Player(gameEngine, 30, 30, 64, 64, mainChar);
     PMH.assignPlayer(mainCharacter);
@@ -39,23 +34,19 @@ ASSET_MANAGER.downloadAll(function () {
     PMH.setContext(gameEngine);
 
     var armor = new Armored(gameEngine, 500, 500, 70, 70, mainCharacter, ASSET_MANAGER.getAsset("./img/armoredWalk.png"));
-    var light = new Light(gameEngine, 64, 64, ASSET_MANAGER.getAsset("./img/CampFire.png"));
+    var light = new Light(gameEngine, 64, 64, ASSET_MANAGER.getAsset("./img/campFire.png"));
     var skele = new Skeleton(gameEngine, 720, 10, 50, 50, ASSET_MANAGER.getAsset("./img/skeleWalk.png"));
 
     gameEngine.setMovementHandler(PMH);
     gameEngine.addEntity(testWorld);
-
-
 
     gameEngine.addEntity(mainCharacter);
     gameEngine.addEntity(armor);
     gameEngine.addEntity(light);
     gameEngine.addEntity(skele);
 
-
     gameEngine.addEntity(new Resource(100, 100, 50, 50, gameEngine, ASSET_MANAGER.getAsset("./img/rock.png")));
-
-    gameEngine.addEntity(testPlayer);
+    gameEngine.addEntity(new Resource(200, 200, 43, 50, gameEngine, ASSET_MANAGER.getAsset("./img/greenTree1.png")));
 
     gameEngine.start();
 
