@@ -14,8 +14,8 @@ ASSET_MANAGER.queueDownload("./img/greenTree1.png");
 
 ASSET_MANAGER.downloadAll(function () {
 
-    var rows = 30;
-    var columns = 30;
+    var rows = 20;
+    var columns = 20;
 
     var canvas = document.getElementById('gameWorld');
     var ctx = canvas.getContext('2d');
@@ -26,7 +26,8 @@ ASSET_MANAGER.downloadAll(function () {
     var testTileSheet = ASSET_MANAGER.getAsset("./img/TestTileSheet.png");
     TILE_LOADER.loadTileSheet(testTileSheet, 50, 50, 1, 3);
     var loadedTileSheet = TILE_LOADER.loadedTiles;
-    var testWorld = new World(testTileSheet, loadedTileSheet, 40, rows, columns, gameEngine);
+    var testWorld = new World(testTileSheet, loadedTileSheet, 40, rows, columns, gameEngine, ASSET_MANAGER.getAsset("./img/greenTree1.png"));
+    gameEngine.addEntity(testWorld);
     testWorld.generate();
 
     var mainChar = ASSET_MANAGER.getAsset("./img/mainCharacter_move.png")
@@ -42,7 +43,6 @@ ASSET_MANAGER.downloadAll(function () {
     var skele = new Skeleton(gameEngine, 720, 10, 50, 50, ASSET_MANAGER.getAsset("./img/skeleWalk.png"));
 
     gameEngine.setMovementHandler(PMH);
-    gameEngine.addEntity(testWorld);
 
     gameEngine.addEntity(mainCharacter);
     gameEngine.addEntity(armor);

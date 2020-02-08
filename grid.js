@@ -11,23 +11,27 @@ class Grid {
         this.ctx = game.ctx;
         this.highlightRow = -1;
         this.highlightColumn = -1;
+        this.gridOn = false;
     }
 
     draw() {
-        for (let i = 0; i < this.columns; i++) {
-            this.ctx.strokeStyle = 'blue';
-            this.ctx.beginPath();
-            this.ctx.moveTo(i*this.columnWidth, 0);
-            this.ctx.lineTo(i*this.columnWidth, this.totalHeight);
-            this.ctx.stroke();
-        }
 
-        for (let i = 0; i < this.rows; i++) {
-            this.ctx.strokeStyle = 'blue';
-            this.ctx.beginPath();
-            this.ctx.moveTo(0, i*this.rowHeight);
-            this.ctx.lineTo(this.totalWidth, i*this.rowHeight);
-            this.ctx.stroke();
+        if (this.gridOn) {
+            for (let i = 0; i < this.columns; i++) {
+                this.ctx.strokeStyle = 'blue';
+                this.ctx.beginPath();
+                this.ctx.moveTo(i*this.columnWidth, 0);
+                this.ctx.lineTo(i*this.columnWidth, this.totalHeight);
+                this.ctx.stroke();
+            }
+
+            for (let i = 0; i < this.rows; i++) {
+                this.ctx.strokeStyle = 'blue';
+                this.ctx.beginPath();
+                this.ctx.moveTo(0, i*this.rowHeight);
+                this.ctx.lineTo(this.totalWidth, i*this.rowHeight);
+                this.ctx.stroke();
+            }
         }
 
         this.ctx.fillStyle = 'blue';

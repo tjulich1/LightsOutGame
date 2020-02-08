@@ -4,8 +4,9 @@
 **/
 
 class World {
-    constructor(tileSheet, loadedTiles, desiredTileDim, numRows, numColumns, gameEngine) {
+    constructor(tileSheet, loadedTiles, desiredTileDim, numRows, numColumns, gameEngine, treeSprite) {
         this.tileSheet = tileSheet;
+        this.treeSprite = treeSprite;
         this.loadedTiles = loadedTiles;
         this.tileDim = desiredTileDim;
         this.rows = numRows;
@@ -13,6 +14,7 @@ class World {
         this.game = gameEngine;
         this.ctx = gameEngine.ctx;
         this.worldTiles = [];
+        this.trees = [];
     }
 
     generate() {
@@ -21,8 +23,37 @@ class World {
                 this.worldTiles[this.rows*i + j] = this.loadedTiles[0];
             }
         }
-        this.worldTiles[0] = this.loadedTiles[1];
-        this.worldTiles[1] = this.loadedTiles[2];
+
+        let lastTree = 0;
+        for (var i = 0; i < this.rows; i++) {
+            for (var j = 0; j < this.columns; j++) {
+                let rand = Math.random() * 10;
+                if (rand < 1 && lastTree > 5) {
+                    // Place a tree
+                    this.trees[i*this.rows + j] = 1;
+                    lastTree = 0;
+                } else {
+                    this.trees[i*this.rows + j] = 0;
+                    lastTree++;
+                }
+            }
+        }
+        this.initTrees();
+    }
+
+    initTrees() {
+        for (var i = 0; i < this.rows; i++) {
+            for (var j = 0; j < this.columns; j++) {
+                // If a tree should be placed...
+                if (this.trees[i*this.rows + j] === 1) {
+                    let xPos = (i-1)*this.tileDim + (this.tileDim / 2);
+                    let yPos = (j-1)*this.tileDim + (this.tileDim / 2);
+                    let width = 43;
+                    let height = 50;
+                    this.game.addEntity(new Resource(xPos, yPos, width, height, this.game, this.treeSprite));
+                }
+            }
+        }
     }
 
     draw() {
