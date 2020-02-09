@@ -22,6 +22,7 @@ ASSET_MANAGER.downloadAll(function () {
     var gameEngine = new GameEngine();
     gameEngine.init(ctx);
 
+    // Test Code
     var testTileSheet = ASSET_MANAGER.getAsset("./img/TestTileSheet.png");
     TILE_LOADER.loadTileSheet(testTileSheet, 50, 50, 1, 3);
     var loadedTileSheet = TILE_LOADER.loadedTiles;
@@ -29,10 +30,12 @@ ASSET_MANAGER.downloadAll(function () {
     gameEngine.addEntity(testWorld);
     testWorld.generate();
 
-    // main character sprite properties: height = 64 width = 64
     var mainChar = ASSET_MANAGER.getAsset("./img/mainCharacter_move.png")
     var mainCharacter = new Player(gameEngine, 30, 30, 64, 64, mainChar);
     PMH.assignPlayer(mainCharacter);
+
+    // main character sprite properties: height = 64 width = 64
+
     PMH.setContext(gameEngine);
 
     var armor = new Armored(gameEngine, 500, 500, 70, 70, mainCharacter, ASSET_MANAGER.getAsset("./img/armoredWalk.png"));
@@ -40,9 +43,6 @@ ASSET_MANAGER.downloadAll(function () {
     var skele = new Skeleton(gameEngine, 720, 10, 50, 50, ASSET_MANAGER.getAsset("./img/skeleWalk.png"));
 
     gameEngine.setMovementHandler(PMH);
-
-    gameEngine.addEntity(testWorld);
-
 
     gameEngine.addEntity(mainCharacter);
     gameEngine.addEntity(armor);
@@ -54,9 +54,9 @@ ASSET_MANAGER.downloadAll(function () {
 
     gameEngine.addEntity(grid);
 
-
     gameEngine.addEntity(new Resource(100, 100, 50, 50, gameEngine, ASSET_MANAGER.getAsset("./img/rock.png")));
     gameEngine.addEntity(new Resource(200, 200, 43, 50, gameEngine, ASSET_MANAGER.getAsset("./img/greenTree1.png")));
+
 
 
     gameEngine.start();
