@@ -33,51 +33,63 @@ class Armored extends Enemy{
     //Finds the player and chases.
     //Update to better handle directional changes.
     findPlayer(){
-
+        var xDist = Math.abs(this.x - this.player.x);
+        var yDist = Math.abs(this.y - this.player.y);
         //get xVelocity;
-        if(this.player.x - this.x < 0){
-            if(this.xVelocity >= 0){
-                this.xVelocity *= -1;
-            }
-            if(this.xVelocity == 0){
-                this.xVelocity = -2;
-            }
-            this.direction = 1;
-        }
-        if(this.player.x - this.x == 0){
-            this.xVelocity = 0;
-        }
-        if(this.player.x - this.x > 0){
-            if(this.xVelocity < 0){
-                this.xVelocity *= -1;
-            }
-            if(this.xVelocity == 0){
-                this.xVelocity = 2;
-            }
-            this.direction = 3;
-        }
 
-        //get yVelocity
-        if(this.player.y - this.y < 0){
-            if(this.yVelocity >= 0){
-                this.yVelocity *= -1;
+        if(xDist >= yDist){
+            if(this.player.x - this.x < 0){
+                if(this.player.x - this.x === 0){
+                    this.xVelocity = 0;
+                }
+                if(this.xVelocity >= 0){
+                    this.xVelocity *= -1;
+                    this.yVelocity = 0;
+                }
+                if(this.xVelocity === 0){
+                    this.xVelocity = -2;
+                    this.yVelocity = 0;
+                }
+                this.direction = 1;
+
+            }else if(this.player.x - this.x > 0){
+                if(this.xVelocity < 0){
+                    this.xVelocity *= -1;
+                    this.yVelocity = 0;
+                }
+                if(this.xVelocity === 0){
+                    this.xVelocity = 2;
+                    this.yVelocity = 0;
+                }
+                this.direction = 3;
             }
-            if(this.yVelocity == 0){
-                this.yVelocity = -2;
+        }else{
+             //get yVelocity
+            if(this.player.y - this.y < 0){
+                if(this.yVelocity >= 0){
+                    this.yVelocity *= -1;
+                    this.xVelocity = 0;
+                }
+                if(this.yVelocity == 0){
+                    this.yVelocity = -2;
+                    this.xVelocity = 0;
+                }
+                this.direction = 0;
             }
-            this.direction = 0;
-        }
-        if(this.player.y - this.y == 0){
-            this.yVelocity = 0;
-        }
-        if(this.player.y - this.y > 0){
-            if(this.yVelocity < 0){
-                this.yVelocity *= -1;
+            if(this.player.y - this.y == 0){
+                this.yVelocity = 0;
             }
-            if(this.yVelocity == 0){
-                this.yVelocity = 2;
+            if(this.player.y - this.y > 0){
+                if(this.yVelocity < 0){
+                    this.yVelocity *= -1;
+                    this.xVelocity = 0;
+                }
+                if(this.yVelocity == 0){
+                    this.yVelocity = 2;
+                    this.xVelocity = 0;
+                }
+                this.direction = 2;
             }
-            this.direction = 2;
         }
     }
 }

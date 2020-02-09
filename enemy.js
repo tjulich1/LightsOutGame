@@ -8,7 +8,7 @@ class Enemy {
         this.height = height;
         this.xVelocity = xVelocity;
         this.yVelocity = yVelocity;
-        this.direction = 0;
+        this.direction = 1;
         this.animations = [new Animation(spriteWalk, 0, 0, 64, 64, .15, 9, true, false),
                         new Animation(spriteWalk, 0, 64, 64, 64, .15, 9, true, false),
                         new Animation(spriteWalk, 0, 128, 64, 64, .15, 9, true, false),

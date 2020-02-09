@@ -4,6 +4,7 @@ class Skeleton extends Enemy{
         //may need to pass in coordinates of the light or implement 
         //a way for it to be found on the game board.
         super(game, x, y,width, height, 100, 0, 0, walkSpriteSheet);
+        this.changeDirectionThresh = 30;
     }
 
     
