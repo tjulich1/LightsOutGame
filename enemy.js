@@ -13,6 +13,7 @@ class Enemy {
                         new Animation(spriteWalk, 0, 64, 64, 64, .15, 9, true, false),
                         new Animation(spriteWalk, 0, 128, 64, 64, .15, 9, true, false),
                         new Animation(spriteWalk, 0, 192, 64, 64, .15, 9, true, false)];
+        this.changeDirectionThresh = 30;
     }
 
     draw(){

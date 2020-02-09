@@ -12,7 +12,12 @@ class Skeleton extends Enemy{
     //evolves.
     //Need to implement a way to search the board for enitites.
     update(){
-        this.getVelocity();
+        if(this.changeDirectionThresh === 0){
+            this.getVelocity();
+            this.changeDirectionThresh = 30;
+        }else{
+            this.changeDirectionThresh--;
+        }
         this.x += this.xVelocity;
         this.y += this.yVelocity;
 

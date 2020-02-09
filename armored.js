@@ -1,15 +1,18 @@
 class Armored extends Enemy{
     constructor(game, x, y, width, height, player, walkSpriteSheet){
-        //filler numbers for health, xvelo, and yvelo.
-        //pass in player currently because the board does not
-        //have a way to locate the player.
+        
+        //Possibly pass up a health value.
         super(game, x, y,width, height, 200, 2, 2, walkSpriteSheet);
         this.player = player;
-
     }
 
     update(){
-        this.findPlayer();
+        if(this.changeDirectionThresh === 0){
+            this.findPlayer();
+            this.changeDirectionThresh = 30;
+        }else{
+            this.changeDirectionThresh--;
+        }
         this.x += this.xVelocity;
         this.y += this.yVelocity;
 
@@ -28,6 +31,7 @@ class Armored extends Enemy{
     }
 
     //Finds the player and chases.
+    //Update to better handle directional changes.
     findPlayer(){
 
         //get xVelocity;
