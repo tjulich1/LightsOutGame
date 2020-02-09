@@ -10,9 +10,13 @@ ASSET_MANAGER.queueDownload("./img/mainCharacter_move.png");
 ASSET_MANAGER.queueDownload("./img/armoredWalk.png");
 ASSET_MANAGER.queueDownload("./img/skeleWalk.png");
 ASSET_MANAGER.queueDownload("./img/campFire.png");
-
+ASSET_MANAGER.queueDownload("./img/greenTree1.png");
 
 ASSET_MANAGER.downloadAll(function () {
+
+    var rows = 20;
+    var columns = 20;
+
     var canvas = document.getElementById('gameWorld');
     var ctx = canvas.getContext('2d');
     var gameEngine = new GameEngine();
@@ -21,7 +25,8 @@ ASSET_MANAGER.downloadAll(function () {
     var testTileSheet = ASSET_MANAGER.getAsset("./img/TestTileSheet.png");
     TILE_LOADER.loadTileSheet(testTileSheet, 50, 50, 1, 3);
     var loadedTileSheet = TILE_LOADER.loadedTiles;
-    var testWorld = new World(testTileSheet, loadedTileSheet, 40, 20, 20, gameEngine);
+    var testWorld = new World(testTileSheet, loadedTileSheet, 40, rows, columns, gameEngine, ASSET_MANAGER.getAsset("./img/greenTree1.png"));
+    gameEngine.addEntity(testWorld);
     testWorld.generate();
 
     // main character sprite properties: height = 64 width = 64
@@ -35,14 +40,24 @@ ASSET_MANAGER.downloadAll(function () {
     var skele = new Skeleton(gameEngine, 720, 10, 50, 50, ASSET_MANAGER.getAsset("./img/skeleWalk.png"));
 
     gameEngine.setMovementHandler(PMH);
+
     gameEngine.addEntity(testWorld);
+
 
     gameEngine.addEntity(mainCharacter);
     gameEngine.addEntity(armor);
     gameEngine.addEntity(light);
     gameEngine.addEntity(skele);
 
+    var grid = new Grid(rows, columns, canvas.width, canvas.height,gameEngine)
+    var mouseHandler = new MouseHandler(gameEngine, grid);
+
+    gameEngine.addEntity(grid);
+
+
     gameEngine.addEntity(new Resource(100, 100, 50, 50, gameEngine, ASSET_MANAGER.getAsset("./img/rock.png")));
+    gameEngine.addEntity(new Resource(200, 200, 43, 50, gameEngine, ASSET_MANAGER.getAsset("./img/greenTree1.png")));
+
 
     gameEngine.start();
 
