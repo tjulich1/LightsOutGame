@@ -50,7 +50,7 @@ class World {
                     let yPos = (j-1)*this.tileDim + (this.tileDim / 2);
                     let width = 43;
                     let height = 50;
-                    this.game.addEntity(new Resource(xPos, yPos, width, height, this.game, this.treeSprite));
+                    this.game.addMiscEntity(new Resource(xPos, yPos, width, height, this.game, this.treeSprite));
                 }
             }
         }
