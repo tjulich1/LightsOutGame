@@ -11,6 +11,7 @@ ASSET_MANAGER.queueDownload("./img/armoredWalk.png");
 ASSET_MANAGER.queueDownload("./img/skeleWalk.png");
 ASSET_MANAGER.queueDownload("./img/campFire.png");
 ASSET_MANAGER.queueDownload("./img/greenTree1.png");
+ASSET_MANAGER.queueDownload("./img/health_bar.png");
 
 ASSET_MANAGER.downloadAll(function () {
 
@@ -30,8 +31,9 @@ ASSET_MANAGER.downloadAll(function () {
     gameEngine.addMiscEntity(testWorld);
     testWorld.generate();
 
-    var mainChar = ASSET_MANAGER.getAsset("./img/mainCharacter_move.png")
-    var mainCharacter = new Player(gameEngine, 30, 30, 64, 64, mainChar);
+    var mainChar = ASSET_MANAGER.getAsset("./img/mainCharacter_move.png");
+    var healthBar = ASSET_MANAGER.getAsset("./img/health_bar.png");
+    var mainCharacter = new Player(gameEngine, 30, 30, 64, 64, mainChar, healthBar);
     PMH.assignPlayer(mainCharacter);
 
     // main character sprite properties: height = 64 width = 64
@@ -56,7 +58,6 @@ ASSET_MANAGER.downloadAll(function () {
 
     gameEngine.addResourceEntity(new Resource(100, 100, 50, 50, gameEngine, ASSET_MANAGER.getAsset("./img/rock.png")));
     gameEngine.addResourceEntity(new Resource(200, 200, 43, 50, gameEngine, ASSET_MANAGER.getAsset("./img/greenTree1.png")));
-
 
 
     gameEngine.start();

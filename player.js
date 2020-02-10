@@ -1,5 +1,5 @@
 class Player {
-    constructor(game, x, y, width, height, spritesheet) {
+    constructor(game, x, y, width, height, spritesheet, healthBar) {
         this.x = x;
         this.y = y;
         this.ctx = game.ctx;
@@ -9,12 +9,14 @@ class Player {
         this.xvelocity = 0;
         this.yvelocity = 0;
         this.spritesheet = spritesheet;
+        this.healthBar = healthBar;
         this.currentKey = 'S';
+        this.healthLeft = 64;
 
-        this.walkAnimationUp = new Animation(spritesheet, 0, 0, 64, 64, 0.15, 9, true, false);
-        this.walkAnimationDown = new Animation(spritesheet, 0, 128, 64, 64, 0.15, 9, true, false);
-        this.walkAnimationLeft = new Animation(spritesheet, 0, 64, 64, 64, 0.15, 9, true, false);
-        this.walkAnimationRight = new Animation(spritesheet, 0, 192, 64, 64, 0.15, 9, true, false);
+        this.walkAnimationUp = new Animation(this.spritesheet, 0, 0, 64, 64, 0.15, 9, true, false);
+        this.walkAnimationDown = new Animation(this.spritesheet, 0, 128, 64, 64, 0.15, 9, true, false);
+        this.walkAnimationLeft = new Animation(this.spritesheet, 0, 64, 64, 64, 0.15, 9, true, false);
+        this.walkAnimationRight = new Animation(this.spritesheet, 0, 192, 64, 64, 0.15, 9, true, false);
     }
 
     draw() {
@@ -42,8 +44,9 @@ class Player {
             } else {
                 this.walkAnimationRight.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
             }
-
         }
+        this.ctx.drawImage(this.healthBar, 0, 0, this.healthLeft, 5, this.x, this.y, this.healthLeft, 5);
+        this.updateHealthBar(0.5);
     }
 
     update() {
@@ -73,5 +76,12 @@ class Player {
 
     updateCurrentKey(key) {
         this.currentKey = key;
+    }
+
+    updateHealthBar(value) {
+        this.healthLeft = this.healthLeft - value;
+        if(this.healthLeft < 1) {
+            this.healthLeft = 64;
+        }
     }
 }
