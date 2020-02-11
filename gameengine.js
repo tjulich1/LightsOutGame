@@ -80,7 +80,6 @@ GameEngine.prototype.startInput = function () {
     this.ctx.canvas.addEventListener("keyup", function(e) {
         e.preventDefault();
         that.movementHandler.keyUp(String.fromCharCode(e.which));
-        that.movementHandler.player.updateCurrentKey(e.key);
     }, false);
 
     console.log('Input started');
@@ -154,7 +153,7 @@ GameEngine.prototype.update = function () {
             entity.update();
         }
     }
-    
+
     //Main entities (fire and main char)
     for (var i = 0; i < mainCount; i++) {
         var entity = this.mainEntities[i];
@@ -169,7 +168,7 @@ GameEngine.prototype.update = function () {
             this.mainEntities.splice(i, 1);
         }
     }
-    
+
     //Enemy entities
     for (var i = 0; i < enemyCount; i++) {
         var entity = this.enemyEntities[i];
