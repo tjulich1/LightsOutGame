@@ -28,7 +28,7 @@ ASSET_MANAGER.downloadAll(function () {
     TILE_LOADER.loadTileSheet(testTileSheet, 50, 50, 1, 3);
     var loadedTileSheet = TILE_LOADER.loadedTiles;
     var testWorld = new World(testTileSheet, loadedTileSheet, 40, rows, columns, gameEngine, ASSET_MANAGER.getAsset("./img/greenTree1.png"));
-    gameEngine.addEntity(testWorld);
+    gameEngine.addMiscEntity(testWorld);
     testWorld.generate();
 
     var mainChar = ASSET_MANAGER.getAsset("./img/mainCharacter_move.png");
@@ -46,18 +46,18 @@ ASSET_MANAGER.downloadAll(function () {
 
     gameEngine.setMovementHandler(PMH);
 
-    gameEngine.addEntity(mainCharacter);
-    gameEngine.addEntity(armor);
-    gameEngine.addEntity(light);
-    gameEngine.addEntity(skele);
+    gameEngine.addMainEntity(mainCharacter);
+    gameEngine.addEnemyEntity(armor);
+    gameEngine.addMainEntity(light);
+    gameEngine.addEnemyEntity(skele);
 
     var grid = new Grid(rows, columns, canvas.width, canvas.height,gameEngine)
     var mouseHandler = new MouseHandler(gameEngine, grid);
 
-    gameEngine.addEntity(grid);
+    gameEngine.addMiscEntity(grid);
 
-    gameEngine.addEntity(new Resource(100, 100, 50, 50, gameEngine, ASSET_MANAGER.getAsset("./img/rock.png")));
-    gameEngine.addEntity(new Resource(200, 200, 43, 50, gameEngine, ASSET_MANAGER.getAsset("./img/greenTree1.png")));
+    gameEngine.addResourceEntity(new Resource(100, 100, 50, 50, gameEngine, ASSET_MANAGER.getAsset("./img/rock.png")));
+    gameEngine.addResourceEntity(new Resource(200, 200, 43, 50, gameEngine, ASSET_MANAGER.getAsset("./img/greenTree1.png")));
 
 
     gameEngine.start();

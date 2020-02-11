@@ -29,7 +29,11 @@ Timer.prototype.tick = function () {
 }
 
 function GameEngine() {
-    this.entities = [];
+    this.mainEntities = [];
+    this.enemyEntities = [];
+    this.resourceEntities = [];
+    this.defenseEntities = [];
+    this.miscEntities = [];
     this.showOutlines = false;
     this.ctx = null;
     this.click = null;
@@ -82,34 +86,132 @@ GameEngine.prototype.startInput = function () {
     console.log('Input started');
 }
 
-GameEngine.prototype.addEntity = function (entity) {
-    console.log('added entity');
-    this.entities.push(entity);
+GameEngine.prototype.addMainEntity = function (entity) {
+    console.log('added main entity');
+    this.mainEntities.push(entity);
+}
+
+GameEngine.prototype.addEnemyEntity = function (entity) {
+    console.log('added enemy entity');
+    this.enemyEntities.push(entity);
+}
+
+GameEngine.prototype.addResourceEntity = function (entity) {
+    console.log('added resource entity');
+    this.resourceEntities.push(entity);
+}
+
+GameEngine.prototype.addDefenseEntity = function (entity) {
+    console.log('added defense entity');
+    this.defenseEntities.push(entity);
+}
+
+GameEngine.prototype.addMiscEntity = function (entity) {
+    console.log('added misc entity');
+    this.miscEntities.push(entity);
 }
 
 GameEngine.prototype.draw = function () {
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     this.ctx.save();
-    for (var i = 0; i < this.entities.length; i++) {
-        this.entities[i].draw(this.ctx);
+
+    for(var i = 0; i < this.miscEntities.length; i++){
+        this.miscEntities[i].draw(this.ctx);
     }
+
+    for (var i = 0; i < this.mainEntities.length; i++) {
+        this.mainEntities[i].draw(this.ctx);
+    }
+
+    for(var i = 0; i < this.enemyEntities.length; i++){
+        this.enemyEntities[i].draw(this.ctx);
+    }
+
+    for(var i = 0; i < this.resourceEntities.length; i++){
+        this.resourceEntities[i].draw(this.ctx);
+    }
+
+    for(var i = 0; i < this.defenseEntities.length; i++){
+        this.defenseEntities[i].draw(this.ctx);
+    }
+
+
     this.ctx.restore();
 }
 
 GameEngine.prototype.update = function () {
-    var entitiesCount = this.entities.length;
+    var mainCount = this.mainEntities.length;
+    var enemyCount = this.enemyEntities.length;
+    var resourceCount = this.resourceEntities.length;
+    var defenseCount = this.defenseEntities.length;
+    var miscCount = this.miscEntities.length;
 
-    for (var i = 0; i < entitiesCount; i++) {
-        var entity = this.entities[i];
+    //Misc entities (Will we ever have to remove?)
+    for (var i = 0; i < miscCount; i++) {
+        var entity = this.miscEntities[i];
+
+        if (!entity.removeFromWorld) {
+            entity.update();
+        }
+    }
+    
+    //Main entities (fire and main char)
+    for (var i = 0; i < mainCount; i++) {
+        var entity = this.mainEntities[i];
 
         if (!entity.removeFromWorld) {
             entity.update();
         }
     }
 
-    for (var i = this.entities.length - 1; i >= 0; --i) {
-        if (this.entities[i].removeFromWorld) {
-            this.entities.splice(i, 1);
+    for (var i = this.mainEntities.length - 1; i >= 0; --i) {
+        if (this.mainEntities[i].removeFromWorld) {
+            this.mainEntities.splice(i, 1);
+        }
+    }
+    
+    //Enemy entities
+    for (var i = 0; i < enemyCount; i++) {
+        var entity = this.enemyEntities[i];
+
+        if (!entity.removeFromWorld) {
+            entity.update();
+        }
+    }
+
+    for (var i = this.enemyEntities.length - 1; i >= 0; --i) {
+        if (this.enemyEntities[i].removeFromWorld) {
+            this.enemyEntities.splice(i, 1);
+        }
+    }
+
+    //Resource entities
+    for (var i = 0; i < resourceCount; i++) {
+        var entity = this.resourceEntities[i];
+
+        if (!entity.removeFromWorld) {
+            entity.update();
+        }
+    }
+
+    for (var i = this.resourceEntities.length - 1; i >= 0; --i) {
+        if (this.resourceEntities[i].removeFromWorld) {
+            this.resourceEntities.splice(i, 1);
+        }
+    }
+
+    //Defense entities
+    for (var i = 0; i < defenseCount; i++) {
+        var entity = this.defenseEntities[i];
+
+        if (!entity.removeFromWorld) {
+            entity.update();
+        }
+    }
+
+    for (var i = this.defenseEntities.length - 1; i >= 0; --i) {
+        if (this.defenseEntities[i].removeFromWorld) {
+            this.defesneEntities.splice(i, 1);
         }
     }
 }
