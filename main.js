@@ -47,6 +47,9 @@ ASSET_MANAGER.downloadAll(function () {
     // ******* testing updating inventory values*****//
         inventory.addRock();
         rock.innerHTML = rock.innerHTML.substring(0, rock.innerHTML.length - 1) + inventory.getRockCount();
+        inventory.addWood();
+        inventory.addWood();
+        wood.innerHTML = wood.innerHTML.substring(0, wood.innerHTML.length - 1) + inventory.getWoodCount();
     //************************************************/
 
     PMH.setContext(gameEngine);
