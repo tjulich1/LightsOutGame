@@ -7,6 +7,7 @@ ASSET_MANAGER.queueDownload("./img/TestTileSheet.png");
 ASSET_MANAGER.queueDownload("./img/rock.png");
 
 ASSET_MANAGER.queueDownload("./img/mainCharacter_move.png");
+ASSET_MANAGER.queueDownload("./img/mainCharacter_dead.png");
 ASSET_MANAGER.queueDownload("./img/armoredWalk.png");
 ASSET_MANAGER.queueDownload("./img/skeleWalk.png");
 ASSET_MANAGER.queueDownload("./img/campFire.png");
@@ -33,7 +34,8 @@ ASSET_MANAGER.downloadAll(function () {
 
     var mainChar = ASSET_MANAGER.getAsset("./img/mainCharacter_move.png");
     var healthBar = ASSET_MANAGER.getAsset("./img/health_bar.png");
-    var mainCharacter = new Player(gameEngine, 30, 30, 64, 64, mainChar, healthBar);
+    var mainCharDead = ASSET_MANAGER.getAsset("./img/mainCharacter_dead.png");
+    var mainCharacter = new Player(gameEngine, 30, 30, 64, 64, mainChar, healthBar, mainCharDead);
     PMH.assignPlayer(mainCharacter);
 
     // main character sprite properties: height = 64 width = 64
