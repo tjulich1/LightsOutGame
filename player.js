@@ -11,6 +11,7 @@ class Player {
         this.spritesheet = spritesheet;
         this.healthBar = healthBar;
         this.currentKey = 'S';
+        this.prevKey = 'undefined';
         this.healthLeft = 64;
         this.mainCharDead = mainCharDead;
 
@@ -83,6 +84,10 @@ class Player {
 
     updateCurrentKey(key) {
         this.currentKey = key;
+    }
+
+    updatePreviousKey(key) {
+        this.prevKey = key;
     }
 
     updateHealthBar(value) {

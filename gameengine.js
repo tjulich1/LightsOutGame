@@ -74,12 +74,20 @@ GameEngine.prototype.startInput = function () {
     this.ctx.canvas.addEventListener("keydown", function (e) {
         e.preventDefault();
         that.movementHandler.keyDown(String.fromCharCode(e.which));
+        that.movementHandler.player.updatePreviousKey(that.movementHandler.player.currentKey);
         that.movementHandler.player.updateCurrentKey(e.key);
+
     }, false);
 
     this.ctx.canvas.addEventListener("keyup", function(e) {
         e.preventDefault();
         that.movementHandler.keyUp(String.fromCharCode(e.which));
+        // that.movementHandler.player.updatePreviousKey(e.key);
+
+        if (that.movementHandler.player.currentKey === e.key && that.movementHandler.player.prevKey !== undefined) {
+            that.movementHandler.player.updateCurrentKey(that.movementHandler.player.prevKey);
+        }
+
     }, false);
 
     console.log('Input started');

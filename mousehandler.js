@@ -11,5 +11,6 @@ class MouseHandler {
 
             that.grid.updateHighlightCells(x, y);
         });
+
     }
 }

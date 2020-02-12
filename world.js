@@ -29,7 +29,7 @@ class World {
         for (var i = 0; i < this.rows; i++) {
             for (var j = 0; j < this.columns; j++) {
                 let rand = Math.random() * 10;
-                if (rand < 1 && lastTree > 5) {
+                if (rand < 1 && lastTree > 8) {
                     // Place a tree
                     this.trees[i*this.rows + j] = 1;
                     lastTree = 0;
@@ -43,8 +43,8 @@ class World {
     }
 
     initResources() {
-        for (var i = 0; i < this.rows; i++) {
-            for (var j = 0; j < this.columns; j++) {
+        for (var j = 0; j < this.rows; j++) {
+            for (var i = 0; i < this.columns; i++) {
                 // If a resource should be placed...
                 if (this.trees[i*this.rows + j] === 1) {
                     let xPos = (i-1)*this.tileDim + (this.tileDim / 2);
