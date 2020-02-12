@@ -4,9 +4,10 @@
 **/
 
 class World {
-    constructor(tileSheet, loadedTiles, desiredTileDim, numRows, numColumns, gameEngine, treeSprite) {
+    constructor(tileSheet, loadedTiles, desiredTileDim, numRows, numColumns, gameEngine, treeSprite, rockSprite) {
         this.tileSheet = tileSheet;
         this.treeSprite = treeSprite;
+        this.rockSprite = rockSprite;
         this.loadedTiles = loadedTiles;
         this.tileDim = desiredTileDim;
         this.rows = numRows;
@@ -38,19 +39,25 @@ class World {
                 }
             }
         }
-        this.initTrees();
+        this.initResources();
     }
 
-    initTrees() {
+    initResources() {
         for (var i = 0; i < this.rows; i++) {
             for (var j = 0; j < this.columns; j++) {
-                // If a tree should be placed...
+                // If a resource should be placed...
                 if (this.trees[i*this.rows + j] === 1) {
                     let xPos = (i-1)*this.tileDim + (this.tileDim / 2);
                     let yPos = (j-1)*this.tileDim + (this.tileDim / 2);
                     let width = 43;
                     let height = 50;
-                    this.game.addMiscEntity(new Resource(xPos, yPos, width, height, this.game, this.treeSprite));
+                    let randomNum = Math.random() * 2;
+                    if (randomNum < 1) {
+                        this.game.addMiscEntity(new Resource(xPos, yPos, width, height, this.game, this.rockSprite));
+                    } else {
+                        this.game.addMiscEntity(new Resource(xPos, yPos, width, height, this.game, this.treeSprite));
+                    }
+
                 }
             }
         }

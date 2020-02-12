@@ -26,7 +26,7 @@ class Player {
         this.updateHealthBar(0.3);
         if(this.healthLeft <= 0) {
             this.deathAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
-            // this.healthLeft = 64;
+            this.healthLeft = 64;
         } else {
             if(this.currentKey === 'W' || this.currentKey === 'w') {
                 if(this.yvelocity === 0) {

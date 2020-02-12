@@ -32,7 +32,8 @@ ASSET_MANAGER.downloadAll(function () {
     var testTileSheet = ASSET_MANAGER.getAsset("./img/TestTileSheet.png");
     TILE_LOADER.loadTileSheet(testTileSheet, 50, 50, 1, 3);
     var loadedTileSheet = TILE_LOADER.loadedTiles;
-    var testWorld = new World(testTileSheet, loadedTileSheet, 40, rows, columns, gameEngine, ASSET_MANAGER.getAsset("./img/greenTree1.png"));
+    var testWorld = new World(testTileSheet, loadedTileSheet, 40, rows, columns,
+         gameEngine, ASSET_MANAGER.getAsset("./img/greenTree1.png"), ASSET_MANAGER.getAsset("./img/rock.png"));
     gameEngine.addMiscEntity(testWorld);
     testWorld.generate();
 
