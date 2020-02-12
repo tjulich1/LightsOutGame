@@ -1,5 +1,5 @@
 class Player {
-    constructor(game, x, y, width, height, spritesheet, healthBar, mainCharDead) {
+    constructor(game, x, y, width, height, spritesheet, healthBar, mainCharDead, inventory) {
         this.x = x;
         this.y = y;
         this.ctx = game.ctx;

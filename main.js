@@ -1,6 +1,10 @@
 var ASSET_MANAGER = new AssetManager();
 var TILE_LOADER = new TileLoader();
 var PMH = new PlayerMovementHandler(3);
+var inventory = new Inventory();
+
+var rock = document.getElementById("rock");
+var wood = document.getElementById("wood");
 
 ASSET_MANAGER.queueDownload("./img/TestTileSheet.png");
 
@@ -39,6 +43,11 @@ ASSET_MANAGER.downloadAll(function () {
     PMH.assignPlayer(mainCharacter);
 
     // main character sprite properties: height = 64 width = 64
+
+    // ******* testing updating inventory values*****//
+        inventory.addRock();
+        rock.innerHTML = rock.innerHTML.substring(0, rock.innerHTML.length - 1) + inventory.getRockCount();
+    //************************************************/
 
     PMH.setContext(gameEngine);
 
