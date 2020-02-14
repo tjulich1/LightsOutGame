@@ -27,14 +27,8 @@ class Enemy {
 
     //may need to figure out a way to pause animation after attack.
     draw(){
-        if(this.attack){
-            if(this.attackThresh === 0){
-                this.animations[this.direction + 4].drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
-            }else if(this.animations[this.direction + 4].isDone()){
-                this.attackThresh = 15;
-            }else{
-                this.attackThresh--;
-            }
+        if(this.attack && !this.dead){
+            this.animations[this.direction + 4].drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
         }else if( this.dead){
 
         }else{
@@ -50,10 +44,9 @@ class Enemy {
     getVelocity(){
         var xDist = Math.abs(this.x - this.target.x);
         var yDist = Math.abs(this.y - this.target.y);
-        //get xVelocity;
-        console.log("gettign velocity");
-
+        
         if(xDist >= yDist){
+            //get xVelocity;
             if(this.target.x - this.x < 0){
                 if(this.xVelocity >= 0){
                     this.xVelocity *= -1;
@@ -104,6 +97,6 @@ class Enemy {
     }
 
     distance(other){
-        return Math.sqrt(((other.x + other.width)/2 - (this.x + this.width)/2)**2 + ((other.y + other.height)/2 - (this.y + this.height/2))**2);
+        return Math.sqrt((other.x + other.width/2 - this.x + this.width/2)**2 + (other.y + other.height/2 - this.y + this.height/2)**2);
     }
 }
