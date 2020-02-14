@@ -8,11 +8,9 @@ class Projectile{
         this.height = height;
         this.targetPoint = targetPoint;
         this.sprite = sprite;
-        this.slope = this.getSlope();
+        this.angle = this.getAngle();
         this.xVelocity = this.getXVelocity();
-        if(this.slope === 0){
-            this.yVelocity = this.getYVelocity();
-        }
+        this.yVelocity = this.getYVelocity();
     }
 
     draw(){
@@ -20,12 +18,22 @@ class Projectile{
     }
 
     update(){
-        if(this.slope !== 0){
-            this.x += this.xVelocity;
-            this.y += this.slope * this.xVelocity;
+        if(this.angle !== 0){
+            this.x += this.xVelocity*(Math.cos(this.angle*Math.PI/180));
+            this.y += this.yVelocity*(Math.sin(this.angle*Math.PI/180));
         }else{
             this.x += this.xVelocity;
             this.y += this.yVelocity;
+        }
+
+        if(this.y < 0 | this.x < 0 || this.y > 800 || this.x > 800){
+            var ent = null;
+            for(var i = 0; i < this.game.projectileEntities.length; i++){
+                ent = this.game.projectileEntities[i];
+                if(this === ent){
+                    ent.removeFromWorld = true;
+                }
+            }
         }
     }
 
@@ -49,17 +57,22 @@ class Projectile{
         }
     }
 
-    getSlope(){
-        // console.log("Tx " + this.targetPoint.x);
-        // console.log("Ty " + this.targetPoint.y);
+    getAngle(){
         var dX = this.targetPoint.x - this.x;
         var dY = this.targetPoint.y - this.y;
-        // console.log("Dx " + dX);
-        // console.log("Dy " + dY);
+
 
         if(dX !== 0){
-            //console.log("Slope: " + dY/dX);
-            return dY/dX;
+
+            if(dX < 0 && dY > 0 || dX > 0 && dY < 0){
+                dY *= -1;
+            }
+            var theta = Math.atan(dY/dX)
+            theta *= 180/Math.PI;
+            if(theta < 0){
+                theta += 360;
+            }
+            return theta;
         }else{
             return 0;
         }
