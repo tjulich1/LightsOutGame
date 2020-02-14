@@ -15,6 +15,7 @@ class Player {
         this.mainCharDead = mainCharDead;
         this.mainCharAttack = mainCharAttack;
         this.attacking = false;
+        this.boundingBox = new BoundingBox(this.x, this.y, this.width, this.height);
 
         this.walkAnimationUp = new Animation(this.spritesheet, 0, 0, 64, 64, 0.15, 9, true, false);
         this.walkAnimationDown = new Animation(this.spritesheet, 0, 128, 64, 64, 0.15, 9, true, false);
@@ -86,6 +87,7 @@ class Player {
         if (this.y > this.ctx.canvas.height) {
             this.y = -this.height;
         }
+        this.boundingBox.update(this.x, this.y);
     }
 
     updateXVelocity(velocityChange) {
