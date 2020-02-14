@@ -82,6 +82,11 @@ GameEngine.prototype.startInput = function () {
         that.movementHandler.keyUp(String.fromCharCode(e.which));
     }, false);
 
+    this.ctx.canvas.addEventListener("click", function(e) {
+        e.preventDefault();
+        that.movementHandler.player.updateAttackStatus();
+    }, false)
+
     console.log('Input started');
 }
 

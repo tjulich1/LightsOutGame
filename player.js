@@ -1,5 +1,5 @@
 class Player {
-    constructor(game, x, y, width, height, spritesheet, healthBar, mainCharDead, inventory) {
+    constructor(game, x, y, width, height, spritesheet, healthBar, mainCharDead, mainCharAttack) {
         this.x = x;
         this.y = y;
         this.ctx = game.ctx;
@@ -13,20 +13,35 @@ class Player {
         this.currentKey = 'S';
         this.healthLeft = 64;
         this.mainCharDead = mainCharDead;
+        this.mainCharAttack = mainCharAttack;
+        this.attacking = false;
 
         this.walkAnimationUp = new Animation(this.spritesheet, 0, 0, 64, 64, 0.15, 9, true, false);
         this.walkAnimationDown = new Animation(this.spritesheet, 0, 128, 64, 64, 0.15, 9, true, false);
         this.walkAnimationLeft = new Animation(this.spritesheet, 0, 64, 64, 64, 0.15, 9, true, false);
         this.walkAnimationRight = new Animation(this.spritesheet, 0, 192, 64, 64, 0.15, 9, true, false);
+
         this.deathAnimation = new Animation(this.mainCharDead, 0, 0, 64, 64, 0.15, 6, true, false);
+        
+        this.attackAnimationUp = new Animation(this.mainCharAttack, 0, 0, 64, 64, 0.15, 8, true, false);
+        this.attackAnimationDown = new Animation(this.mainCharAttack, 0, 128, 64, 64, 0.15, 8, true, false);
+        this.attackAnimationLeft = new Animation(this.mainCharAttack, 0, 64, 64, 64, 0.15, 8, true, false);
+        this.attackAnimationRight = new Animation(this.mainCharAttack, 0, 192, 64, 64, 0.15, 8, true, false);
     }
 
     draw() {
         this.ctx.drawImage(this.healthBar, 0, 0, this.healthLeft, 5, this.x, this.y, this.healthLeft, 5);
         this.updateHealthBar(0.3);
-        if(this.healthLeft <= 0) {
-            this.deathAnimation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
-            // this.healthLeft = 64;
+        if(this.attacking) {
+            if(this.currentKey === 'W' || this.currentKey === 'w') {
+                this.attackAnimationUp.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
+            } else if(this.currentKey === 'A' || this.currentKey === 'a') {
+                this.attackAnimationLeft.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
+            } else if(this.currentKey === 'S' || this.currentKey === 's' || this.currentKey === '' || this.currentKey === undefined) {
+                this.attackAnimationDown.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
+            } else {
+                this.attackAnimationRight.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
+            }
         } else {
             if(this.currentKey === 'W' || this.currentKey === 'w') {
                 if(this.yvelocity === 0) {
@@ -87,5 +102,12 @@ class Player {
 
     updateHealthBar(value) {
         this.healthLeft = this.healthLeft - value;
+        if(this.healthLeft <= 0) {
+            this.healthLeft = 64;
+        }
+    }
+
+    updateAttackStatus() {
+        this.attacking = !this.attacking;
     }
 }
