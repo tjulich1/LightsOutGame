@@ -1,8 +1,8 @@
 class Armored extends Enemy{
-    constructor(game, x, y, width, height, player, walkSpriteSheet){
+    constructor(game, x, y, width, height, player, walkSpriteSheet, attackSpriteSheet){
         
         //Possibly pass up a health value.
-        super(game, x, y,width, height, 200, 2, 2, walkSpriteSheet);
+        super(game, x, y,width, height, 200, 0, 0, walkSpriteSheet, attackSpriteSheet);
         this.player = player;
     }
 

@@ -115,6 +115,8 @@ GameEngine.prototype.draw = function () {
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     this.ctx.save();
 
+    //The order in which each entitey is processed determined layering.
+    
     for(var i = 0; i < this.miscEntities.length; i++){
         this.miscEntities[i].draw(this.ctx);
     }
@@ -140,6 +142,8 @@ GameEngine.prototype.draw = function () {
 }
 
 GameEngine.prototype.update = function () {
+    //The order in which each entitey is processed determined layering.
+
     var mainCount = this.mainEntities.length;
     var enemyCount = this.enemyEntities.length;
     var resourceCount = this.resourceEntities.length;
@@ -154,7 +158,7 @@ GameEngine.prototype.update = function () {
             entity.update();
         }
     }
-    
+
     //Main entities (fire and main char)
     for (var i = 0; i < mainCount; i++) {
         var entity = this.mainEntities[i];
