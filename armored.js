@@ -1,15 +1,28 @@
 class Armored extends Enemy{
-    constructor(game, x, y, width, height, player, walkSpriteSheet){
-        //filler numbers for health, xvelo, and yvelo.
-        //pass in player currently because the board does not
-        //have a way to locate the player.
-        super(game, x, y,width, height, 200, 2, 2, walkSpriteSheet);
-        this.player = player;
-
+    constructor(game, x, y, width, height, walkSpriteSheet, attackSpriteSheet){
+        
+        //Possibly pass up a health value.
+        super(game, x, y,width, height, 200, 0, 0, walkSpriteSheet, attackSpriteSheet);
     }
 
     update(){
-        this.findPlayer();
+        //if my target has dies or no longer exists set attack to false;
+        if(!this.target){
+            //get the main char
+            this.target = this.game.mainEntities[0];
+        }
+
+        if(this.changeDirectionThresh === 0 && !this.attack){
+            this.getVelocity();
+            this.changeDirectionThresh = 30;
+        }else if(this.attack){
+            this.xVelocity = 0;
+            this.yVelocity = 0;
+            this.changeDirectionThresh = 0;
+        }else{
+            this.changeDirectionThresh--;
+        }
+
         this.x += this.xVelocity;
         this.y += this.yVelocity;
 
@@ -25,55 +38,37 @@ class Armored extends Enemy{
         if (this.y > this.ctx.canvas.height) {
             this.y = -this.height;
         }
-    }
 
-    //Finds the player and chases.
-    findPlayer(){
+        this.boundingBox.update(this.x, this.y);
+        var ent = null;
+        this.attack = false;
 
-        //get xVelocity;
-        if(this.player.x - this.x < 0){
-            if(this.xVelocity >= 0){
-                this.xVelocity *= -1;
+        //find closest target (done)
+        //have I collided with target? (main char, defense, campfire)
+        //if yes set attack to true 
+        for(var i = 0; i < this.game.mainEntities.length; i++){
+            ent = this.game.mainEntities[i];
+            if(this.collide(ent) && this.target === ent){
+                this.attack = true;
+            }else{
+                //get around
             }
-            if(this.xVelocity == 0){
-                this.xVelocity = -2;
-            }
-            this.direction = 1;
-        }
-        if(this.player.x - this.x == 0){
-            this.xVelocity = 0;
-        }
-        if(this.player.x - this.x > 0){
-            if(this.xVelocity < 0){
-                this.xVelocity *= -1;
-            }
-            if(this.xVelocity == 0){
-                this.xVelocity = 2;
-            }
-            this.direction = 3;
         }
 
-        //get yVelocity
-        if(this.player.y - this.y < 0){
-            if(this.yVelocity >= 0){
-                this.yVelocity *= -1;
+        for(var i = 0; i < this.game.defenseEntities.length; i++){
+            ent = this.game.defenseEntities[i];
+            if(this.collide(ent) && !this.attack){
+                //path around
             }
-            if(this.yVelocity == 0){
-                this.yVelocity = -2;
-            }
-            this.direction = 0;
         }
-        if(this.player.y - this.y == 0){
-            this.yVelocity = 0;
+
+        // see if this has collided with resources or other enemies
+        for(var i = 0; i < this.game.resourceEntities.length; i++){
+            //get around
         }
-        if(this.player.y - this.y > 0){
-            if(this.yVelocity < 0){
-                this.yVelocity *= -1;
-            }
-            if(this.yVelocity == 0){
-                this.yVelocity = 2;
-            }
-            this.direction = 2;
+
+        for(var i = 0; i < this.game.enemyEntities.length; i++){
+            //get around
         }
     }
 }
