@@ -1,23 +1,30 @@
 class Skeleton extends Enemy{
-    constructor(game, x, y, width, height, walkSpriteSheet){
+    constructor(game, x, y, width, height, walkSpriteSheet, attackSpriteSheet){
         //filler numbers for health, xvelo, and yvelo.
         //may need to pass in coordinates of the light or implement 
         //a way for it to be found on the game board.
-        super(game, x, y,width, height, 100, 0, 0, walkSpriteSheet);
+        super(game, x, y,width, height, 100, 0, 0, walkSpriteSheet, attackSpriteSheet);
     }
 
-    
-
-    //currently the exact same as armored, but i expect this to change as the code
-    //evolves.
-    //Need to implement a way to search the board for enitites.
     update(){
-        if(this.changeDirectionThresh === 0){
+        //if my target has dies or no longer exists set attack to false;
+        if(!this.target){
+            this.attack = false;
+        }
+
+        if(this.changeDirectionThresh === 0 && !this.attack){
+            this.findClosestTarget();
             this.getVelocity();
             this.changeDirectionThresh = 30;
+        }else if(this.attack){
+            this.xVelocity = 0;
+            this.yVelocity = 0;
+            this.changeDirectionThresh = 0;
+            //may need to get proper direction to face
         }else{
             this.changeDirectionThresh--;
         }
+
         this.x += this.xVelocity;
         this.y += this.yVelocity;
 
@@ -33,42 +40,70 @@ class Skeleton extends Enemy{
         if (this.y > this.ctx.canvas.height) {
             this.y = -this.height;
         }
+
+        this.boundingBox.update(this.x, this.y);
+        var ent = null;
+        this.attack = false;
+
+        //find closest target (done)
+        //have I collided with target? (main char, defense, campfire)
+        //if yes set attack to true 
+        for(var i = 0; i < this.game.mainEntities.length; i++){
+            ent = this.game.mainEntities[i];
+            if(this.collide(ent)){
+                this.attack = true;
+                if(this.target !== ent){
+                    this.target = ent;
+                }
+            }
+        }
+
+        for(var i = 0; i < this.game.defenseEntities.length; i++){
+            ent = this.game.defenseEntities[i];
+            if(this.collide(ent) && !this.attack){
+                this.attack = true;
+                this.target = ent;
+            }
+        }
+
+        // see if this has collided with resources or other enemies
+        for(var i = 0; i < this.game.resourceEntities.length; i++){
+            //get away
+        }
+
+        for(var i = 0; i < this.game.enemyEntities.length; i++){
+            //get away
+        }
     }
 
-    //update this to be more smooth.
-    getVelocity(){
-        var xCenter = this.ctx.canvas.width/2;
-        var yCenter = this.ctx.canvas.height/2;
-        var xDist = Math.abs((xCenter + 25) - (this.x + this.width/2));
-        var yDist = Math.abs((yCenter + 25) - (this.y + this.height/2));
 
-            if(yCenter - this.y < 0 && yDist > xDist){
-                this.yVelocity = -2;
-                this.xVelocity = 0;
-                this.direction = 0;
+    
+    findClosestTarget(){
+        var minDist = Infinity;
+        var currDist = 0;
+        var ent = null;
+        console.log("lookingent");
 
-                
-            }else if(yCenter - this.y > 0 && yDist > xDist){
-                this.yVelocity = 2;
-                this.xVelocity = 0;
-                this.direction = 2;
+        for(var i = 0; i < this.game.mainEntities.length; i++){
+            ent = this.game.mainEntities[i];
+            currDist = this.distance(ent);
+            console.log(ent.x);
 
-            }else if(xCenter - this.x < 0){
-                this.xVelocity = -2;
-                this.yVelocity = 0;
-                this.direction = 1;
-
-            }else if(xCenter - this.x > 0){
-                this.xVelocity = 2;
-                this.yVelocity = 0;
-                this.direction = 3;
+            if(currDist < minDist){
+                console.log("found ent");
+                minDist = currDist;
+                this.target = ent;
             }
+        }
 
-            if(xDist < 50 && yDist < 50){
-                this.xVelocity = 0;
-                this.yVelocity = 0;
+        for(var i = 0; i < this.game.defenseEntities.length; i++){
+            ent = this.game.mainEntities[i];
+            currDist = this.distance(ent);
+
+            if(currDist < minDist){
+                minDist = currDist;
+                this.target = ent;
             }
-
+        }
     }
-
 }
