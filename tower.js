@@ -27,7 +27,6 @@ class Tower{
             for(var i = 0; i < this.game.enemyEntities.length; i++){
                 ent = this.game.enemyEntities[i];
                 if(this.distance(ent) <= this.radius){
-                    console.log("found enemy");
                     this.enemies.push(ent);
                 }
             }
@@ -44,13 +43,8 @@ class Tower{
 
     fireProjectile(){
         for(var i = 0; i < this.enemies.length; i++){
-            //console.log("Fire");
-            console.log("enemy x:" + this.enemies[i].x);
-            console.log("enemy y:" + this.enemies[i].y);
             var interceptPoint = this.intercept(this.enemies[i], 3);
             if(interceptPoint){
-                console.log("x: "+ interceptPoint.x + " y: " + interceptPoint.y);
-                //console.log("Fired");
                 addProjectile(this.shotX, this.shotY, interceptPoint);
             }else{
                 addProjectile(this.shotX, this.shotY, {x: this.enemies[i].x, y: this.enemies[i].y});
@@ -70,17 +64,14 @@ class Tower{
         var b = 2 * (tvx * tx + tvy * ty);
         var c = tx*tx + ty*ty;    
       
-        // Solve quadratic
-        var ts = this.quad(a, b, c); // See quad(), below
+        var ts = this.quad(a, b, c); 
       
-        // Find smallest positive solution
         var sol = null;
         if (ts) {
           var t0 = ts[0], t1 = ts[1];
           var t = Math.min(t0, t1);
           if (t < 0) t = Math.max(t0, t1);    
           if (t > 0) {
-            console.log("t: " + t);
             sol = {
               x: dst.x + dst.xVelocity*t,
               y: dst.y + dst.yVelocity*t
