@@ -1,11 +1,12 @@
 class Light{
-    constructor(game, width, height, spritesheet){
+    constructor(game, width, height, spritesheet, healthBar){
         this.ctx = game.ctx;
         this.animation = new Animation(spritesheet, 0, 0, 64, 64, .20, 5, true, false);
         this.game = game;
         this.height = height;
         this.width = width;
-        //this.health = 100;
+        this.healthBar = healthBar;
+        this.healthLeft = 64;
 
         //put the light in the middle of the tileset.
         //We could also accept x, y anad place it at different coordinates.
@@ -14,7 +15,12 @@ class Light{
         this.boundingBox = new BoundingBox(this.x + 17, this.y + 32, 30, 32); 
     }
 
+    takeDamage(value) {
+        this.healthLeft = this.healthLeft - value;
+    }
+
     draw(){
+        this.ctx.drawImage(this.healthBar, 0, 0, this.healthLeft, 5, this.x, this.y, this.healthLeft, 5);
         this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
     }
 
