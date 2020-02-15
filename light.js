@@ -11,7 +11,7 @@ class Light{
         //We could also accept x, y anad place it at different coordinates.
         this.x = this.ctx.canvas.width/2 - this.width/2;
         this.y = this.ctx.canvas.height/2 - this.height/2;
-        this.boundingBox = new BoundingBox(this.x, this.y, this.width, this.height); 
+        this.boundingBox = new BoundingBox(this.x + 17, this.y + 32, 30, 32); 
     }
 
     draw(){

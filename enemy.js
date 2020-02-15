@@ -21,7 +21,7 @@ class Enemy {
         this.attackThresh = 0;
         this.attack = false;
         this.dead = false;
-        this.boundingBox = new BoundingBox(this.x, this.y, this.width, this.height);
+        this.boundingBox = new BoundingBox(this.x + 17, this.y + 8.5, 30, 47);
         this.target = null;
     }
 

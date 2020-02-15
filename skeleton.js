@@ -41,7 +41,7 @@ class Skeleton extends Enemy{
             this.y = -this.height;
         }
 
-        this.boundingBox.update(this.x, this.y);
+        this.boundingBox.update(this.x + 17, this.y + 8.5);
         var ent = null;
         this.attack = false;
 
