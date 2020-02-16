@@ -72,7 +72,10 @@ class Skeleton extends Enemy{
         }
 
         for(var i = 0; i < this.game.enemyEntities.length; i++){
-            //get away
+            ent = this.game.enemyEntities[i];
+            if(this !== ent && this.collide(ent) && (this.xVelocity !== 0 || this.yVelocity !== 0)){
+                this.changeDirection(ent);
+            }
         }
     }
 
