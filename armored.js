@@ -67,9 +67,12 @@ class Armored extends Enemy{
 
         // see if this has collided with resources or other enemies
         for(var i = 0; i < this.game.resourceEntities.length; i++){
-            //get around
+            ent = this.game.resourceEntities[i];
+            if(this.collide(ent)){
+                this.changeDirection(ent);
+                this.changeDirectionThresh = 30;
+            }
         }
-
         for(var i = 0; i < this.game.enemyEntities.length; i++){
             ent = this.game.enemyEntities[i];
             if(this !== ent && this.collide(ent) && (this.xVelocity !== 0 || this.yVelocity !== 0)){

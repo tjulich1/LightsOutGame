@@ -114,7 +114,7 @@ class Enemy {
         }else if(this.direction === 2){
             this.yVelocity = 0;
             //problem here
-            this.y -= 5;
+            this.y -= 2;
             if(this.x < this.target.x){
                 this.direction = 3;
                 this.xVelocity = 2;
@@ -135,7 +135,7 @@ class Enemy {
         }else{
             this.xVelocity = 0;
             //problem here
-            this.x -= 5;
+            this.x -= 2;
             if(this.y < this.target.y){
                 this.direction = 2;
                 this.yVelocity = 2;
