@@ -72,6 +72,13 @@ GameEngine.prototype.startInput = function () {
     console.log('Starting input');
     var that = this;
 
+    // var map = {};
+    // onkeydown = onkeyup = function(e) {
+    //     map[e.keyCode] = e.type == 'keydown';
+    // };
+
+    // that.movementHandler.player.updateKeysPressed(map);
+
     this.ctx.canvas.addEventListener("keydown", function (e) {
         e.preventDefault();
         that.movementHandler.keyDown(String.fromCharCode(e.which));

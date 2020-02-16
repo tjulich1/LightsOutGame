@@ -17,6 +17,7 @@ class Player {
         this.mainCharAttack = mainCharAttack;
         this.attacking = false;
         this.boundingBox = new BoundingBox(this.x + 17, this.y + 8.5, 30, 47);
+        this.keysPressed = [];
 
         this.walkAnimationUp = new Animation(this.spritesheet, 0, 0, 64, 64, 0.15, 9, true, false);
         this.walkAnimationDown = new Animation(this.spritesheet, 0, 128, 64, 64, 0.15, 9, true, false);
@@ -116,5 +117,9 @@ class Player {
 
     updateAttackStatus() {
         this.attacking = !this.attacking;
+    }
+
+    updateKeysPressed(map) {
+        this.keysPressed = map;
     }
 }
