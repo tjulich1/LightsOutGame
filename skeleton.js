@@ -56,6 +56,10 @@ class Skeleton extends Enemy{
                     this.target = ent;
                 }
             }
+            if(this.collide(ent) && this.target === ent && this.xVelocity === 0 && this.yVelocity === 0 && this.attackThresh === 0){
+                //deal damage
+                //set attackThres
+            }
         }
 
         for(var i = 0; i < this.game.defenseEntities.length; i++){
@@ -75,6 +79,7 @@ class Skeleton extends Enemy{
             ent = this.game.enemyEntities[i];
             if(this !== ent && this.collide(ent) && (this.xVelocity !== 0 || this.yVelocity !== 0)){
                 this.changeDirection(ent);
+                this.changeDirectionThresh = 60;
             }
         }
     }
@@ -85,15 +90,12 @@ class Skeleton extends Enemy{
         var minDist = Infinity;
         var currDist = 0;
         var ent = null;
-        console.log("lookingent");
 
         for(var i = 0; i < this.game.mainEntities.length; i++){
             ent = this.game.mainEntities[i];
             currDist = this.distance(ent);
-            console.log(ent.x);
 
             if(currDist < minDist){
-                console.log("found ent");
                 minDist = currDist;
                 this.target = ent;
             }
