@@ -72,7 +72,11 @@ class Skeleton extends Enemy{
 
         // see if this has collided with resources or other enemies
         for(var i = 0; i < this.game.resourceEntities.length; i++){
-            //get away
+            ent = this.game.resourceEntities[i];
+            if(this.collide(ent)){
+                this.changeDirection(ent);
+                this.changeDirectionThresh = 30;
+            }
         }
 
         for(var i = 0; i < this.game.enemyEntities.length; i++){
