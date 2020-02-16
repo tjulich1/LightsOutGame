@@ -11,6 +11,7 @@ class Player {
         this.spritesheet = spritesheet;
         this.healthBar = healthBar;
         this.currentKey = 'S';
+        this.prevKey = 'undefined';
         this.healthLeft = 64;
         this.mainCharDead = mainCharDead;
         this.mainCharAttack = mainCharAttack;
@@ -23,7 +24,7 @@ class Player {
         this.walkAnimationRight = new Animation(this.spritesheet, 0, 192, 64, 64, 0.15, 9, true, false);
 
         this.deathAnimation = new Animation(this.mainCharDead, 0, 0, 64, 64, 0.15, 6, true, false);
-        
+
         this.attackAnimationUp = new Animation(this.mainCharAttack, 0, 0, 64, 64, 0.15, 8, true, false);
         this.attackAnimationDown = new Animation(this.mainCharAttack, 0, 128, 64, 64, 0.15, 8, true, false);
         this.attackAnimationLeft = new Animation(this.mainCharAttack, 0, 64, 64, 64, 0.15, 8, true, false);
@@ -100,6 +101,10 @@ class Player {
 
     updateCurrentKey(key) {
         this.currentKey = key;
+    }
+
+    updatePreviousKey(key) {
+        this.prevKey = key;
     }
 
     updateHealthBar(value) {
