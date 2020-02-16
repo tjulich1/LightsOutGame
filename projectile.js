@@ -61,9 +61,7 @@ class Projectile{
         var dX = this.targetPoint.x - this.x;
         var dY = this.targetPoint.y - this.y;
 
-
         if(dX !== 0){
-
             if(dX < 0 && dY > 0 || dX > 0 && dY < 0){
                 dY *= -1;
             }
