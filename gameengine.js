@@ -108,7 +108,9 @@ GameEngine.prototype.startInput = function () {
 
     this.ctx.canvas.addEventListener("click", function(e) {
         e.preventDefault();
-        if()
+        if(towerKey) {
+            
+        }
         that.movementHandler.player.updateAttackStatus();
     }, false)
 
@@ -150,7 +152,7 @@ GameEngine.prototype.draw = function () {
     this.ctx.save();
 
     //The order in which each entitey is processed determined layering.
-
+    
     for(var i = 0; i < this.miscEntities.length; i++){
         this.miscEntities[i].draw(this.ctx);
     }
