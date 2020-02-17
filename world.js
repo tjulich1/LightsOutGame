@@ -16,6 +16,8 @@ class World {
         this.ctx = gameEngine.ctx;
         this.worldTiles = [];
         this.trees = [];
+        this.rockWidth = 31;
+        this.rockHeight = 25;
     }
 
     generate() {
@@ -51,11 +53,12 @@ class World {
                     let yPos = (j-1)*this.tileDim + (this.tileDim / 2);
                     let width = 43;
                     let height = 50;
+
                     let randomNum = Math.random() * 2;
                     if (randomNum < 1) {
-                        this.game.addMiscEntity(new Resource(xPos, yPos, width, height, this.game, this.rockSprite));
+                        this.game.addResourceEntity(new Resource(xPos, yPos, this.rockWidth, this.rockHeight, this.game, this.rockSprite));
                     } else {
-                        this.game.addMiscEntity(new Resource(xPos, yPos, width, height, this.game, this.treeSprite));
+                        this.game.addResourceEntity(new Resource(xPos, yPos, width, height, this.game, this.treeSprite));
                     }
 
                 }

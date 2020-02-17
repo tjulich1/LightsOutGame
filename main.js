@@ -24,8 +24,6 @@ ASSET_MANAGER.queueDownload("./img/health_bar.png");
 ASSET_MANAGER.queueDownload("./img/tower.png");
 ASSET_MANAGER.queueDownload("./img/pebble.png");
 
-
-
 ASSET_MANAGER.downloadAll(function () {
 
     var rows = 20;
@@ -80,7 +78,7 @@ ASSET_MANAGER.downloadAll(function () {
 
     gameEngine.addMiscEntity(grid);
 
-    gameEngine.addResourceEntity(new Resource(100, 100, 35, 30, gameEngine, ASSET_MANAGER.getAsset("./img/rock.png")));
+    gameEngine.addResourceEntity(new Resource(100, 100, 31, 25, gameEngine, ASSET_MANAGER.getAsset("./img/rock.png")));
     gameEngine.addResourceEntity(new Resource(200, 200, 43, 50, gameEngine, ASSET_MANAGER.getAsset("./img/greenTree1.png")));
 
     gameEngine.start();
