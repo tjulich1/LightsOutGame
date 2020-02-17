@@ -121,7 +121,7 @@ class Player {
         // Check if it hit from the bottom...
         else if (this.currentKey === 'w' || this.currentKey === 'W') {
             this.yVelocity = 0;
-            this.y = otherEntity.boundingBox.bottom + 5;
+            this.y = otherEntity.boundingBox.bottom + 1;
         }
         // Check if it hit from the right
         else if (this.currentKey === 'd' || this.currentKey === 'D') {
@@ -131,7 +131,7 @@ class Player {
         // Check if it hit from the left
         else if (this.currentKey === 'a' || this.currentKey === 'A') {
             this.xvelocity = 0;
-            this.x = otherEntity.boundingBox.right + 5;
+            this.x = otherEntity.boundingBox.right + 1;
         }
     }
 
