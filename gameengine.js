@@ -150,7 +150,7 @@ GameEngine.prototype.draw = function () {
     this.ctx.save();
 
     //The order in which each entitey is processed determined layering.
-    
+
     for(var i = 0; i < this.miscEntities.length; i++){
         this.miscEntities[i].draw(this.ctx);
     }
