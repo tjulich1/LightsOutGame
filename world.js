@@ -40,11 +40,10 @@ class World {
         for (var i = 0; i < this.rows; i++) {
             this.resources[i] = new Array(this.columns).fill(0);
         }
-        let lastResource = 0;
         for (var i = 0; i < this.rows; i++) {
             for (var j = 0; j < this.columns; j++) {
                 let shouldPlace = Math.random() * 2
-                if (lastResource >= 10 && shouldPlace > 1) {
+                if (this.checkSurroundingResources(j, i) && shouldPlace > 1) {
                     let resourceType = Math.random() * 2;
                     if (resourceType < 1) {
                         // Place a tree
@@ -55,16 +54,23 @@ class World {
                         this.resources[j][i] = 2;
                         this.game.addResourceEntity(new Resource(j*this.tileDim, i*this.tileDim, this.rockWidth, this.rockHeight, this.game, this.rockSprite));
                     }
-                    lastResource = 0;
-                } else {
-                    lastResource++;
                 }
             }
         }
     }
 
     checkSurroundingResources(x, y) {
-
+        for (let currentRow = x - 3; currentRow <= x + 3; currentRow++) {
+            for (let currentColumn = y - 3; currentColumn <= y + 3; currentColumn++) {
+                if (currentRow >= 0 && currentColumn >= 0 && currentRow < this.rows && currentColumn < this.columns) {
+                    console.log(currentRow);
+                    if (this.resources[currentRow][currentColumn] !== 0) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 
     draw() {

@@ -76,8 +76,6 @@ ASSET_MANAGER.downloadAll(function () {
     var grid = new Grid(rows, columns, canvas.width, canvas.height,gameEngine)
     var mouseHandler = new MouseHandler(gameEngine, grid);
 
-    gameEngine.addResourceEntity(new Resource(100, 100, testWorld.treeWidth, testWorld.treeHeight, gameEngine, ASSET_MANAGER.getAsset("./img/greenTree1.png")));
-
     gameEngine.addMiscEntity(grid);
 
     gameEngine.start();
