@@ -80,7 +80,7 @@ ASSET_MANAGER.downloadAll(function () {
 
     gameEngine.addMiscEntity(grid);
 
-    gameEngine.addResourceEntity(new Resource(100, 100, 50, 50, gameEngine, ASSET_MANAGER.getAsset("./img/rock.png")));
+    gameEngine.addResourceEntity(new Resource(100, 100, 31, 25, gameEngine, ASSET_MANAGER.getAsset("./img/rock.png")));
     gameEngine.addResourceEntity(new Resource(200, 200, 43, 50, gameEngine, ASSET_MANAGER.getAsset("./img/greenTree1.png")));
 
     gameEngine.start();

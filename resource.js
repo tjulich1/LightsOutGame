@@ -12,6 +12,7 @@ class Resource {
         this.game = game;
         this.ctx = game.ctx;
         this.image = image;
+        this.boundingBox = new BoundingBox(this.x, this.y, this.width, this.height);
     }
 
     draw() {

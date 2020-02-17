@@ -50,25 +50,35 @@ class Armored extends Enemy{
             ent = this.game.mainEntities[i];
             if(this.collide(ent) && this.target === ent){
                 this.attack = true;
-            }else{
-                //get around
+                //deal dmanage
+            }else if(this.collide(ent)){
+                this.changeDirection(ent);
+                this.changeDirectionThresh = 60;
             }
         }
 
         for(var i = 0; i < this.game.defenseEntities.length; i++){
             ent = this.game.defenseEntities[i];
             if(this.collide(ent) && !this.attack){
-                //path around
+                this.changeDirection(ent);
+                this.changeDirectionThresh = 60;
             }
         }
 
         // see if this has collided with resources or other enemies
         for(var i = 0; i < this.game.resourceEntities.length; i++){
-            //get around
+            ent = this.game.resourceEntities[i];
+            if(this.collide(ent)){
+                this.changeDirection(ent);
+                this.changeDirectionThresh = 30;
+            }
         }
-
         for(var i = 0; i < this.game.enemyEntities.length; i++){
-            //get around
+            ent = this.game.enemyEntities[i];
+            if(this !== ent && this.collide(ent) && (this.xVelocity !== 0 || this.yVelocity !== 0)){
+                this.changeDirection(ent);
+                this.changeDirectionThresh = 60;
+            }
         }
     }
 }

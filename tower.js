@@ -54,8 +54,8 @@ class Tower{
     }
 
     intercept(dst, v) {
-        var tx = dst.x - this.x;
-        var ty = dst.y - this.y;
+        var tx = dst.x + dst.width/2 - this.shotX;
+        var ty = dst.y + dst.height/2 - this.shotY;
         var tvx = dst.xVelocity;
         var tvy = dst.yVelocity;
       
@@ -73,8 +73,8 @@ class Tower{
           if (t < 0) t = Math.max(t0, t1);    
           if (t > 0) {
             sol = {
-              x: dst.x + dst.xVelocity*t,
-              y: dst.y + dst.yVelocity*t
+              x: dst.x + dst.width/2 + dst.xVelocity*t,
+              y: dst.y + dst.height/2 + dst.yVelocity*t
             };
           }
         }
