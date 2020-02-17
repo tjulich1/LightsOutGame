@@ -4,6 +4,7 @@ class Skeleton extends Enemy{
         //may need to pass in coordinates of the light or implement 
         //a way for it to be found on the game board.
         super(game, x, y,width, height, 100, 0, 0, walkSpriteSheet, attackSpriteSheet);
+        this.damage = 10;
     }
 
     update(){
@@ -47,6 +48,10 @@ class Skeleton extends Enemy{
         //find closest target (done)
         //have I collided with target? (main char, defense, campfire)
         //if yes set attack to true 
+        if(this.attackThresh !== 0){
+            this.attackThresh--;
+        }
+
         for(var i = 0; i < this.game.mainEntities.length; i++){
             ent = this.game.mainEntities[i];
             if(this.collide(ent)){
@@ -56,8 +61,11 @@ class Skeleton extends Enemy{
                 }
             }
             if(this.collide(ent) && this.target === ent && this.xVelocity === 0 && this.yVelocity === 0 && this.attackThresh === 0){
-                //deal damage
-                //set attackThres
+                ent.takeDamage(this.damage);
+                this.attackThresh = 100;
+                if(ent.gameOver()){
+                    console.log("Killed Something important");
+                }
             }
         }
 
@@ -74,7 +82,7 @@ class Skeleton extends Enemy{
             ent = this.game.resourceEntities[i];
             if(this.collide(ent)){
                 this.changeDirection(ent);
-                this.changeDirectionThresh = 30;
+                this.changeDirectionThresh = 60;
             }
         }
 
