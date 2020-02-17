@@ -157,6 +157,10 @@ class Player {
         }
     }
 
+    gameOver() {
+        return this.healthLeft <= 0;
+    }
+
     updateAttackStatus() {
         this.attacking = !this.attacking;
     }
