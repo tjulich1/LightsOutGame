@@ -17,6 +17,7 @@ class Light{
 
     takeDamage(value) {
         this.healthLeft = this.healthLeft - value;
+        console.log("Took dmg");
     }
 
     draw(){

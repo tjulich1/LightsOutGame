@@ -1,5 +1,5 @@
 class Tower{
-    constructor(game, x, y, width, height, sprite, assetMan){
+    constructor(game, x, y, width, height, sprite){
         this.game = game;
         this.ctx = this.game.ctx;
         this.x = x;
@@ -9,7 +9,6 @@ class Tower{
         this.width = width;
         this. height = height;
         this.sprite = sprite;
-        this.assets = assetMan;
         this.fireThresh = 0;
         this.radius = 200;
         this.enemies = [];
