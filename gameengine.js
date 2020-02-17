@@ -183,7 +183,11 @@ GameEngine.prototype.update = function () {
     //Misc entities (Will we ever have to remove?)
     for (var i = 0; i < miscCount; i++) {
         var entity = this.miscEntities[i];
-
+        
+        if(entity.gameOver()){
+            this.wallDelta = 0;
+            this.gameDelta = 0;
+        }
         if (!entity.removeFromWorld) {
             entity.update();
         }
