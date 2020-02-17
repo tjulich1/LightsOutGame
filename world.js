@@ -62,27 +62,6 @@ class World {
             }
         }
     }
-
-    initResources() {
-        for (var j = 0; j < this.rows; j++) {
-            for (var i = 0; i < this.columns; i++) {
-                // If a resource should be placed...
-                if (this.trees[i*this.rows + j] === 1) {
-                    let xPos = (i-1)*this.tileDim + (this.tileDim / 2);
-                    let yPos = (j-1)*this.tileDim + (this.tileDim / 2);
-                    let width = 43;
-                    let height = 50;
-
-                    let randomNum = Math.random() * 2;
-                    if (randomNum < 1) {
-                        this.game.addResourceEntity(new Resource(xPos, yPos, this.rockWidth, this.rockHeight, this.game, this.rockSprite));
-                    } else {
-                        this.game.addResourceEntity(new Resource(xPos, yPos, width, height, this.game, this.treeSprite));
-                    }
-                }
-            }
-        }
-    }
     
     checkSurroundingResources(x, y) {
 
