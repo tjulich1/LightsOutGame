@@ -79,8 +79,13 @@ GameEngine.prototype.startInput = function () {
 
     // that.movementHandler.player.updateKeysPressed(map);
 
+    var towerKey = false;
+
     this.ctx.canvas.addEventListener("keydown", function (e) {
         e.preventDefault();
+        if(String.fromCharCode(e.which) === 'e' || String.fromCharCode(e.which) === 'E') {
+            towerKey = true;
+        }
         that.movementHandler.keyDown(String.fromCharCode(e.which));
         that.movementHandler.player.updatePreviousKey(that.movementHandler.player.currentKey);
         that.movementHandler.player.updateCurrentKey(e.key);
@@ -89,6 +94,9 @@ GameEngine.prototype.startInput = function () {
 
     this.ctx.canvas.addEventListener("keyup", function(e) {
         e.preventDefault();
+        if(String.fromCharCode(e.which) === 'e' || String.fromCharCode(e.which) === 'E') {
+            towerKey = false;
+        }
         that.movementHandler.keyUp(String.fromCharCode(e.which));
         // that.movementHandler.player.updatePreviousKey(e.key);
 
@@ -100,6 +108,7 @@ GameEngine.prototype.startInput = function () {
 
     this.ctx.canvas.addEventListener("click", function(e) {
         e.preventDefault();
+        if()
         that.movementHandler.player.updateAttackStatus();
     }, false)
 

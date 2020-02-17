@@ -40,6 +40,6 @@ class Light{
 
     //When light has not life game is over.
     gameOver(){
-        return this.health <= 0;
+        return this.healthLeft <= 0;
     }
 }
