@@ -21,7 +21,7 @@ class Enemy {
         this.attackThresh = 0;
         this.attack = false;
         this.dead = false;
-        this.boundingBox = new BoundingBox(this.x + 17, this.y + 8.5, 30, 47);
+        this.boundingBox = new BoundingBox(this.x + 17, this.y + 14, 30, 48);
         this.target = null;
     }
 
@@ -114,7 +114,7 @@ class Enemy {
         }else if(this.direction === 2){
             this.yVelocity = 0;
             //problem here
-            this.y -= 2;
+            this.y -= 5;
             if(this.x < this.target.x){
                 this.direction = 3;
                 this.xVelocity = 2;
@@ -135,7 +135,7 @@ class Enemy {
         }else{
             this.xVelocity = 0;
             //problem here
-            this.x -= 2;
+            this.x -= 5;
             if(this.y < this.target.y){
                 this.direction = 2;
                 this.yVelocity = 2;

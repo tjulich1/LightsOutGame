@@ -39,7 +39,6 @@ class Armored extends Enemy{
             this.y = -this.height;
         }
 
-        this.boundingBox.update(this.x + 17, this.y + 8.5);
         var ent = null;
         this.attack = false;
 
@@ -80,5 +79,6 @@ class Armored extends Enemy{
                 this.changeDirectionThresh = 60;
             }
         }
+        this.boundingBox.update(this.x + 17, this.y + 14);
     }
 }
