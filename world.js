@@ -18,6 +18,8 @@ class World {
         this.trees = [];
         this.rockWidth = 31;
         this.rockHeight = 25;
+        this.treeWidth = 43;
+        this.treeHeight = 50;
     }
 
     generate() {
@@ -58,7 +60,7 @@ class World {
                     if (randomNum < 1) {
                         this.game.addResourceEntity(new Resource(xPos, yPos, this.rockWidth, this.rockHeight, this.game, this.rockSprite));
                     } else {
-                        this.game.addResourceEntity(new Resource(xPos, yPos, width, height, this.game, this.treeSprite));
+                        this.game.addResourceEntity(new Resource(xPos, yPos, this.treeWidth, this.treeHeight, this.game, this.treeSprite));
                     }
 
                 }

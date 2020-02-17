@@ -83,7 +83,7 @@ GameEngine.prototype.startInput = function () {
     this.ctx.canvas.addEventListener("keyup", function(e) {
         e.preventDefault();
         that.movementHandler.keyUp(String.fromCharCode(e.which));
-        // that.movementHandler.player.updatePreviousKey(e.key);
+        that.movementHandler.player.updatePreviousKey(e.key);
 
         if (that.movementHandler.player.currentKey === e.key && that.movementHandler.player.prevKey !== undefined) {
             that.movementHandler.player.updateCurrentKey(that.movementHandler.player.prevKey);
@@ -134,7 +134,7 @@ GameEngine.prototype.draw = function () {
     this.ctx.save();
 
     //The order in which each entitey is processed determined layering.
-    
+
     for(var i = 0; i < this.miscEntities.length; i++){
         this.miscEntities[i].draw(this.ctx);
     }
