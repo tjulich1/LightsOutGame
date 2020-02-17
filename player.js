@@ -17,7 +17,6 @@ class Player {
         this.mainCharAttack = mainCharAttack;
         this.attacking = false;
         this.boundingBox = new BoundingBox(this.x + 17, this.y + 8.5, 30, 47);
-        this.keysPressed = [];
 
         this.walkAnimationUp = new Animation(this.spritesheet, 0, 0, 64, 64, 0.15, 9, true, false);
         this.walkAnimationDown = new Animation(this.spritesheet, 0, 128, 64, 64, 0.15, 9, true, false);
@@ -34,7 +33,6 @@ class Player {
 
     draw() {
         this.ctx.drawImage(this.healthBar, 0, 0, this.healthLeft, 5, this.x, this.y, this.healthLeft, 5);
-        this.updateHealthBar(0.3);
         if(this.attacking) {
             if(this.currentKey === 'W' || this.currentKey === 'w') {
                 this.attackAnimationUp.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
@@ -108,7 +106,7 @@ class Player {
         this.prevKey = key;
     }
 
-    updateHealthBar(value) {
+    takeDamage(value) {
         this.healthLeft = this.healthLeft - value;
         if(this.healthLeft <= 0) {
             this.healthLeft = 64;
@@ -117,9 +115,5 @@ class Player {
 
     updateAttackStatus() {
         this.attacking = !this.attacking;
-    }
-
-    updateKeysPressed(map) {
-        this.keysPressed = map;
     }
 }
