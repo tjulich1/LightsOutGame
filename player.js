@@ -117,4 +117,9 @@ class Player {
     updateAttackStatus() {
         this.attacking = !this.attacking;
     }
+
+    collide(otherEntity) {
+        return (this.boundingBox.left <= otherEntity.boundingBox.right && this.boundingBox.right >= otherEntity.boundingBox.left
+                && this.boundingBox.top <= otherEntity.boundingBox.bottom && this.boundingBox.bottom >= otherEntity.boundingBox.top);
+    }
 }
