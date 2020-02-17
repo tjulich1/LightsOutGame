@@ -24,8 +24,6 @@ ASSET_MANAGER.queueDownload("./img/health_bar.png");
 ASSET_MANAGER.queueDownload("./img/tower.png");
 ASSET_MANAGER.queueDownload("./img/pebble.png");
 
-
-
 ASSET_MANAGER.downloadAll(function () {
 
     var rows = 20;
