@@ -182,7 +182,7 @@ class Player {
         if(this.world.resources[x][y] !== 1 && this.world.resources[x][y] !== 2 && 
             this.inventory.getWoodCount() > 0 && this.inventory.getRockCount() > 0) {
 
-            var newTower = new Tower(this.game, x * 40, y * 40, 128, 128, this.tower);
+            var newTower = new Tower(this.game, (x - 1) * 40, (y - 1) * 40, 128, 128, this.tower);
             this.inventory.removeWood();
             this.inventory.removeRock();
 
