@@ -88,38 +88,35 @@ GameEngine.prototype.startInput = function () {
     // that.movementHandler.player.updateKeysPressed(map);
 
     var towerKey = false;
+    var walking = false;
 
     this.ctx.canvas.addEventListener("keydown", function (e) {
         e.preventDefault();
         if(String.fromCharCode(e.which) === 'e' || String.fromCharCode(e.which) === 'E') {
             towerKey = true;
+        } else {
+            if(!walking) {
+                walking = true;
+                that.movementHandler.keyDown(String.fromCharCode(e.which));
+                that.movementHandler.player.updateCurrentKey(e.key);
+            }
         }
-        that.movementHandler.keyDown(String.fromCharCode(e.which));
-        that.movementHandler.player.updatePreviousKey(that.movementHandler.player.currentKey);
-        that.movementHandler.player.updateCurrentKey(e.key);
-
     }, false);
 
     this.ctx.canvas.addEventListener("keyup", function(e) {
         e.preventDefault();
         if(String.fromCharCode(e.which) === 'e' || String.fromCharCode(e.which) === 'E') {
             towerKey = false;
-            console.log('tower is false');
+        } else {
+            walking = false;
         }
         that.movementHandler.keyUp(String.fromCharCode(e.which));
-        // that.movementHandler.player.updatePreviousKey(e.key);
-
-        if (that.movementHandler.player.currentKey === e.key && that.movementHandler.player.prevKey !== undefined) {
-            that.movementHandler.player.updateCurrentKey(that.movementHandler.player.prevKey);
-        }
-
     }, false);
 
     this.ctx.canvas.addEventListener("click", function(e) {
         e.preventDefault();
         if(towerKey) {
             var gridCell = that.movementHandler.player.grid.getCoordinates();
-            console.log(gridCell);
             that.movementHandler.player.placeTower(gridCell.x, gridCell.y);
         } else {
             that.movementHandler.player.updateAttackStatus();
