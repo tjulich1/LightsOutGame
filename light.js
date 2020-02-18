@@ -18,6 +18,9 @@ class Light{
     takeDamage(value) {
         this.healthLeft = this.healthLeft - value;
         console.log("Took dmg");
+        if(this.gameOver()) {
+            this.game.gameOver = true;
+        }
     }
 
     draw(){
