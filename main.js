@@ -49,7 +49,9 @@ ASSET_MANAGER.downloadAll(function () {
 
     // ******* testing updating inventory values*****//
         inventory.addRock();
+        inventory.addRock();
         rock.innerHTML = rock.innerHTML.substring(0, rock.innerHTML.length - 1) + inventory.getRockCount();
+        inventory.addWood();
         inventory.addWood();
         inventory.addWood();
         wood.innerHTML = wood.innerHTML.substring(0, wood.innerHTML.length - 1) + inventory.getWoodCount();
@@ -60,13 +62,11 @@ ASSET_MANAGER.downloadAll(function () {
     var armor = new Armored(gameEngine, 500, 500, 70, 70, ASSET_MANAGER.getAsset("./img/armoredWalk.png"), ASSET_MANAGER.getAsset("./img/armoredAttack.png"));
     var light = new Light(gameEngine, 64, 64, ASSET_MANAGER.getAsset("./img/campFire.png"), ASSET_MANAGER.getAsset("./img/health_bar.png"));
     var skele = new Skeleton(gameEngine, 720, 10, 50, 50, ASSET_MANAGER.getAsset("./img/skeleWalk.png"), ASSET_MANAGER.getAsset("./img/skeleAttack.png"));
-    var tow = new Tower(gameEngine, 450, 450, 128, 128, ASSET_MANAGER.getAsset("./img/tower.png"));
     gameEngine.setMovementHandler(PMH);
 
     gameEngine.addEnemyEntity(armor);
     gameEngine.addMainEntity(light);
     gameEngine.addEnemyEntity(skele);
-    gameEngine.addDefenseEntity(tow);
 
     var grid = new Grid(rows, columns, canvas.width, canvas.height,gameEngine)
     var mouseHandler = new MouseHandler(gameEngine, grid);

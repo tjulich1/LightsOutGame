@@ -174,17 +174,30 @@ class Player {
     }
 
     placeTower(x, y) {
-        if(this.world.resources[x][y] !== 1 && this.world.resources[x][y] !== 2 && this.world.resources[x][y] !== 3 && 
+        if(this.world.resources[x][y] !== 1 && this.world.resources[x][y] !== 2 && this.world.resources[x][y] !== 3 && this.noTowersNearby(x - 1, y - 1) &&
             this.inventory.getWoodCount() > 0 && this.inventory.getRockCount() > 0) {
 
-            var newTower = new Tower(this.game, (x - 1) * 40, (y - 1) * 40, 128, 128, this.tower);
+            var newTower = new Tower(this.game, (x - 1) * 40, (y - 1) * 40, 80, 80, this.tower);
             this.inventory.removeWood();
             this.inventory.removeRock();
+            this.world.resources[x - 1][y - 1] = 4;
 
-            rock.innerHTML = rock.innerHTML.substring(0, rock.innerHTML.length - 1) + inventory.getRockCount();
-            wood.innerHTML = wood.innerHTML.substring(0, wood.innerHTML.length - 1) + inventory.getWoodCount();
-
+            this.displayInventory();
             this.game.addDefenseEntity(newTower);
         }
+    }
+
+    displayInventory() {
+        var rockDisplay = this.rock.innerHTML.split(' ');
+        var woodDisplay = this.wood.innerHTML.split(' ');
+
+        this.rock.innerHTML = rockDisplay[0] + ' ' + this.inventory.getRockCount();
+        this.wood.innerHTML = woodDisplay[0] + ' ' + this.inventory.getWoodCount();
+    }
+
+    noTowersNearby(x, y) {
+        return this.world.resources[x][y] !== 4 && this.world.resources[x][y - 1] !== 4 && this.world.resources[x + 1][y - 1] !== 4 &&
+                this.world.resources[x + 1][y] !== 4 && this.world.resources[x + 1][y + 1] !== 4 && this.world.resources[x][y + 1] !== 4 &&
+                this.world.resources[x - 1][y + 1] !== 4 && this.world.resources[x - 1][y] !== 4 && this.world.resources[x - 1][y + 1] !== 4
     }
 }
