@@ -225,7 +225,7 @@ GameEngine.prototype.update = function () {
     //Misc entities (Will we ever have to remove?)
     for (var i = 0; i < miscCount; i++) {
         var entity = this.miscEntities[i];
-
+        
         if (!entity.removeFromWorld) {
             entity.update();
         }
@@ -234,7 +234,7 @@ GameEngine.prototype.update = function () {
     //Main entities (fire and main char)
     for (var i = 0; i < mainCount; i++) {
         var entity = this.mainEntities[i];
-
+        
         if (!entity.removeFromWorld) {
             entity.update();
         }
