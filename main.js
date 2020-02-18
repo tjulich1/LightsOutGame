@@ -7,6 +7,9 @@ var rock = document.getElementById("rock");
 var wood = document.getElementById("wood");
 var gameEngine = new GameEngine();
 
+ASSET_MANAGER.queueDownload("./img/gameOver.png");
+ASSET_MANAGER.queueDownload("./img/start.jpg");
+
 ASSET_MANAGER.queueDownload("./img/TestTileSheet.png");
 
 ASSET_MANAGER.queueDownload("./img/rock.png");
@@ -81,6 +84,12 @@ ASSET_MANAGER.downloadAll(function () {
     gameEngine.addResourceEntity(new Resource(100, 100, testWorld.treeWidth, testWorld.treeHeight, gameEngine, ASSET_MANAGER.getAsset("./img/greenTree1.png")));
 
     gameEngine.addMiscEntity(grid);
+
+    var gameOverScreen = ASSET_MANAGER.getAsset("./img/gameOver.png");
+    gameEngine.setGameOverScreen(gameOverScreen);
+
+    var startScreen = ASSET_MANAGER.getAsset("./img/start.jpg");
+    gameEngine.setStartScreen(startScreen);
 
     gameEngine.start();
 });

@@ -46,10 +46,21 @@ function GameEngine() {
     this.movementHandler = null;
     this.grid = null;
     this.gameOver = false;
+    this.gameOverScreen = null;
+    this.startGame = false;
+    this.startScreen = null;
 }
 
 GameEngine.prototype.setMovementHandler = function(handler) {
     this.movementHandler = handler;
+}
+
+GameEngine.prototype.setGameOverScreen = function(screen) {
+    this.gameOverScreen = screen;
+}
+
+GameEngine.prototype.setStartScreen = function(startScreen) {
+    this.startScreen = startScreen;
 }
 
 GameEngine.prototype.setGrid = function(grid) {
@@ -69,9 +80,14 @@ GameEngine.prototype.start = function () {
     console.log("starting game");
     var that = this;
     (function gameLoop() {
-        if(!that.gameOver) {
+        console.log(that.gameOver + ', ' + that.startGame);
+        if(!that.gameOver && that.startGame) {
             that.loop();
             requestAnimFrame(gameLoop, that.ctx.canvas);
+        } else if(!that.startGame) {
+            that.ctx.drawImage(that.startScreen, 0, 0, 800, 800);
+        } else {
+            that.ctx.drawImage(that.gameOverScreen, 0, 0, 800, 800);
         }
     })();
 }
@@ -115,11 +131,17 @@ GameEngine.prototype.startInput = function () {
 
     this.ctx.canvas.addEventListener("click", function(e) {
         e.preventDefault();
-        if(towerKey) {
-            var gridCell = that.movementHandler.player.grid.getCoordinates();
-            that.movementHandler.player.placeTower(gridCell.x, gridCell.y);
+        if(!that.startGame) {
+            console.log('started game');
+            that.startGame = true;
+            that.start();
         } else {
-            that.movementHandler.player.updateAttackStatus();
+            if(towerKey) {
+                var gridCell = that.movementHandler.player.grid.getCoordinates();
+                that.movementHandler.player.placeTower(gridCell.x, gridCell.y);
+            } else {
+                that.movementHandler.player.updateAttackStatus();
+            }
         }
     }, false)
 
