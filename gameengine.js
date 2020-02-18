@@ -44,11 +44,16 @@ function GameEngine() {
     this.surfaceHeight = null;
 
     this.movementHandler = null;
+    this.grid = null;
     this.gameOver = false;
 }
 
 GameEngine.prototype.setMovementHandler = function(handler) {
     this.movementHandler = handler;
+}
+
+GameEngine.prototype.setGrid = function(grid) {
+    this.grid = grid;
 }
 
 GameEngine.prototype.init = function (ctx) {
@@ -99,6 +104,7 @@ GameEngine.prototype.startInput = function () {
         e.preventDefault();
         if(String.fromCharCode(e.which) === 'e' || String.fromCharCode(e.which) === 'E') {
             towerKey = false;
+            console.log('tower is false');
         }
         that.movementHandler.keyUp(String.fromCharCode(e.which));
         // that.movementHandler.player.updatePreviousKey(e.key);
@@ -112,9 +118,12 @@ GameEngine.prototype.startInput = function () {
     this.ctx.canvas.addEventListener("click", function(e) {
         e.preventDefault();
         if(towerKey) {
-            
+            var gridCell = that.movementHandler.player.grid.getCoordinates();
+            console.log(gridCell);
+            that.movementHandler.player.placeTower(gridCell.x, gridCell.y);
+        } else {
+            that.movementHandler.player.updateAttackStatus();
         }
-        that.movementHandler.player.updateAttackStatus();
     }, false)
 
     console.log('Input started');

@@ -42,13 +42,6 @@ ASSET_MANAGER.downloadAll(function () {
     gameEngine.addMiscEntity(testWorld);
     testWorld.generate();
 
-    var mainChar = ASSET_MANAGER.getAsset("./img/mainCharacter_move.png");
-    var healthBar = ASSET_MANAGER.getAsset("./img/health_bar.png");
-    var mainCharDead = ASSET_MANAGER.getAsset("./img/mainCharacter_dead.png");
-    var mainCharAttack = ASSET_MANAGER.getAsset("./img/mainCharacter_attack.png");
-    var mainCharacter = new Player(gameEngine, 30, 30, 64, 64, mainChar, healthBar, mainCharDead, mainCharAttack);
-    PMH.assignPlayer(mainCharacter);
-
     // main character sprite properties: height = 64 width = 64
 
     // ******* testing updating inventory values*****//
@@ -67,7 +60,6 @@ ASSET_MANAGER.downloadAll(function () {
     var tow = new Tower(gameEngine, 450, 450, 128, 128, ASSET_MANAGER.getAsset("./img/tower.png"));
     gameEngine.setMovementHandler(PMH);
 
-    gameEngine.addMainEntity(mainCharacter);
     gameEngine.addEnemyEntity(armor);
     gameEngine.addMainEntity(light);
     gameEngine.addEnemyEntity(skele);
@@ -75,6 +67,16 @@ ASSET_MANAGER.downloadAll(function () {
 
     var grid = new Grid(rows, columns, canvas.width, canvas.height,gameEngine)
     var mouseHandler = new MouseHandler(gameEngine, grid);
+    gameEngine.setGrid(grid);
+
+    var mainChar = ASSET_MANAGER.getAsset("./img/mainCharacter_move.png");
+    var healthBar = ASSET_MANAGER.getAsset("./img/health_bar.png");
+    var mainCharDead = ASSET_MANAGER.getAsset("./img/mainCharacter_dead.png");
+    var mainCharAttack = ASSET_MANAGER.getAsset("./img/mainCharacter_attack.png");
+    var mainCharacter = new Player(gameEngine, 30, 30, 64, 64, mainChar, healthBar, mainCharDead, mainCharAttack, grid, ASSET_MANAGER.getAsset("./img/tower.png"), 
+                                    testWorld, inventory, rock, wood);
+    PMH.assignPlayer(mainCharacter);
+    gameEngine.addMainEntity(mainCharacter);
 
     gameEngine.addResourceEntity(new Resource(100, 100, testWorld.treeWidth, testWorld.treeHeight, gameEngine, ASSET_MANAGER.getAsset("./img/greenTree1.png")));
 

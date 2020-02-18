@@ -49,6 +49,10 @@ class Grid {
         console.log(`${this.highlightRow}, ${this.highlightColumn}`);
     }
 
+    getCoordinates() {
+        return {x: this.highlightRow, y: this.highlightColumn};
+    }
+
     update() {
 
     }

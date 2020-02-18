@@ -1,5 +1,5 @@
 class Player {
-    constructor(game, x, y, width, height, spritesheet, healthBar, mainCharDead, mainCharAttack) {
+    constructor(game, x, y, width, height, spritesheet, healthBar, mainCharDead, mainCharAttack, grid, tower, world, inventory, rock, wood) {
         this.x = x;
         this.y = y;
         this.ctx = game.ctx;
@@ -16,7 +16,15 @@ class Player {
         this.mainCharDead = mainCharDead;
         this.mainCharAttack = mainCharAttack;
         this.attacking = false;
+
         this.boundingBox = new BoundingBox(this.x + 17, this.y + 14, 30, 48);
+        this.grid = grid;
+        this.tower = tower;
+        this.world = world;
+
+        this.inventory = inventory;
+        this.rock = rock;
+        this.wood = wood;
 
         this.walkAnimationUp = new Animation(this.spritesheet, 0, 0, 64, 64, 0.15, 9, true, false);
         this.walkAnimationDown = new Animation(this.spritesheet, 0, 128, 64, 64, 0.15, 9, true, false);
@@ -168,5 +176,20 @@ class Player {
     collide(otherEntity) {
         return (this.boundingBox.left <= otherEntity.boundingBox.right && this.boundingBox.right >= otherEntity.boundingBox.left
                 && this.boundingBox.top <= otherEntity.boundingBox.bottom && this.boundingBox.bottom >= otherEntity.boundingBox.top);
+    }
+
+    placeTower(x, y) {
+        if(this.world.resources[x][y] !== 1 && this.world.resources[x][y] !== 2 && 
+            this.inventory.getWoodCount() > 0 && this.inventory.getRockCount() > 0) {
+
+            var newTower = new Tower(this.game, x * 40, y * 40, 128, 128, this.tower);
+            this.inventory.removeWood();
+            this.inventory.removeRock();
+
+            rock.innerHTML = rock.innerHTML.substring(0, rock.innerHTML.length - 1) + inventory.getRockCount();
+            wood.innerHTML = wood.innerHTML.substring(0, wood.innerHTML.length - 1) + inventory.getWoodCount();
+
+            this.game.addDefenseEntity(newTower);
+        }
     }
 }
