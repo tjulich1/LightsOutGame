@@ -126,18 +126,21 @@ class Player {
         }
         // Check if it hit from the bottom...
         else if (this.currentKey === 'w' || this.currentKey === 'W') {
+            console.log('hit from bottom');
             this.yVelocity = 0;
-            this.y = otherEntity.boundingBox.bottom + 1;
+            this.y = otherEntity.boundingBox.bottom - 5;
         }
         // Check if it hit from the right
         else if (this.currentKey === 'd' || this.currentKey === 'D') {
+            console.log('hit from right');
             this.xvelocity = 0;
             this.x = otherEntity.boundingBox.left - this.boundingBox.width - 20;
         }
         // Check if it hit from the left
         else if (this.currentKey === 'a' || this.currentKey === 'A') {
+            console.log('hit from left');
             this.xvelocity = 0;
-            this.x = otherEntity.boundingBox.right + 1;
+            this.x = this.boundingBox.left - 14;
         }
     }
 
