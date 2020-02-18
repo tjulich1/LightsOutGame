@@ -25,7 +25,7 @@ class Tower{
         if(this.fireThresh === 0){
             for(var i = 0; i < this.game.enemyEntities.length; i++){
                 ent = this.game.enemyEntities[i];
-                if(this.distance(ent) <= this.radius){
+                if(this.distance(ent) <= this.radius && !ent.dead){
                     this.enemies.push(ent);
                 }
             }

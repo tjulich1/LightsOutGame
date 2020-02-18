@@ -1,5 +1,5 @@
 class Enemy {
-    constructor(game, x, y, width, height, health, xVelocity, yVelocity, spriteWalk, spriteAttack){
+    constructor(game, x, y, width, height, health, xVelocity, yVelocity, spriteWalk, spriteAttack, spriteDie){
         this.ctx = game.ctx;
         this.game = game;
         this.x = x;
@@ -16,13 +16,16 @@ class Enemy {
                         new Animation(spriteAttack, 0, 0, 64, 64,.30, 6, true, false),
                         new Animation(spriteAttack, 0, 64, 64, 64, .30, 6, true, false),
                         new Animation(spriteAttack, 0, 128, 64, 64, .30, 6, true, false),
-                        new Animation(spriteAttack, 0, 192, 64, 64, .30, 6, true, false)];
+                        new Animation(spriteAttack, 0, 192, 64, 64, .30, 6, true, false),
+                        new Animation(spriteDie, 0, 0, 64, 64, .10, 6, false, false)];
         this.changeDirectionThresh = 0;
         this.attackThresh = 0;
         this.attack = false;
         this.dead = false;
         this.boundingBox = new BoundingBox(this.x + 17, this.y + 14, 30, 48);
         this.target = null;
+        this.health = health
+        this.remove = false;
     }
 
     //may need to figure out a way to pause animation after attack.
@@ -30,7 +33,10 @@ class Enemy {
         if(this.attack && !this.dead){
             this.animations[this.direction + 4].drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
         }else if( this.dead){
-
+            this.animations[8].drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+            if(this.animations[8].isDone()){
+                this.remove = true;
+            }
         }else{
             this.animations[this.direction].drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
         }
@@ -144,5 +150,16 @@ class Enemy {
                 this.yVelocity = -2;
             }
         }
+    }
+
+    takeDamage(value) {
+        this.health = this.health - value;
+        if(this.health <= 0){
+            this.dead = true;
+        }
+    }
+
+    removeMe(){
+        return this.dead && this.remove;
     }
 }

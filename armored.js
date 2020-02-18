@@ -1,15 +1,16 @@
 class Armored extends Enemy{
-    constructor(game, x, y, width, height, walkSpriteSheet, attackSpriteSheet){
+    constructor(game, x, y, width, height, walkSpriteSheet, attackSpriteSheet, dieSprite){
         
         //Possibly pass up a health value.
-        super(game, x, y,width, height, 200, 0, 0, walkSpriteSheet, attackSpriteSheet);
+        super(game, x, y,width, height, 200, 0, 0, walkSpriteSheet, attackSpriteSheet, dieSprite);
+        this.damage = 2;
     }
 
     update(){
         //if my target has dies or no longer exists set attack to false;
         if(!this.target){
             //get the main char
-            this.target = this.game.mainEntities[0];
+            this.target = this.game.mainEntities[1];
         }
 
         if(this.changeDirectionThresh === 0 && !this.attack){
@@ -42,6 +43,10 @@ class Armored extends Enemy{
         var ent = null;
         this.attack = false;
 
+        if(this.attackThresh !== 0){
+            this.attackThresh--;
+        }
+
         //find closest target (done)
         //have I collided with target? (main char, defense, campfire)
         //if yes set attack to true 
@@ -54,6 +59,10 @@ class Armored extends Enemy{
                 this.changeDirection(ent);
                 this.changeDirectionThresh = 60;
             }
+            if(this.collide(ent) && this.target === ent && this.xVelocity === 0 && this.yVelocity === 0 && this.attackThresh === 0){
+                ent.takeDamage(this.damage);
+                this.attackThresh = 100;     
+            }  
         }
 
         for(var i = 0; i < this.game.defenseEntities.length; i++){
@@ -72,13 +81,7 @@ class Armored extends Enemy{
                 this.changeDirectionThresh = 30;
             }
         }
-        for(var i = 0; i < this.game.enemyEntities.length; i++){
-            ent = this.game.enemyEntities[i];
-            if(this !== ent && this.collide(ent) && (this.xVelocity !== 0 || this.yVelocity !== 0)){
-                this.changeDirection(ent);
-                this.changeDirectionThresh = 60;
-            }
-        }
+
         this.boundingBox.update(this.x + 17, this.y + 14);
     }
 }
