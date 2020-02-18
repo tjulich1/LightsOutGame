@@ -152,8 +152,8 @@ class Player {
 
     takeDamage(value) {
         this.healthLeft = this.healthLeft - value;
-        if(this.healthLeft <= 0) {
-            this.healthLeft = 64;
+        if(this.gameOver()) {
+            this.game.gameOver = true;
         }
     }
 

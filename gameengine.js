@@ -44,6 +44,7 @@ function GameEngine() {
     this.surfaceHeight = null;
 
     this.movementHandler = null;
+    this.gameOver = false;
 }
 
 GameEngine.prototype.setMovementHandler = function(handler) {
@@ -63,8 +64,10 @@ GameEngine.prototype.start = function () {
     console.log("starting game");
     var that = this;
     (function gameLoop() {
-        that.loop();
-        requestAnimFrame(gameLoop, that.ctx.canvas);
+        if(!that.gameOver) {
+            that.loop();
+            requestAnimFrame(gameLoop, that.ctx.canvas);
+        }
     })();
 }
 
