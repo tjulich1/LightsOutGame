@@ -35,6 +35,7 @@ class Enemy {
         }else if( this.dead){
             this.animations[8].drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
             if(this.animations[8].isDone()){
+                console.log("Death animation finished");
                 this.remove = true;
             }
         }else{

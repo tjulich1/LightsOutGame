@@ -60,7 +60,7 @@ class Skeleton extends Enemy{
                     this.target = ent;
                 }
             }
-            if(this.collide(ent) && this.target === ent && this.xVelocity === 0 && this.yVelocity === 0 && this.attackThresh === 0){
+            if(this.collide(ent) && this.target === ent && this.xVelocity === 0 && this.yVelocity === 0 && this.attackThresh === 0 && !this.dead){
                 ent.takeDamage(this.damage);
                 this.attackThresh = 100;
             }
@@ -84,7 +84,7 @@ class Skeleton extends Enemy{
             ent = this.game.resourceEntities[i];
             if(this.collide(ent)){
                 this.changeDirection(ent);
-                this.changeDirectionThresh = 30;
+                this.changeDirectionThresh = 45;
             }
         }
 

@@ -59,7 +59,7 @@ class Armored extends Enemy{
                 this.changeDirection(ent);
                 this.changeDirectionThresh = 60;
             }
-            if(this.collide(ent) && this.target === ent && this.xVelocity === 0 && this.yVelocity === 0 && this.attackThresh === 0){
+            if(this.collide(ent) && this.target === ent && this.xVelocity === 0 && this.yVelocity === 0 && this.attackThresh === 0 && !this.dead){
                 ent.takeDamage(this.damage);
                 this.attackThresh = 100;     
             }  
@@ -78,7 +78,15 @@ class Armored extends Enemy{
             ent = this.game.resourceEntities[i];
             if(this.collide(ent)){
                 this.changeDirection(ent);
-                this.changeDirectionThresh = 30;
+                this.changeDirectionThresh = 45;
+            }
+        }
+
+        for(var i = 0; i < this.game.projectileEntities.length; i++){
+            ent = this.game.projectileEntities[i];
+            if(this.collide(ent)){
+                this.takeDamage(ent.getDamage());
+                ent.removeFromWorld = true;
             }
         }
 
