@@ -84,7 +84,7 @@ class Skeleton extends Enemy{
             ent = this.game.resourceEntities[i];
             if(this.collide(ent)){
                 this.changeDirection(ent);
-                this.changeDirectionThresh = 45;
+                this.changeDirectionThresh = 35;
             }
         }
 
