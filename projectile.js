@@ -38,13 +38,13 @@ class Projectile{
             }
         }
 
-        for(var i = 0; i < this.game.enemyEntities.length; i++){
-            ent = this.game.enemyEntities[i];
-            if(ent.removeMe()){
-                console.log("removed from world");
-                ent.removeFromWorld = true;
-            }
-        }
+        // for(var i = 0; i < this.game.enemyEntities.length; i++){
+        //     ent = this.game.enemyEntities[i];
+        //     if(ent.removeMe()){
+        //         console.log("removed from world");
+        //         ent.removeFromWorld = true;
+        //     }
+        // }
         this.boundingBox.update(this.x, this.y);
     }
 

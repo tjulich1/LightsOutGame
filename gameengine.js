@@ -325,7 +325,7 @@ GameEngine.prototype.loop = function () {
     //console.log(this.beginPhase);
     if(this.beginPhase >= this.prepPhaseTimer){
         if(!this.spawn){
-            spawnEnemies();
+            spawnEnemies(this.level);
             this.spawn = true;
         }
 
