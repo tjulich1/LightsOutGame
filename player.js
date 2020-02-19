@@ -123,6 +123,9 @@ class Player {
 
         for(let i = 0; i < this.game.enemyEntities.length; i++) {
             let tempEntity = this.game.enemyEntities[i];
+            if(tempEntity.removeMe()) {
+                tempEntity.removeFromWorld = true;
+            }
             if (this.collide(tempEntity) && this.attacking) {
                 tempEntity.takeDamage(1.5);
                 if(tempEntity.removeMe()) {
