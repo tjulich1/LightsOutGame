@@ -2,6 +2,7 @@ var ASSET_MANAGER = new AssetManager();
 var TILE_LOADER = new TileLoader();
 var PMH = new PlayerMovementHandler(3);
 var inventory = new Inventory();
+var enemyProb = ["skeleton", "armored"];
 
 var rock = document.getElementById("rock");
 var wood = document.getElementById("wood");
@@ -68,9 +69,9 @@ ASSET_MANAGER.downloadAll(function () {
     var tow = new Tower(gameEngine, 450, 450, 128, 128, ASSET_MANAGER.getAsset("./img/tower.png"));
     gameEngine.setMovementHandler(PMH);
 
-    gameEngine.addEnemyEntity(armor);
+    //gameEngine.addEnemyEntity(armor);
     gameEngine.addMainEntity(light);
-    gameEngine.addEnemyEntity(skele);
+    //gameEngine.addEnemyEntity(skele);
 
     var grid = new Grid(rows, columns, canvas.width, canvas.height,gameEngine)
     var mouseHandler = new MouseHandler(gameEngine, grid);
@@ -100,4 +101,16 @@ ASSET_MANAGER.downloadAll(function () {
 
 function addProjectile(x, y, point){
     gameEngine.addProjectileEntity(new Projectile(gameEngine, x, y, 10, 10, point, ASSET_MANAGER.getAsset("./img/pebble.png")));
+}
+
+function spawnEnemies(){
+    var type = null;
+    for(var i = 0; i < 5; i++){
+        type = enemyProb[Math.floor(Math.random() * enemyProb.length)];
+        if(type === "skeleton"){
+            gameEngine.addEnemyEntity(new Skeleton(gameEngine, 720, 10, 50, 50, ASSET_MANAGER.getAsset("./img/skeleWalk.png"), ASSET_MANAGER.getAsset("./img/skeleAttack.png"), ASSET_MANAGER.getAsset("./img/skeleDie.png")));
+        }//else{
+        //     gameEngine.addEnemyEntity(new Armored(gameEngine, 500, 500, 70, 70, ASSET_MANAGER.getAsset("./img/armoredWalk.png"), ASSET_MANAGER.getAsset("./img/armoredAttack.png"), ASSET_MANAGER.getAsset("./img/armoredDie.png")));
+        // }
+    }
 }
