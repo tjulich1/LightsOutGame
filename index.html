@@ -4,11 +4,36 @@
 <head>
     <meta charset="utf-8">
     <title>Game Project Shell</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <canvas id="gameWorld" tabindex="1" width="800" height="800" style="border: 1px solid black; background: black"></canvas>
-    <p id="wood">Wood: 0</p>
-    <p id="rock">Rock: 0</p>
+    <div id="general">
+        <div id="game">
+            <canvas id="gameWorld" tabindex="1" width="800" height="800" style="border: 1px solid black; background: black"></canvas>
+        </div>
+        <div id="info">
+            <h2>Inventory</h2>
+            <ul id="materials">
+                <li id="wood">Wood: 0</li>
+                <li id="rock">Rock: 0</li>
+            </ul>
+
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+
+            <h2>Game Controls:</h2>
+            <ul id="controls">
+                <li>W: Up</li>
+                <li>A: Left</li>
+                <li>S: Down</li>
+                <li>D: Right</li>
+                <li>Place a tower by holding 'E' and left-clicking a highlighted cell.</li>
+                <li>Make character attack by left-clicking.</li>
+            </ul>
+            <p>Click on the game screen to begin game</p>
+        </div>
+    </div>
 
     <script type="text/javascript" src="./gameengine.js"></script>
     <script type="text/javascript" src="./assetmanager.js"></script>
