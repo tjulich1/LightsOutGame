@@ -93,6 +93,7 @@ ASSET_MANAGER.downloadAll(function () {
     gameEngine.setStartScreen(startScreen);
 
     gameEngine.setScore(score);
+    gameEngine.setLevel(level);
 
     gameEngine.start();
 });

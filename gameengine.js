@@ -53,6 +53,7 @@ function GameEngine() {
     this.prepPhaseTimer = 5;
     this.beginPhase = 0;
     this.level = 1;
+    this.levelDisplay = null;
     this.scoreDisplay = null;
     this.score = 0;
 }
@@ -75,6 +76,10 @@ GameEngine.prototype.setGrid = function(grid) {
 
 GameEngine.prototype.setScore = function(scoreDisplay) {
     this.scoreDisplay = scoreDisplay;
+}
+
+GameEngine.prototype.setLevel = function(levelDisplay) {
+    this.levelDisplay = levelDisplay;
 }
 
 GameEngine.prototype.init = function (ctx) {

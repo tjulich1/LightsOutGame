@@ -113,6 +113,14 @@ class Player {
             }
         }
 
+        for (let i = 0; i < this.game.defenseEntities.length; i++) {
+            let otherEntity = this.game.defenseEntities[i];
+            if (this.collide(otherEntity)) {
+                this.handleCollision(otherEntity);
+            }
+        }
+
+
         for(let i = 0; i < this.game.enemyEntities.length; i++) {
             let tempEntity = this.game.enemyEntities[i];
             if (this.collide(tempEntity) && this.attacking) {
