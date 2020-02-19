@@ -52,7 +52,7 @@ function GameEngine() {
 
     this.prepPhaseTimer = 5;
     this.beginPhase = 0;
-    this.level = 0;
+    this.level = 1;
     this.levelDisplay = null;
     this.scoreDisplay = null;
     this.score = 0;
@@ -336,6 +336,8 @@ GameEngine.prototype.loop = function () {
 
         if(this.enemyEntities.length === 0){
             this.level++;
+            console.log(this.level);
+            this.levelDisplay.innerHTML = this.level;
             this.beginPhase = 0;
             this.spawn = false;
         }
