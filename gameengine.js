@@ -111,13 +111,6 @@ GameEngine.prototype.startInput = function () {
     console.log('Starting input');
     var that = this;
 
-    // var map = {};
-    // onkeydown = onkeyup = function(e) {
-    //     map[e.keyCode] = e.type == 'keydown';
-    // };
-
-    // that.movementHandler.player.updateKeysPressed(map);
-
     var towerKey = false;
     var walking = false;
 
