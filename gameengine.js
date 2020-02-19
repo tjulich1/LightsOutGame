@@ -56,6 +56,7 @@ function GameEngine() {
     this.levelDisplay = null;
     this.scoreDisplay = null;
     this.score = 0;
+    this.spawn = false;
 }
 
 GameEngine.prototype.setMovementHandler = function(handler) {
@@ -328,10 +329,16 @@ GameEngine.prototype.loop = function () {
     this.beginPhase += this.clockTick;
     //console.log(this.beginPhase);
     if(this.beginPhase >= this.prepPhaseTimer){
-        spawnEnemies();
-        this.level++;
-        this.levelDisplay.innerHTML = this.level;
-        this.beginPhase = -90;
+        if(!this.spawn){
+            spawnEnemies();
+            this.spawn = true;
+        }
+
+        if(this.enemyEntities.length === 0){
+            this.level++;
+            this.beginPhase = 0;
+            this.spawn = false;
+        }
     }
     this.update();
     this.draw();
