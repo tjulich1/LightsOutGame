@@ -32,20 +32,20 @@ class Player {
 
         this.deathAnimation = new Animation(this.mainCharDead, 0, 0, 64, 64, 0.15, 6, true, false);
 
-        this.attackAnimationUp = new Animation(this.mainCharAttack, 0, 0, 64, 64, 0.15, 8, true, false);
-        this.attackAnimationDown = new Animation(this.mainCharAttack, 0, 128, 64, 64, 0.15, 8, true, false);
-        this.attackAnimationLeft = new Animation(this.mainCharAttack, 0, 64, 64, 64, 0.15, 8, true, false);
-        this.attackAnimationRight = new Animation(this.mainCharAttack, 0, 192, 64, 64, 0.15, 8, true, false);
+        this.attackAnimationUp = new Animation(this.mainCharAttack, 0, 0, 64, 64, 0.09, 8, true, false);
+        this.attackAnimationDown = new Animation(this.mainCharAttack, 0, 128, 64, 64, 0.09, 8, true, false);
+        this.attackAnimationLeft = new Animation(this.mainCharAttack, 0, 64, 64, 64, 0.09, 8, true, false);
+        this.attackAnimationRight = new Animation(this.mainCharAttack, 0, 192, 64, 64, 0.09, 8, true, false);
 
         // DEBUG
         this.drawBoundingBox = true;
     }
 
     draw() {
-        if (this.drawBoundingBox) {
-            this.ctx.rect(this.boundingBox.x, this.boundingBox.y, this.boundingBox.width, this.boundingBox.height);
-            this.ctx.stroke();
-        }
+        // if (this.drawBoundingBox) {
+        //     this.ctx.rect(this.boundingBox.x, this.boundingBox.y, this.boundingBox.width, this.boundingBox.height);
+        //     this.ctx.stroke();
+        // }
         this.ctx.drawImage(this.healthBar, 0, 0, this.healthLeft, 5, this.x, this.y, this.healthLeft, 5);
         if(this.attacking) {
             if(this.currentKey === 'W' || this.currentKey === 'w') {
@@ -110,6 +110,16 @@ class Player {
             let otherEntity = this.game.resourceEntities[i];
             if (this.collide(otherEntity)) {
                 this.handleCollision(otherEntity);
+            }
+        }
+
+        for(let i = 0; i < this.game.enemyEntities.length; i++) {
+            let tempEntity = this.game.enemyEntities[i];
+            if (this.collide(tempEntity) && this.attacking) {
+                tempEntity.takeDamage(0.7);
+                if(tempEntity.removeMe()) {
+                    tempEntity.removeFromWorld = true;
+                }
             }
         }
     }
