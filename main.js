@@ -81,7 +81,7 @@ ASSET_MANAGER.downloadAll(function () {
     var healthBar = ASSET_MANAGER.getAsset("./img/health_bar.png");
     var mainCharDead = ASSET_MANAGER.getAsset("./img/mainCharacter_dead.png");
     var mainCharAttack = ASSET_MANAGER.getAsset("./img/mainCharacter_attack.png");
-    var mainCharacter = new Player(gameEngine, 30, 30, 64, 64, mainChar, healthBar, mainCharDead, mainCharAttack, grid, ASSET_MANAGER.getAsset("./img/tower.png"), 
+    var mainCharacter = new Player(gameEngine, 400, 400, 64, 64, mainChar, healthBar, mainCharDead, mainCharAttack, grid, ASSET_MANAGER.getAsset("./img/tower.png"), 
                                     testWorld, inventory, rock, wood);
     PMH.assignPlayer(mainCharacter);
     gameEngine.addMainEntity(mainCharacter);
@@ -105,12 +105,40 @@ function addProjectile(x, y, point){
 
 function spawnEnemies(){
     var type = null;
+    var loc = null;
     for(var i = 0; i < 5; i++){
         type = enemyProb[Math.floor(Math.random() * enemyProb.length)];
+        loc = getSpawnLoc()
         if(type === "skeleton"){
-            gameEngine.addEnemyEntity(new Skeleton(gameEngine, 720, 10, 50, 50, ASSET_MANAGER.getAsset("./img/skeleWalk.png"), ASSET_MANAGER.getAsset("./img/skeleAttack.png"), ASSET_MANAGER.getAsset("./img/skeleDie.png")));
-        }//else{
-        //     gameEngine.addEnemyEntity(new Armored(gameEngine, 500, 500, 70, 70, ASSET_MANAGER.getAsset("./img/armoredWalk.png"), ASSET_MANAGER.getAsset("./img/armoredAttack.png"), ASSET_MANAGER.getAsset("./img/armoredDie.png")));
-        // }
+            gameEngine.addEnemyEntity(new Skeleton(gameEngine, loc.x, loc.y, 64, 64, ASSET_MANAGER.getAsset("./img/skeleWalk.png"), ASSET_MANAGER.getAsset("./img/skeleAttack.png"), ASSET_MANAGER.getAsset("./img/skeleDie.png")));
+        }else{
+            gameEngine.addEnemyEntity(new Armored(gameEngine, loc.x, loc.y, 64, 64, ASSET_MANAGER.getAsset("./img/armoredWalk.png"), ASSET_MANAGER.getAsset("./img/armoredAttack.png"), ASSET_MANAGER.getAsset("./img/armoredDie.png")));
+        }
     }
+}
+
+function getSpawnLoc(){
+    var line = Math.floor(Math.random() * 4);
+    var x = null;
+    var y = null;
+
+    if(line === 0){
+        //spawn along left axis
+        x = -64;
+        y = Math.floor(Math.random() * 800);
+    }else if(line === 1){
+        //spawn along bottom
+        y = 800;
+        x = Math.floor(Math.random() * 800);
+    }else if(line === 2){
+        //spawn along right
+        x = 800;
+        y = Math.floor(Math.random() * 800);
+    }else{
+        //spawn along top
+        y = -64;
+        x = Math.floor(Math.random() * 800);
+    }
+
+    return {x: x, y: y};
 }
