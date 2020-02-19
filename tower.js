@@ -1,5 +1,5 @@
 class Tower{
-    constructor(game, x, y, width, height, sprite, assetMan){
+    constructor(game, x, y, width, height, sprite){
         this.game = game;
         this.ctx = this.game.ctx;
         this.x = x;
@@ -9,7 +9,6 @@ class Tower{
         this.width = width;
         this. height = height;
         this.sprite = sprite;
-        this.assets = assetMan;
         this.fireThresh = 0;
         this.radius = 200;
         this.enemies = [];
@@ -26,7 +25,7 @@ class Tower{
         if(this.fireThresh === 0){
             for(var i = 0; i < this.game.enemyEntities.length; i++){
                 ent = this.game.enemyEntities[i];
-                if(this.distance(ent) <= this.radius){
+                if(this.distance(ent) <= this.radius && !ent.dead){
                     this.enemies.push(ent);
                 }
             }

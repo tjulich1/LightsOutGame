@@ -44,10 +44,31 @@ function GameEngine() {
     this.surfaceHeight = null;
 
     this.movementHandler = null;
+    this.grid = null;
+    this.gameOver = false;
+    this.gameOverScreen = null;
+    this.startGame = false;
+    this.startScreen = null;
+
+    this.prepPhaseTimer = 5;
+    this.beginPhase = 0;
+    this.level = 1;
 }
 
 GameEngine.prototype.setMovementHandler = function(handler) {
     this.movementHandler = handler;
+}
+
+GameEngine.prototype.setGameOverScreen = function(screen) {
+    this.gameOverScreen = screen;
+}
+
+GameEngine.prototype.setStartScreen = function(startScreen) {
+    this.startScreen = startScreen;
+}
+
+GameEngine.prototype.setGrid = function(grid) {
+    this.grid = grid;
 }
 
 GameEngine.prototype.init = function (ctx) {
@@ -63,8 +84,15 @@ GameEngine.prototype.start = function () {
     console.log("starting game");
     var that = this;
     (function gameLoop() {
-        that.loop();
-        requestAnimFrame(gameLoop, that.ctx.canvas);
+        //console.log(that.gameOver + ', ' + that.startGame);
+        if(!that.gameOver && that.startGame) {
+            that.loop();
+            requestAnimFrame(gameLoop, that.ctx.canvas);
+        } else if(!that.startGame) {
+            that.ctx.drawImage(that.startScreen, 0, 0, 800, 800);
+        } else {
+            that.ctx.drawImage(that.gameOverScreen, 0, 0, 800, 800);
+        }
     })();
 }
 
@@ -72,28 +100,53 @@ GameEngine.prototype.startInput = function () {
     console.log('Starting input');
     var that = this;
 
+    // var map = {};
+    // onkeydown = onkeyup = function(e) {
+    //     map[e.keyCode] = e.type == 'keydown';
+    // };
+
+    // that.movementHandler.player.updateKeysPressed(map);
+
+    var towerKey = false;
+    var walking = false;
+
     this.ctx.canvas.addEventListener("keydown", function (e) {
         e.preventDefault();
-        that.movementHandler.keyDown(String.fromCharCode(e.which));
-        that.movementHandler.player.updatePreviousKey(that.movementHandler.player.currentKey);
-        that.movementHandler.player.updateCurrentKey(e.key);
-
+        if(String.fromCharCode(e.which) === 'e' || String.fromCharCode(e.which) === 'E') {
+            towerKey = true;
+        } else {
+            if(!walking) {
+                walking = true;
+                that.movementHandler.keyDown(String.fromCharCode(e.which));
+                that.movementHandler.player.updateCurrentKey(e.key);
+            }
+        }
     }, false);
 
     this.ctx.canvas.addEventListener("keyup", function(e) {
         e.preventDefault();
-        that.movementHandler.keyUp(String.fromCharCode(e.which));
-        // that.movementHandler.player.updatePreviousKey(e.key);
-
-        if (that.movementHandler.player.currentKey === e.key && that.movementHandler.player.prevKey !== undefined) {
-            that.movementHandler.player.updateCurrentKey(that.movementHandler.player.prevKey);
+        if(String.fromCharCode(e.which) === 'e' || String.fromCharCode(e.which) === 'E') {
+            towerKey = false;
+        } else {
+            walking = false;
         }
-
+        that.movementHandler.keyUp(String.fromCharCode(e.which));
     }, false);
 
     this.ctx.canvas.addEventListener("click", function(e) {
         e.preventDefault();
-        that.movementHandler.player.updateAttackStatus();
+        if(!that.startGame) {
+            console.log('started game');
+            that.startGame = true;
+            that.start();
+        } else {
+            if(towerKey) {
+                var gridCell = that.movementHandler.player.grid.getCoordinates();
+                that.movementHandler.player.placeTower(gridCell.x, gridCell.y);
+            } else {
+                that.movementHandler.player.updateAttackStatus();
+            }
+        }
     }, false)
 
     console.log('Input started');
@@ -134,7 +187,7 @@ GameEngine.prototype.draw = function () {
     this.ctx.save();
 
     //The order in which each entitey is processed determined layering.
-
+    
     for(var i = 0; i < this.miscEntities.length; i++){
         this.miscEntities[i].draw(this.ctx);
     }
@@ -176,7 +229,7 @@ GameEngine.prototype.update = function () {
     //Misc entities (Will we ever have to remove?)
     for (var i = 0; i < miscCount; i++) {
         var entity = this.miscEntities[i];
-
+        
         if (!entity.removeFromWorld) {
             entity.update();
         }
@@ -185,7 +238,7 @@ GameEngine.prototype.update = function () {
     //Main entities (fire and main char)
     for (var i = 0; i < mainCount; i++) {
         var entity = this.mainEntities[i];
-
+        
         if (!entity.removeFromWorld) {
             entity.update();
         }
@@ -260,6 +313,12 @@ GameEngine.prototype.update = function () {
 
 GameEngine.prototype.loop = function () {
     this.clockTick = this.timer.tick();
+    this.beginPhase += this.clockTick;
+    //console.log(this.beginPhase);
+    if(this.beginPhase >= this.prepPhaseTimer){
+        spawnEnemies();
+        this.beginPhase = -90;
+    }
     this.update();
     this.draw();
     this.space = null;

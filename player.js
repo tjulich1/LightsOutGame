@@ -1,5 +1,5 @@
 class Player {
-    constructor(game, x, y, width, height, spritesheet, healthBar, mainCharDead, mainCharAttack) {
+    constructor(game, x, y, width, height, spritesheet, healthBar, mainCharDead, mainCharAttack, grid, tower, world, inventory, rock, wood) {
         this.x = x;
         this.y = y;
         this.ctx = game.ctx;
@@ -11,12 +11,19 @@ class Player {
         this.spritesheet = spritesheet;
         this.healthBar = healthBar;
         this.currentKey = 'S';
-        this.prevKey = 'undefined';
         this.healthLeft = 64;
         this.mainCharDead = mainCharDead;
         this.mainCharAttack = mainCharAttack;
         this.attacking = false;
+
         this.boundingBox = new BoundingBox(this.x + 17, this.y + 14, 30, 48);
+        this.grid = grid;
+        this.tower = tower;
+        this.world = world;
+
+        this.inventory = inventory;
+        this.rock = rock;
+        this.wood = wood;
 
         this.walkAnimationUp = new Animation(this.spritesheet, 0, 0, 64, 64, 0.15, 9, true, false);
         this.walkAnimationDown = new Animation(this.spritesheet, 0, 128, 64, 64, 0.15, 9, true, false);
@@ -40,7 +47,6 @@ class Player {
             this.ctx.stroke();
         }
         this.ctx.drawImage(this.healthBar, 0, 0, this.healthLeft, 5, this.x, this.y, this.healthLeft, 5);
-        this.updateHealthBar(0.3);
         if(this.attacking) {
             if(this.currentKey === 'W' || this.currentKey === 'w') {
                 this.attackAnimationUp.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
@@ -120,18 +126,21 @@ class Player {
         }
         // Check if it hit from the bottom...
         else if (this.currentKey === 'w' || this.currentKey === 'W') {
+            console.log('hit from bottom');
             this.yVelocity = 0;
-            this.y = otherEntity.boundingBox.bottom + 1;
+            this.y = otherEntity.boundingBox.bottom - 5;
         }
         // Check if it hit from the right
         else if (this.currentKey === 'd' || this.currentKey === 'D') {
+            console.log('hit from right');
             this.xvelocity = 0;
             this.x = otherEntity.boundingBox.left - this.boundingBox.width - 20;
         }
         // Check if it hit from the left
         else if (this.currentKey === 'a' || this.currentKey === 'A') {
+            console.log('hit from left');
             this.xvelocity = 0;
-            this.x = otherEntity.boundingBox.right + 1;
+            this.x = this.boundingBox.left - 14;
         }
     }
 
@@ -147,15 +156,15 @@ class Player {
         this.currentKey = key;
     }
 
-    updatePreviousKey(key) {
-        this.prevKey = key;
+    takeDamage(value) {
+        this.healthLeft = this.healthLeft - value;
+        if(this.gameOver()) {
+            this.game.gameOver = true;
+        }
     }
 
-    updateHealthBar(value) {
-        this.healthLeft = this.healthLeft - value;
-        if(this.healthLeft <= 0) {
-            this.healthLeft = 64;
-        }
+    gameOver() {
+        return this.healthLeft <= 0;
     }
 
     updateAttackStatus() {
@@ -165,5 +174,33 @@ class Player {
     collide(otherEntity) {
         return (this.boundingBox.left <= otherEntity.boundingBox.right && this.boundingBox.right >= otherEntity.boundingBox.left
                 && this.boundingBox.top <= otherEntity.boundingBox.bottom && this.boundingBox.bottom >= otherEntity.boundingBox.top);
+    }
+
+    placeTower(x, y) {
+        if(this.world.resources[x][y] !== 1 && this.world.resources[x][y] !== 2 && this.world.resources[x][y] !== 3 && this.noTowersNearby(x - 1, y - 1) &&
+            this.inventory.getWoodCount() > 0 && this.inventory.getRockCount() > 0) {
+
+            var newTower = new Tower(this.game, (x - 1) * 40, (y - 1) * 40, 80, 80, this.tower);
+            this.inventory.removeWood();
+            this.inventory.removeRock();
+            this.world.resources[x - 1][y - 1] = 4;
+
+            this.displayInventory();
+            this.game.addDefenseEntity(newTower);
+        }
+    }
+
+    displayInventory() {
+        var rockDisplay = this.rock.innerHTML.split(' ');
+        var woodDisplay = this.wood.innerHTML.split(' ');
+
+        this.rock.innerHTML = rockDisplay[0] + ' ' + this.inventory.getRockCount();
+        this.wood.innerHTML = woodDisplay[0] + ' ' + this.inventory.getWoodCount();
+    }
+
+    noTowersNearby(x, y) {
+        return this.world.resources[x][y] !== 4 && this.world.resources[x][y - 1] !== 4 && this.world.resources[x + 1][y - 1] !== 4 &&
+                this.world.resources[x + 1][y] !== 4 && this.world.resources[x + 1][y + 1] !== 4 && this.world.resources[x][y + 1] !== 4 &&
+                this.world.resources[x - 1][y + 1] !== 4 && this.world.resources[x - 1][y] !== 4 && this.world.resources[x - 1][y + 1] !== 4
     }
 }

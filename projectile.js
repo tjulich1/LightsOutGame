@@ -8,9 +8,11 @@ class Projectile{
         this.height = height;
         this.targetPoint = targetPoint;
         this.sprite = sprite;
+        this.damage = 20;
         this.angle = this.getAngle();
         this.xVelocity = this.getXVelocity();
         this.yVelocity = this.getYVelocity();
+        this.boundingBox = new BoundingBox(this.x, this.y , this.width, this.height);
     }
 
     draw(){
@@ -26,8 +28,8 @@ class Projectile{
             this.y += this.yVelocity;
         }
 
+        var ent = null;
         if(this.y < 0 | this.x < 0 || this.y > 800 || this.x > 800){
-            var ent = null;
             for(var i = 0; i < this.game.projectileEntities.length; i++){
                 ent = this.game.projectileEntities[i];
                 if(this === ent){
@@ -35,6 +37,15 @@ class Projectile{
                 }
             }
         }
+
+        for(var i = 0; i < this.game.enemyEntities.length; i++){
+            ent = this.game.enemyEntities[i];
+            if(ent.removeMe()){
+                console.log("removed from world");
+                ent.removeFromWorld = true;
+            }
+        }
+        this.boundingBox.update(this.x, this.y);
     }
 
     getXVelocity(){
@@ -74,5 +85,9 @@ class Projectile{
         }else{
             return 0;
         }
+    }
+
+    getDamage(){
+        return this.damage;
     }
 }

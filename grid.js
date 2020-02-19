@@ -46,7 +46,11 @@ class Grid {
     updateHighlightCells(row, column) {
         this.highlightRow = Math.floor(row/this.rowHeight);
         this.highlightColumn = Math.floor(column/this.columnWidth);
-        console.log(`${this.highlightRow}, ${this.highlightColumn}`);
+        // console.log(`${this.highlightRow}, ${this.highlightColumn}`);
+    }
+
+    getCoordinates() {
+        return {x: this.highlightRow, y: this.highlightColumn};
     }
 
     update() {

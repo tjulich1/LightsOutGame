@@ -1,9 +1,10 @@
 class Skeleton extends Enemy{
-    constructor(game, x, y, width, height, walkSpriteSheet, attackSpriteSheet){
+    constructor(game, x, y, width, height, walkSpriteSheet, attackSpriteSheet, dieSprite){
         //filler numbers for health, xvelo, and yvelo.
         //may need to pass in coordinates of the light or implement 
         //a way for it to be found on the game board.
-        super(game, x, y,width, height, 100, 0, 0, walkSpriteSheet, attackSpriteSheet);
+        super(game, x, y,width, height, 100, 0, 0, walkSpriteSheet, attackSpriteSheet, dieSprite);
+        this.damage = 5;
     }
 
     update(){
@@ -41,13 +42,16 @@ class Skeleton extends Enemy{
             this.y = -this.height;
         }
 
-        this.boundingBox.update(this.x + 17, this.y + 8.5);
         var ent = null;
         this.attack = false;
 
         //find closest target (done)
         //have I collided with target? (main char, defense, campfire)
         //if yes set attack to true 
+        if(this.attackThresh !== 0){
+            this.attackThresh--;
+        }
+
         for(var i = 0; i < this.game.mainEntities.length; i++){
             ent = this.game.mainEntities[i];
             if(this.collide(ent)){
@@ -56,9 +60,9 @@ class Skeleton extends Enemy{
                     this.target = ent;
                 }
             }
-            if(this.collide(ent) && this.target === ent && this.xVelocity === 0 && this.yVelocity === 0 && this.attackThresh === 0){
-                //deal damage
-                //set attackThres
+            if(this.collide(ent) && this.target === ent && this.xVelocity === 0 && this.yVelocity === 0 && this.attackThresh === 0 && !this.dead){
+                ent.takeDamage(this.damage);
+                this.attackThresh = 100;
             }
         }
 
@@ -68,6 +72,11 @@ class Skeleton extends Enemy{
                 this.attack = true;
                 this.target = ent;
             }
+
+            // if(this.collide(ent) && this.target === ent && this.xVelocity === 0 && this.yVelocity === 0 && this.attackThresh === 0){
+            //     ent.takeDamage(this.damage);
+            //     this.attackThresh = 100;
+            // }
         }
 
         // see if this has collided with resources or other enemies
@@ -75,17 +84,19 @@ class Skeleton extends Enemy{
             ent = this.game.resourceEntities[i];
             if(this.collide(ent)){
                 this.changeDirection(ent);
-                this.changeDirectionThresh = 30;
+                this.changeDirectionThresh = 35;
             }
         }
 
-        for(var i = 0; i < this.game.enemyEntities.length; i++){
-            ent = this.game.enemyEntities[i];
-            if(this !== ent && this.collide(ent) && (this.xVelocity !== 0 || this.yVelocity !== 0)){
-                this.changeDirection(ent);
-                this.changeDirectionThresh = 60;
+        for(var i = 0; i < this.game.projectileEntities.length; i++){
+            ent = this.game.projectileEntities[i];
+            if(this.collide(ent)){
+                this.takeDamage(ent.getDamage());
+                ent.removeFromWorld = true;
             }
         }
+
+        this.boundingBox.update(this.x + 17, this.y + 14);
     }
 
 

@@ -57,8 +57,11 @@ class World {
                 }
             }
         }
-    }
 
+        this.resources[9][10] = 3;
+        this.resources[10][10] = 3;
+    }
+    
     checkSurroundingResources(x, y) {
         for (let currentRow = x - 3; currentRow <= x + 3; currentRow++) {
             for (let currentColumn = y - 3; currentColumn <= y + 3; currentColumn++) {
