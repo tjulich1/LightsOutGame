@@ -5,6 +5,9 @@ var inventory = new Inventory();
 
 var rock = document.getElementById("rock");
 var wood = document.getElementById("wood");
+var level = document.getElementById("level");
+var score = document.getElementById("score");
+
 var gameEngine = new GameEngine();
 
 ASSET_MANAGER.queueDownload("./img/gameOver.png");
