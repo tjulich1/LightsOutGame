@@ -134,7 +134,7 @@ class Player {
                 tempEntity.removeFromWorld = true;
             }
             if (this.collide(tempEntity) && this.attacking) {
-                tempEntity.takeDamage(1.5);
+                tempEntity.takeDamage(2.3);
                 if(tempEntity.removeMe()) {
                     tempEntity.removeFromWorld = true;
                 }
