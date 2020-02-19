@@ -92,6 +92,8 @@ ASSET_MANAGER.downloadAll(function () {
     var startScreen = ASSET_MANAGER.getAsset("./img/start.jpg");
     gameEngine.setStartScreen(startScreen);
 
+    gameEngine.setScore(score);
+
     gameEngine.start();
 });
 

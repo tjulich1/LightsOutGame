@@ -53,6 +53,8 @@ function GameEngine() {
     this.prepPhaseTimer = 5;
     this.beginPhase = 0;
     this.level = 1;
+    this.scoreDisplay = null;
+    this.score = 0;
 }
 
 GameEngine.prototype.setMovementHandler = function(handler) {
@@ -69,6 +71,10 @@ GameEngine.prototype.setStartScreen = function(startScreen) {
 
 GameEngine.prototype.setGrid = function(grid) {
     this.grid = grid;
+}
+
+GameEngine.prototype.setScore = function(scoreDisplay) {
+    this.scoreDisplay = scoreDisplay;
 }
 
 GameEngine.prototype.init = function (ctx) {
@@ -261,6 +267,8 @@ GameEngine.prototype.update = function () {
     for (var i = this.enemyEntities.length - 1; i >= 0; --i) {
         if (this.enemyEntities[i].removeFromWorld) {
             this.enemyEntities.splice(i, 1);
+            this.score += 10;
+            this.scoreDisplay.innerHTML = this.score;
         }
     }
 
