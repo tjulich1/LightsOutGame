@@ -49,6 +49,10 @@ function GameEngine() {
     this.gameOverScreen = null;
     this.startGame = false;
     this.startScreen = null;
+
+    this.prepPhaseTimer = 5;
+    this.beginPhase = 0;
+    this.level = 1;
 }
 
 GameEngine.prototype.setMovementHandler = function(handler) {
@@ -308,6 +312,12 @@ GameEngine.prototype.update = function () {
 
 GameEngine.prototype.loop = function () {
     this.clockTick = this.timer.tick();
+    this.beginPhase += this.clockTick;
+    //console.log(this.beginPhase);
+    if(this.beginPhase >= this.prepPhaseTimer){
+        spawnEnemies();
+        this.beginPhase = -90;
+    }
     this.update();
     this.draw();
     this.space = null;

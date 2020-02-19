@@ -2,6 +2,7 @@ var ASSET_MANAGER = new AssetManager();
 var TILE_LOADER = new TileLoader();
 var PMH = new PlayerMovementHandler(3);
 var inventory = new Inventory();
+var enemyProb = ["skeleton", "armored"];
 
 var rock = document.getElementById("rock");
 var wood = document.getElementById("wood");
@@ -64,16 +65,11 @@ ASSET_MANAGER.downloadAll(function () {
 
     PMH.setContext(gameEngine);
 
-    var armor = new Armored(gameEngine, 500, 500, 70, 70, ASSET_MANAGER.getAsset("./img/armoredWalk.png"), ASSET_MANAGER.getAsset("./img/armoredAttack.png"), ASSET_MANAGER.getAsset("./img/armoredDie.png"));
     var light = new Light(gameEngine, 64, 64, ASSET_MANAGER.getAsset("./img/campFire.png"), ASSET_MANAGER.getAsset("./img/health_bar.png"));
-
-    var skele = new Skeleton(gameEngine, 720, 10, 50, 50, ASSET_MANAGER.getAsset("./img/skeleWalk.png"), ASSET_MANAGER.getAsset("./img/skeleAttack.png"), ASSET_MANAGER.getAsset("./img/skeleDie.png"));
     var tow = new Tower(gameEngine, 450, 450, 128, 128, ASSET_MANAGER.getAsset("./img/tower.png"));
     gameEngine.setMovementHandler(PMH);
 
-    gameEngine.addEnemyEntity(armor);
     gameEngine.addMainEntity(light);
-    gameEngine.addEnemyEntity(skele);
 
     var grid = new Grid(rows, columns, canvas.width, canvas.height,gameEngine)
     var mouseHandler = new MouseHandler(gameEngine, grid);
@@ -83,7 +79,7 @@ ASSET_MANAGER.downloadAll(function () {
     var healthBar = ASSET_MANAGER.getAsset("./img/health_bar.png");
     var mainCharDead = ASSET_MANAGER.getAsset("./img/mainCharacter_dead.png");
     var mainCharAttack = ASSET_MANAGER.getAsset("./img/mainCharacter_attack.png");
-    var mainCharacter = new Player(gameEngine, 30, 30, 64, 64, mainChar, healthBar, mainCharDead, mainCharAttack, grid, ASSET_MANAGER.getAsset("./img/tower.png"), 
+    var mainCharacter = new Player(gameEngine, 400, 400, 64, 64, mainChar, healthBar, mainCharDead, mainCharAttack, grid, ASSET_MANAGER.getAsset("./img/tower.png"), 
                                     testWorld, inventory, rock, wood);
     PMH.assignPlayer(mainCharacter);
     gameEngine.addMainEntity(mainCharacter);
@@ -103,4 +99,44 @@ ASSET_MANAGER.downloadAll(function () {
 
 function addProjectile(x, y, point){
     gameEngine.addProjectileEntity(new Projectile(gameEngine, x, y, 10, 10, point, ASSET_MANAGER.getAsset("./img/pebble.png")));
+}
+
+function spawnEnemies(){
+    var type = null;
+    var loc = null;
+    for(var i = 0; i < 5; i++){
+        type = enemyProb[Math.floor(Math.random() * enemyProb.length)];
+        loc = getSpawnLoc()
+        if(type === "skeleton"){
+            gameEngine.addEnemyEntity(new Skeleton(gameEngine, loc.x, loc.y, 64, 64, ASSET_MANAGER.getAsset("./img/skeleWalk.png"), ASSET_MANAGER.getAsset("./img/skeleAttack.png"), ASSET_MANAGER.getAsset("./img/skeleDie.png")));
+        }else{
+            gameEngine.addEnemyEntity(new Armored(gameEngine, loc.x, loc.y, 64, 64, ASSET_MANAGER.getAsset("./img/armoredWalk.png"), ASSET_MANAGER.getAsset("./img/armoredAttack.png"), ASSET_MANAGER.getAsset("./img/armoredDie.png")));
+        }
+    }
+}
+
+function getSpawnLoc(){
+    var line = Math.floor(Math.random() * 4);
+    var x = null;
+    var y = null;
+
+    if(line === 0){
+        //spawn along left axis
+        x = -64;
+        y = Math.floor(Math.random() * 800);
+    }else if(line === 1){
+        //spawn along bottom
+        y = 800;
+        x = Math.floor(Math.random() * 800);
+    }else if(line === 2){
+        //spawn along right
+        x = 800;
+        y = Math.floor(Math.random() * 800);
+    }else{
+        //spawn along top
+        y = -64;
+        x = Math.floor(Math.random() * 800);
+    }
+
+    return {x: x, y: y};
 }
