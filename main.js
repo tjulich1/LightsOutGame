@@ -102,10 +102,10 @@ function addProjectile(x, y, point){
     gameEngine.addProjectileEntity(new Projectile(gameEngine, x, y, 10, 10, point, ASSET_MANAGER.getAsset("./img/pebble.png")));
 }
 
-function spawnEnemies(){
+function spawnEnemies(level){
     var type = null;
     var loc = null;
-    for(var i = 0; i < 5; i++){
+    for(var i = 0; i < (5 + Math.floor(1.5*level)); i++){
         type = enemyProb[Math.floor(Math.random() * enemyProb.length)];
         loc = getSpawnLoc()
         if(type === "skeleton"){
