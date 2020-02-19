@@ -84,8 +84,6 @@ ASSET_MANAGER.downloadAll(function () {
     PMH.assignPlayer(mainCharacter);
     gameEngine.addMainEntity(mainCharacter);
 
-    gameEngine.addResourceEntity(new Resource(100, 100, testWorld.treeWidth, testWorld.treeHeight, gameEngine, ASSET_MANAGER.getAsset("./img/greenTree1.png")));
-
     gameEngine.addMiscEntity(grid);
 
     var gameOverScreen = ASSET_MANAGER.getAsset("./img/gameOver.png");
