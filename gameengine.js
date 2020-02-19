@@ -84,7 +84,6 @@ GameEngine.prototype.start = function () {
     console.log("starting game");
     var that = this;
     (function gameLoop() {
-        //console.log(that.gameOver + ', ' + that.startGame);
         if(!that.gameOver && that.startGame) {
             that.loop();
             requestAnimFrame(gameLoop, that.ctx.canvas);
