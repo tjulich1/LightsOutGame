@@ -25,8 +25,8 @@ class Resource {
         // this.ctx.rect(this.boundingBox.x, this.boundingBox.y, this.boundingBox.width, this.boundingBox.height);
         // this.ctx.stroke();
 
-        this.ctx.rect(this.harvestBox.x, this.harvestBox.y, this.harvestBox.width, this.harvestBox.height);
-        this.ctx.stroke();
+        // this.ctx.rect(this.harvestBox.x, this.harvestBox.y, this.harvestBox.width, this.harvestBox.height);
+        // this.ctx.stroke();
 
 
     }
