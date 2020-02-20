@@ -4,7 +4,7 @@
 **/
 
 class Resource {
-    constructor(x, y, width, height, game, image) {
+    constructor(x, y, width, height, game, image, type) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -12,6 +12,7 @@ class Resource {
         this.game = game;
         this.ctx = game.ctx;
         this.image = image;
+        this.type = type;
 
         let gatherThreshold = 10;
         this.harvestBox = new BoundingBox(this.x-gatherThreshold, this.y-gatherThreshold,
