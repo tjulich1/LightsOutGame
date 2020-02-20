@@ -204,6 +204,20 @@ class Player {
                 && this.boundingBox.top <= otherEntity.boundingBox.bottom && this.boundingBox.bottom >= otherEntity.boundingBox.top);
     }
 
+    checkHarvestResources() {
+        for (let i = 0; i < this.game.resourceEntities.length; i++) {
+            if (this.inResourceRange(this.game.resourceEntities[i])) {
+                this.game.resourceEntities[i].removeFromWorld = true;
+                console.log("remove");
+            }
+        }
+    }
+
+    inResourceRange(otherEntity) {
+        return (this.boundingBox.left <= otherEntity.harvestBox.right && this.boundingBox.right >= otherEntity.harvestBox.left
+                && this.boundingBox.top <= otherEntity.harvestBox.bottom && this.boundingBox.bottom >= otherEntity.harvestBox.top);
+    }
+
     placeTower(x, y) {
         if(this.world.resources[x][y] !== 1 && this.world.resources[x][y] !== 2 && this.world.resources[x][y] !== 3 && this.noTowersNearby(x - 1, y - 1) &&
             this.inventory.getWoodCount() > 0 && this.inventory.getRockCount() > 0) {
