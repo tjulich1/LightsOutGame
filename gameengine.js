@@ -116,9 +116,12 @@ GameEngine.prototype.startInput = function () {
 
     this.ctx.canvas.addEventListener("keydown", function (e) {
         e.preventDefault();
+        console.log(String.fromCharCode(e.which));
         if(String.fromCharCode(e.which) === 'e' || String.fromCharCode(e.which) === 'E') {
             towerKey = true;
-        } else {
+        } else if (String.fromCharCode(e.which) === " ") {
+            that.movementHandler.player.checkHarvestResources();
+        }else {
             if(!walking) {
                 walking = true;
                 that.movementHandler.keyDown(String.fromCharCode(e.which));
@@ -191,7 +194,7 @@ GameEngine.prototype.draw = function () {
     this.ctx.save();
 
     //The order in which each entitey is processed determined layering.
-    
+
     for(var i = 0; i < this.miscEntities.length; i++){
         this.miscEntities[i].draw(this.ctx);
     }
@@ -233,7 +236,7 @@ GameEngine.prototype.update = function () {
     //Misc entities (Will we ever have to remove?)
     for (var i = 0; i < miscCount; i++) {
         var entity = this.miscEntities[i];
-        
+
         if (!entity.removeFromWorld) {
             entity.update();
         }
@@ -242,7 +245,7 @@ GameEngine.prototype.update = function () {
     //Main entities (fire and main char)
     for (var i = 0; i < mainCount; i++) {
         var entity = this.mainEntities[i];
-        
+
         if (!entity.removeFromWorld) {
             entity.update();
         }

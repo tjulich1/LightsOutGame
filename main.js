@@ -79,7 +79,7 @@ ASSET_MANAGER.downloadAll(function () {
     var healthBar = ASSET_MANAGER.getAsset("./img/health_bar.png");
     var mainCharDead = ASSET_MANAGER.getAsset("./img/mainCharacter_dead.png");
     var mainCharAttack = ASSET_MANAGER.getAsset("./img/mainCharacter_attack.png");
-    var mainCharacter = new Player(gameEngine, 400, 400, 64, 64, mainChar, healthBar, mainCharDead, mainCharAttack, grid, ASSET_MANAGER.getAsset("./img/tower.png"), 
+    var mainCharacter = new Player(gameEngine, 400, 400, 64, 64, mainChar, healthBar, mainCharDead, mainCharAttack, grid, ASSET_MANAGER.getAsset("./img/tower.png"),
                                     testWorld, inventory, rock, wood);
     PMH.assignPlayer(mainCharacter);
     gameEngine.addMainEntity(mainCharacter);
