@@ -12,6 +12,7 @@ class Tower{
         this.fireThresh = 0;
         this.radius = 200;
         this.enemies = [];
+        this.health = 1;
         this.boundingBox = new BoundingBox(this.x + 36, this.y + 26, 59, 87);
     }
 
@@ -97,5 +98,13 @@ class Tower{
           }
         }
         return sol;
+    }
+
+    takeDamage(damage){
+      this.health = this.health - damage;
+    }
+
+    isDead(){
+      return this.health <= 0;
     }
 }
