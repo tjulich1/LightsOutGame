@@ -73,10 +73,13 @@ class Skeleton extends Enemy{
                 this.target = ent;
             }
 
-            // if(this.collide(ent) && this.target === ent && this.xVelocity === 0 && this.yVelocity === 0 && this.attackThresh === 0){
-            //     ent.takeDamage(this.damage);
-            //     this.attackThresh = 100;
-            // }
+            if(this.collide(ent) && this.target === ent && this.xVelocity === 0 && this.yVelocity === 0 && this.attackThresh === 0){
+                ent.takeDamage(this.damage);
+                if(ent.isDead()){
+                    ent.removeFromWorld = true;
+                }
+                this.attackThresh = 100;
+            }
         }
 
         // see if this has collided with resources or other enemies
@@ -117,7 +120,7 @@ class Skeleton extends Enemy{
         }
 
         for(var i = 0; i < this.game.defenseEntities.length; i++){
-            ent = this.game.mainEntities[i];
+            ent = this.game.defenseEntities[i];
             currDist = this.distance(ent);
 
             if(currDist < minDist){
