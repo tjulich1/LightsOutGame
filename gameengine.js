@@ -297,7 +297,7 @@ GameEngine.prototype.update = function () {
 
     for (var i = this.defenseEntities.length - 1; i >= 0; --i) {
         if (this.defenseEntities[i].removeFromWorld) {
-            this.defesneEntities.splice(i, 1);
+            this.defenseEntities.splice(i, 1);
         }
     }
 
