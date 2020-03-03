@@ -50,7 +50,7 @@ function GameEngine() {
     this.startGame = false;
     this.startScreen = null;
 
-    this.prepPhaseTimer = 5;
+    this.prepPhaseTimer = 45;
     this.beginPhase = 0;
     this.level = 1;
     this.levelDisplay = null;
@@ -341,6 +341,10 @@ GameEngine.prototype.loop = function () {
     this.update();
     this.draw();
     this.space = null;
+}
+
+GameEngine.prototype.isBuildPhase = function(){
+    return !this.spawn;
 }
 
 function Entity(game, x, y) {
