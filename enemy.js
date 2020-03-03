@@ -22,7 +22,7 @@ class Enemy {
         this.attackThresh = 0;
         this.attack = false;
         this.dead = false;
-        this.boundingBox = new BoundingBox(this.x + 17, this.y + 14, 30, 48);
+        this.boundingBox = new BoundingBox(this.x + 23, this.y + 17, 18, 39);
         this.target = null;
         this.health = health
         this.remove = false;

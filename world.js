@@ -48,11 +48,11 @@ class World {
                     if (resourceType < 1) {
                         // Place a tree
                         this.resources[j][i] = 1;
-                        this.game.addResourceEntity(new Resource(j*this.tileDim, i*this.tileDim, this.treeWidth, this.treeHeight, this.game, this.treeSprite));
+                        this.game.addResourceEntity(new Resource(j*this.tileDim, i*this.tileDim, this.treeWidth, this.treeHeight, this.game, this.treeSprite, "tree"));
                     } else {
                         // Place a rock
                         this.resources[j][i] = 2;
-                        this.game.addResourceEntity(new Resource(j*this.tileDim, i*this.tileDim, this.rockWidth, this.rockHeight, this.game, this.rockSprite));
+                        this.game.addResourceEntity(new Resource(j*this.tileDim, i*this.tileDim, this.rockWidth, this.rockHeight, this.game, this.rockSprite, "rock"));
                     }
                 }
             }

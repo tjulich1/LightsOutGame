@@ -17,7 +17,7 @@ class Skeleton extends Enemy{
             this.findClosestTarget();
             this.getVelocity();
             this.changeDirectionThresh = 30;
-        }else if(this.attack){
+        }else if(this.attack || this.dead){
             this.xVelocity = 0;
             this.yVelocity = 0;
             this.changeDirectionThresh = 0;
@@ -99,7 +99,7 @@ class Skeleton extends Enemy{
             }
         }
 
-        this.boundingBox.update(this.x + 17, this.y + 14);
+        this.boundingBox.update(this.x + 23, this.y + 17);
     }
 
 
