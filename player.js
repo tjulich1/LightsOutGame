@@ -16,7 +16,7 @@ class Player {
         this.mainCharAttack = mainCharAttack;
         this.attacking = false;
 
-        this.boundingBox = new BoundingBox(this.x + 17, this.y + 14, 30, 48);
+        this.boundingBox = new BoundingBox(this.x + 22, this.y + 34, 20, 21);
         this.grid = grid;
         this.tower = tower;
         this.world = world;
@@ -42,10 +42,10 @@ class Player {
     }
 
     draw() {
-        // if (this.drawBoundingBox) {
-        //     this.ctx.rect(this.boundingBox.x, this.boundingBox.y, this.boundingBox.width, this.boundingBox.height);
-        //     this.ctx.stroke();
-        // }
+        if (this.drawBoundingBox) {
+            this.ctx.rect(this.boundingBox.x, this.boundingBox.y, this.boundingBox.width, this.boundingBox.height);
+            this.ctx.stroke();
+        }
         this.ctx.drawImage(this.healthBar, 0, 0, this.healthLeft, 5, this.x, this.y, this.healthLeft, 5);
         if(this.attacking) {
             if(this.currentKey === 'W' || this.currentKey === 'w') {
@@ -102,7 +102,7 @@ class Player {
         if (this.y > this.ctx.canvas.height) {
             this.y = -this.height;
         }
-        this.boundingBox.update(this.x + 17, this.y + 14);
+        this.boundingBox.update(this.x + 22, this.y + 34);
     }
 
     checkCollisions() {

@@ -48,11 +48,11 @@ class World {
                     if (resourceType < 1) {
                         // Place a tree
                         this.resources[j][i] = 1;
-                        this.game.addResourceEntity(new Resource(j*this.tileDim, i*this.tileDim, this.treeWidth, this.treeHeight, this.game, this.treeSprite, 'tree'));
+                        this.game.addResourceEntity(new Resource(j*this.tileDim, i*this.tileDim, this.treeWidth, this.treeHeight, this.game, this.treeSprite, "tree"));
                     } else {
                         // Place a rock
                         this.resources[j][i] = 2;
-                        this.game.addResourceEntity(new Resource(j*this.tileDim, i*this.tileDim, this.rockWidth, this.rockHeight, this.game, this.rockSprite, 'rock'));
+                        this.game.addResourceEntity(new Resource(j*this.tileDim, i*this.tileDim, this.rockWidth, this.rockHeight, this.game, this.rockSprite, "rock"));
                     }
                 }
             }
@@ -61,7 +61,7 @@ class World {
         this.resources[9][10] = 3;
         this.resources[10][10] = 3;
     }
-    
+
     checkSurroundingResources(x, y) {
         for (let currentRow = x - 3; currentRow <= x + 3; currentRow++) {
             for (let currentColumn = y - 3; currentColumn <= y + 3; currentColumn++) {
