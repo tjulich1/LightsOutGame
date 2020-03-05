@@ -116,7 +116,6 @@ GameEngine.prototype.startInput = function () {
 
     this.ctx.canvas.addEventListener("keydown", function (e) {
         e.preventDefault();
-        console.log(String.fromCharCode(e.which));
         if(String.fromCharCode(e.which) === 'e' || String.fromCharCode(e.which) === 'E') {
             towerKey = true;
         } else if (String.fromCharCode(e.which) === " ") {

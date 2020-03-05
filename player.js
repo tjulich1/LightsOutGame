@@ -16,6 +16,8 @@ class Player {
         this.mainCharAttack = mainCharAttack;
         this.attacking = false;
 
+        this.prevPos = {x:0, y:0};
+
         this.boundingBox = new BoundingBox(this.x + 22, this.y + 34, 20, 21);
         this.grid = grid;
         this.tower = tower;
@@ -88,6 +90,8 @@ class Player {
 
     update() {
         this.checkCollisions();
+        this.prevPos.x = this.x;
+        this.prevPos.y = this.y;
         this.x += this.xvelocity;
         this.y += this.yvelocity;
         if (this.x + this.width < 0) {
@@ -109,21 +113,21 @@ class Player {
         for (let i = 0; i < this.game.resourceEntities.length; i++) {
             let otherEntity = this.game.resourceEntities[i];
             if (this.collide(otherEntity)) {
-                this.handleCollision(otherEntity);
+                this.handleCollision();
             }
         }
 
         for (let i = 0; i < this.game.defenseEntities.length; i++) {
             let otherEntity = this.game.defenseEntities[i];
             if (this.collide(otherEntity)) {
-                this.handleCollision(otherEntity);
+                this.handleCollision();
             }
         }
 
         for (let i = 0; i < this.game.mainEntities.length; i++) {
             let otherEntity = this.game.mainEntities[i];
             if (otherEntity !== this && this.collide(otherEntity)) {
-                this.handleCollision(otherEntity);
+                this.handleCollision();
             }
         }
 
@@ -142,34 +146,9 @@ class Player {
         }
     }
 
-    handleCollision(otherEntity) {
-        let largestHeight = Math.max(this.boundingBox.height, otherEntity.boundingBox.height);
-        let largestWidth = Math.max(this.boundingBox.width, otherEntity.boundingBox.width);
-
-        // Check if it hit from the top...
-        if (this.currentKey === 's' || this.currentKey === 'S') {
-            console.log("hit from top");
-            this.yvelocity = 0;
-            this.y = otherEntity.boundingBox.top - this.boundingBox.height - 20;
-        }
-        // Check if it hit from the bottom...
-        else if (this.currentKey === 'w' || this.currentKey === 'W') {
-            console.log('hit from bottom');
-            this.yVelocity = 0;
-            this.y = otherEntity.boundingBox.bottom - 5;
-        }
-        // Check if it hit from the right
-        else if (this.currentKey === 'd' || this.currentKey === 'D') {
-            console.log('hit from right');
-            this.xvelocity = 0;
-            this.x = otherEntity.boundingBox.left - this.boundingBox.width - 20;
-        }
-        // Check if it hit from the left
-        else if (this.currentKey === 'a' || this.currentKey === 'A') {
-            console.log('hit from left');
-            this.xvelocity = 0;
-            this.x = this.boundingBox.left - 14;
-        }
+    handleCollision() {
+        this.x = this.prevPos.x;
+        this.y = this.prevPos.y;
     }
 
     updateXVelocity(velocityChange) {
