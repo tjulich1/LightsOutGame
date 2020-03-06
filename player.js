@@ -10,6 +10,7 @@ class Player {
         this.yvelocity = 0;
         this.spritesheet = spritesheet;
         this.healthBar = healthBar;
+        this.additionalKey = undefined;
         this.currentKey = 'S';
         this.healthLeft = 64;
         this.mainCharDead = mainCharDead;

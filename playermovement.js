@@ -56,7 +56,6 @@ class PlayerMovementHandler {
         }
         this.player.updateXVelocity(this.movementKeys['a']*(-1)*this.vs+this.movementKeys['d']*this.vs);
         this.player.updateYVelocity(this.movementKeys['s']*this.vs+this.movementKeys['w']*this.vs*(-1));
-
     }
 
     /**
@@ -98,6 +97,10 @@ class PlayerMovementHandler {
     setContext(game) {
         this.game = game;
         this.ctx = game.ctx;
+    }
+
+    keysDown() {
+        return this.movementKeys['a'] + this.movementKeys['s'] + this.movementKeys['d'] + this.movementKeys['w'];
     }
 
     // DEBUG

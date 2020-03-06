@@ -107,12 +107,25 @@ GameEngine.prototype.start = function () {
     })();
 }
 
+function areOpposites(currentKey, newKey) {
+    return  currentKey === 'a' && newKey === 'd' ||
+            currentKey === 'd' && newKey === 'a' ||
+            currentKey === 'w' && newKey === 's' ||
+            currentKey === 's' && newKey === 'w';
+}
+
+function isMovementKey(key) {
+    return  key === 'a' ||
+            key === 's' ||
+            key === 'd' ||
+            key === 'w';
+}
+
 GameEngine.prototype.startInput = function () {
     console.log('Starting input');
     var that = this;
 
     var towerKey = false;
-    var walking = false;
 
     this.ctx.canvas.addEventListener("keydown", function (e) {
         e.preventDefault();
@@ -120,11 +133,16 @@ GameEngine.prototype.startInput = function () {
             towerKey = true;
         } else if (String.fromCharCode(e.which) === " ") {
             that.movementHandler.player.checkHarvestResources();
-        }else {
-            if(!walking) {
-                walking = true;
+        } else if (isMovementKey(e.key)){
+            // Case: there are no keys currently down
+            if (!that.movementHandler.keysDown()) {
                 that.movementHandler.keyDown(String.fromCharCode(e.which));
                 that.movementHandler.player.updateCurrentKey(e.key);
+            }
+            // The second key pressed is not an opposite.
+            else if (!areOpposites(that.movementHandler.player.currentKey, e.key)) {
+                that.movementHandler.keyDown(String.fromCharCode(e.which));
+                that.movementHandler.player.additionalKey = e.key;
             }
         }
     }, false);
@@ -133,10 +151,17 @@ GameEngine.prototype.startInput = function () {
         e.preventDefault();
         if(String.fromCharCode(e.which) === 'e' || String.fromCharCode(e.which) === 'E') {
             towerKey = false;
-        } else {
-            walking = false;
         }
-        that.movementHandler.keyUp(String.fromCharCode(e.which));
+        if (isMovementKey(e.key)) {
+            that.movementHandler.keyUp(String.fromCharCode(e.which));
+            // If there are other movement keys being pressed...
+            if (that.movementHandler.keysDown()) {
+                if (e.key === that.movementHandler.player.currentKey) {
+                    that.movementHandler.player.updateCurrentKey(that.movementHandler.player.additionalKey);
+                }
+            }
+            that.movementHandler.player.additionalKey = undefined;
+        }
     }, false);
 
     this.ctx.canvas.addEventListener("click", function(e) {
