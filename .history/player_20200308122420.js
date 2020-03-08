@@ -187,9 +187,7 @@ class Player {
     }
 
     updateAttackStatus() {
-        if(!this.attacking) {
-            this.attacking = true;
-        }
+        this.attacking = !this.attacking;
     }
 
     collide(otherEntity) {

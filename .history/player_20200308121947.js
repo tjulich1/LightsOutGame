@@ -16,7 +16,6 @@ class Player {
         this.mainCharDead = mainCharDead;
         this.mainCharAttack = mainCharAttack;
         this.attacking = false;
-        this.attackingFrames = 0;
 
         this.prevPos = {x:0, y:0};
 
@@ -55,20 +54,14 @@ class Player {
         }
         this.ctx.drawImage(this.healthBar, 0, 0, this.healthLeft, 5, this.x, this.y, this.healthLeft, 5);
         if(this.attacking) {
-            if(this.attackingFrames < 9) {
-                if(this.currentKey === 'W' || this.currentKey === 'w') {
-                    this.attackAnimationUp.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
-                } else if(this.currentKey === 'A' || this.currentKey === 'a') {
-                    this.attackAnimationLeft.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
-                } else if(this.currentKey === 'S' || this.currentKey === 's' || this.currentKey === '' || this.currentKey === undefined) {
-                    this.attackAnimationDown.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
-                } else {
-                    this.attackAnimationRight.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
-                }
-                this.attackingFrames++;
+            if(this.currentKey === 'W' || this.currentKey === 'w') {
+                this.attackAnimationUp.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
+            } else if(this.currentKey === 'A' || this.currentKey === 'a') {
+                this.attackAnimationLeft.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
+            } else if(this.currentKey === 'S' || this.currentKey === 's' || this.currentKey === '' || this.currentKey === undefined) {
+                this.attackAnimationDown.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
             } else {
-                this.attacking = false;
-                this.attackingFrames = 0;
+                this.attackAnimationRight.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
             }
         } else {
             if(this.currentKey === 'W' || this.currentKey === 'w') {
@@ -187,9 +180,7 @@ class Player {
     }
 
     updateAttackStatus() {
-        if(!this.attacking) {
-            this.attacking = true;
-        }
+        this.attacking = !this.attacking;
     }
 
     collide(otherEntity) {

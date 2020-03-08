@@ -16,13 +16,10 @@ class Player {
         this.mainCharDead = mainCharDead;
         this.mainCharAttack = mainCharAttack;
         this.attacking = false;
-        this.attackingFrames = 0;
 
         this.prevPos = {x:0, y:0};
 
         this.boundingBox = new BoundingBox(this.x + 22, this.y + 34, 20, 21);
-        this.towerPlacementBox = new BoundingBox(this.x, this.y, this.width, this.height);
-
         this.grid = grid;
         this.tower = tower;
         this.world = world;
@@ -50,25 +47,18 @@ class Player {
     draw() {
         if (this.drawBoundingBox) {
             this.ctx.rect(this.boundingBox.x, this.boundingBox.y, this.boundingBox.width, this.boundingBox.height);
-            this.ctx.rect(this.towerPlacementBox.x, this.towerPlacementBox.y, this.towerPlacementBox.width, this.towerPlacementBox.height);
             this.ctx.stroke();
         }
         this.ctx.drawImage(this.healthBar, 0, 0, this.healthLeft, 5, this.x, this.y, this.healthLeft, 5);
         if(this.attacking) {
-            if(this.attackingFrames < 9) {
-                if(this.currentKey === 'W' || this.currentKey === 'w') {
-                    this.attackAnimationUp.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
-                } else if(this.currentKey === 'A' || this.currentKey === 'a') {
-                    this.attackAnimationLeft.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
-                } else if(this.currentKey === 'S' || this.currentKey === 's' || this.currentKey === '' || this.currentKey === undefined) {
-                    this.attackAnimationDown.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
-                } else {
-                    this.attackAnimationRight.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
-                }
-                this.attackingFrames++;
+            if(this.currentKey === 'W' || this.currentKey === 'w') {
+                this.attackAnimationUp.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
+            } else if(this.currentKey === 'A' || this.currentKey === 'a') {
+                this.attackAnimationLeft.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
+            } else if(this.currentKey === 'S' || this.currentKey === 's' || this.currentKey === '' || this.currentKey === undefined) {
+                this.attackAnimationDown.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
             } else {
-                this.attacking = false;
-                this.attackingFrames = 0;
+                this.attackAnimationRight.drawFrame(this.game.clockTick, this.ctx, this.x, this.y, 1);
             }
         } else {
             if(this.currentKey === 'W' || this.currentKey === 'w') {
@@ -118,7 +108,6 @@ class Player {
             this.y = -this.height;
         }
         this.boundingBox.update(this.x + 22, this.y + 34);
-        this.towerPlacementBox.update(this.x, this.y, 64, 64);
     }
 
     checkCollisions() {
@@ -187,9 +176,7 @@ class Player {
     }
 
     updateAttackStatus() {
-        if(!this.attacking) {
-            this.attacking = true;
-        }
+        this.attacking = !this.attacking;
     }
 
     collide(otherEntity) {
@@ -217,26 +204,17 @@ class Player {
                 && this.boundingBox.top <= otherEntity.harvestBox.bottom && this.boundingBox.bottom >= otherEntity.harvestBox.top);
     }
 
-    inPlayerRange(otherEntity) {
-        return (this.towerPlacementBox.left <= otherEntity.boundingBox.right && this.towerPlacementBox.right >= otherEntity.boundingBox.left
-            && this.towerPlacementBox.top <= otherEntity.boundingBox.bottom && this.towerPlacementBox.bottom >= otherEntity.boundingBox.top);
-    }
-
     placeTower(x, y) {
         if(this.world.resources[x][y] !== 1 && this.world.resources[x][y] !== 2 && this.world.resources[x][y] !== 3 && this.noTowersNearby(x - 1, y - 1) &&
             this.inventory.getWoodCount() > 0 && this.inventory.getRockCount() > 0 && !this.game.spawn) {
 
             var newTower = new Tower(this.game, (x - 1) * 40, (y - 1) * 40, 80, 80, this.tower);
-            console.log(newTower);
-            console.log(this.towerPlacementBox);
-            if(!this.inPlayerRange(newTower)) {
-                this.inventory.removeWood();
-                this.inventory.removeRock();
-                this.world.resources[x - 1][y - 1] = 4;
-    
-                this.game.addDefenseEntity(newTower);
-            }
+            this.inventory.removeWood();
+            this.inventory.removeRock();
+            this.world.resources[x - 1][y - 1] = 4;
+
             this.displayInventory();
+            this.game.addDefenseEntity(newTower);
         }
     }
 
