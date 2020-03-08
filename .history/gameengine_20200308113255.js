@@ -176,7 +176,7 @@ GameEngine.prototype.startInput = function () {
             that.startGame = true;
             that.start();
         } else {
-            if(!that.spawn) {
+            if(towerKey) {
                 var gridCell = that.movementHandler.player.grid.getCoordinates();
                 that.movementHandler.player.placeTower(gridCell.x, gridCell.y);
             } else {
@@ -365,9 +365,6 @@ GameEngine.prototype.loop = function () {
             this.levelDisplay.innerHTML = this.level;
             this.beginPhase = 0;
             this.spawn = false;
-            if(this.movementHandler.player.attacking) {
-                this.movementHandler.player.updateAttackStatus();
-            }
         }
     }
     this.update();

@@ -350,6 +350,8 @@ GameEngine.prototype.update = function () {
 }
 
 GameEngine.prototype.loop = function () {
+    var that = this;
+
     this.clockTick = this.timer.tick();
     this.beginPhase += this.clockTick;
     //console.log(this.beginPhase);
@@ -365,8 +367,8 @@ GameEngine.prototype.loop = function () {
             this.levelDisplay.innerHTML = this.level;
             this.beginPhase = 0;
             this.spawn = false;
-            if(this.movementHandler.player.attacking) {
-                this.movementHandler.player.updateAttackStatus();
+            if(that.player.attacking) {
+                that.player.updateAttackStatus();
             }
         }
     }

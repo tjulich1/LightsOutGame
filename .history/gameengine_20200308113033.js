@@ -166,7 +166,9 @@ GameEngine.prototype.startInput = function () {
 
     this.ctx.canvas.addEventListener("keypress", function(e) {
         e.preventDefault();
-        console.log(e);
+        if(String.fromCharCode(e.which) === 'q' || String.fromCharCode(e.which) === 'Q') {
+            console.log('q pressed');
+        }
     }, false);
 
     this.ctx.canvas.addEventListener("click", function(e) {
@@ -176,7 +178,7 @@ GameEngine.prototype.startInput = function () {
             that.startGame = true;
             that.start();
         } else {
-            if(!that.spawn) {
+            if(towerKey) {
                 var gridCell = that.movementHandler.player.grid.getCoordinates();
                 that.movementHandler.player.placeTower(gridCell.x, gridCell.y);
             } else {
@@ -365,9 +367,6 @@ GameEngine.prototype.loop = function () {
             this.levelDisplay.innerHTML = this.level;
             this.beginPhase = 0;
             this.spawn = false;
-            if(this.movementHandler.player.attacking) {
-                this.movementHandler.player.updateAttackStatus();
-            }
         }
     }
     this.update();

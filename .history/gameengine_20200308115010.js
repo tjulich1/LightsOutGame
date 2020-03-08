@@ -365,9 +365,6 @@ GameEngine.prototype.loop = function () {
             this.levelDisplay.innerHTML = this.level;
             this.beginPhase = 0;
             this.spawn = false;
-            if(this.movementHandler.player.attacking) {
-                this.movementHandler.player.updateAttackStatus();
-            }
         }
     }
     this.update();

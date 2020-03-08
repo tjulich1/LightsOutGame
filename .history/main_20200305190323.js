@@ -53,6 +53,16 @@ ASSET_MANAGER.downloadAll(function () {
 
     // main character sprite properties: height = 64 width = 64
 
+    // ******* testing updating inventory values*****//
+        inventory.addRock();
+        inventory.addRock();
+        rock.innerHTML = rock.innerHTML.substring(0, rock.innerHTML.length - 1) + inventory.getRockCount();
+        inventory.addWood();
+        inventory.addWood();
+        inventory.addWood();
+        wood.innerHTML = wood.innerHTML.substring(0, wood.innerHTML.length - 1) + inventory.getWoodCount();
+    //************************************************/
+
     PMH.setContext(gameEngine);
 
     var light = new Light(gameEngine, 64, 64, ASSET_MANAGER.getAsset("./img/campFire.png"), ASSET_MANAGER.getAsset("./img/health_bar.png"));
