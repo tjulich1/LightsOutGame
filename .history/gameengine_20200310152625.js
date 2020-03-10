@@ -50,7 +50,7 @@ function GameEngine() {
     this.startGame = false;
     this.startScreen = null;
 
-    this.prepPhaseTimer = 18;
+    this.prepPhaseTimer = 25;
     this.beginPhase = 0;
     this.level = 1;
     this.levelDisplay = null;
