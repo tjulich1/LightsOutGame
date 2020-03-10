@@ -29,7 +29,7 @@ class Resource {
     draw() {
         this.ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
 
-        //  this.ctx.rect(this.boundingBox.x, this.boundingBox.y, this.boundingBox.width, this.boundingBox.height);
+         this.ctx.rect(this.boundingBox.x, this.boundingBox.y, this.boundingBox.width, this.boundingBox.height);
          this.ctx.stroke();
     }
 
