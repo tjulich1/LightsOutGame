@@ -53,6 +53,13 @@ class Tower{
         
     }
 
+    //*********************************************/
+    // These two functions use the quadratic formula to calculate the expected
+    // position of a zombie given it's velocity and current position.
+
+    // Source of functions used:
+    // https://stackoverflow.com/questions/2248876/2d-game-fire-at-a-moving-target-by-predicting-intersection-of-projectile-and-u
+
     intercept(dst, v) {
         var tx = dst.x + dst.width/2 - this.shotX;
         var ty = dst.y + dst.height/2 - this.shotY;
@@ -99,6 +106,7 @@ class Tower{
         }
         return sol;
     }
+    //*********************************************/
 
     takeDamage(damage){
       this.health = this.health - damage;
